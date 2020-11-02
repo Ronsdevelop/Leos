@@ -25,4 +25,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/user', 'UserController@index');
 
-Route::get('/proveedor', 'SupplierController@index')->name('proveedor');
+Route::get('/proveedor', 'ProveedoresController@index')->name('proveedor');
+Route::get('/proveedor/lista', 'ProveedoresController@list')->name('proveedor.lista');
+Route::get('proveedor/{id}', function ($id) {
+    return 'Proveero '.$id;
+});
