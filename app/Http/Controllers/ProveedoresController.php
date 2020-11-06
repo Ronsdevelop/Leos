@@ -24,11 +24,11 @@ class ProveedoresController extends Controller
     }
 
     public function list(){
-        $respuesta = Proveedores::select('proveedor_id','rason','direccion','contacto','nCelula')->get();
+        $respuesta = Proveedores::select('id','rason','direccion','contacto','nCelula')->get();
         $proveedores = array();
         foreach ($respuesta as $key => $value) {
                 $proveedores[$key] =[
-                    "ID" => $value['proveedor_id'],
+                    "ID" => $value['id'],
 
                     "Rason" => $value['rason'],
 
@@ -38,13 +38,13 @@ class ProveedoresController extends Controller
 
                     "Celular" => $value['nCelula'],
 
-                    "Comprar" => "<button class='btn btn-sm btn-block btn-primary btn-editarPro' idProveedor='".$value['proveedor_id']."'><i class='fas fa-shopping-cart'></i></button> ",
+                    "Comprar" => "<button class='btn btn-sm btn-block btn-primary btn-editarPro' idProveedor='".$value['id']."'><i class='fas fa-shopping-cart'></i></button> ",
 
-                    "Ver" => "<a class='btn btn-sm btn-block btn-info btn-detalles' href='perfilproveedor/".$value['proveedor_id']."' idProveedor='".$value['proveedor_id']."'><i class='fas fa-eye'></i></a>",
+                    "Ver" => "<a class='btn btn-sm btn-block btn-info btn-detalles' href='proveedor/detalle/".$value['id']."' idProveedor='".$value['proveedor_id']."'><i class='fas fa-eye'></i></a>",
 
-                    "Editar" => "<button class='btn btn-sm btn-block btn-success btn-editarPro' idProveedor='".$value['proveedor_id']."'><i class='fas fa-edit'></i></button> ",
+                    "Editar" => "<button class='btn btn-sm btn-block btn-success btn-editarPro' idProveedor='".$value['id']."'><i class='fas fa-edit'></i></button> ",
 
-                    "Eliminar" => "<button class='btn btn-sm btn-block btn-danger btn-eliminarPro' idProveedor='".$value['proveedor_id']."'><i class='fas fa-trash'></i></button>"
+                    "Eliminar" => "<button class='btn btn-sm btn-block btn-danger btn-eliminarPro' idProveedor='".$value['id']."'><i class='fas fa-trash'></i></button>"
                 ];
 
         }
@@ -57,10 +57,35 @@ class ProveedoresController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+       return Proveedores::create([
+            'rason'=>request('txtRazon'),
+            'ruc'=>request('txtIndetificacion'),
+            'direccion'=>request('txtDireccion'),
+            'contacto'=>request('txtContacto'),
+            'email'=>request('txtCorreo'),
+            'nCelula'=>request('txtCelular'),
+            'nFono'=>request('txtFijo'),
+            'referencia'=>request('txtReferencia'),
+        ]);
+
     }
+
+    public function detalle($id)
+    {
+        $proveedor = Proveedores::find($id);
+        return view('Proveedores.detalle',compact('proveedor'));
+
+    }
+
+    public function detalleEdit($id)
+    {
+        $proveedor = Proveedores::find($id);
+        return  $proveedor;
+
+    }
+
 
     /**
      * Store a newly created resource in storage.

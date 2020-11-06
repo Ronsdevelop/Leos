@@ -5,13 +5,16 @@
         <div id="diModal" class="modal-content bg-dark">
 
             <form role="form" id="formulario" enctype="multipart/form-data" autocomplete="off">
+
             <div id="cabeceraM" class="modal-header">
 
             <h5 class="modal-title" id="tituloModal"><span class="fa fa-pencil-alt"></span> Agregar Proveedor</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="close" aria-hidden="true"><span aria-hidden="true">&times;</span></button></button>
             </div>
-            <input type="hidden" id="txtOpcion" name="txtOpcion">
+
             <input type="hidden" name="txtId" id="txtId">
+            <input type="hidden"  id="txtOpcion">
+             @csrf
             <div class="modal-body">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">

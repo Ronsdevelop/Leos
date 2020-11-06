@@ -84,6 +84,12 @@
 
 @stop
 
+@include('Proveedores.modal')
+
+
+
+
+
 @section('css')
 
 @stop
@@ -92,7 +98,85 @@
 
 
     <script>
+
+    function abrirModalProveedor(){
+
+
+        let cabeceraModal = document.getElementById("diModal");
+        cabeceraModal.classList.remove("bg-success");
+        cabeceraModal.classList.add("bg-dark");
+        document.getElementById("tituloModal").innerText = "Agregar Proveedor";
+        document.getElementById("btnEditar").innerText = "Guardar Proveedor";
+        document.getElementById("formulario").reset();
+        document.getElementById("txtOpcion").value = "ADD";
+
+        $("#con-close-modal").modal("show");
+
+        }
+
     $(document).ready(function() {
+
+        /* ------------------------- */
+        /* EDITAR PROVEEDOR  */
+        /* ------------------------- */
+
+        $(document).on("click",".btn-editarPro", function () {
+            let codProveedor = $(this).attr("idProveedor");
+            document.getElementById("txtOpcion").value = "EDIT";
+            let cabeceraModal = document.getElementById("diModal");
+            cabeceraModal.classList.remove("bg-dark");
+            cabeceraModal.classList.add("bg-success");
+        document.getElementById("tituloModal").innerText = "Editar Usuario";
+
+        document.getElementById("btnEditar").innerText = "Actualizar Usuario";
+
+
+            const data = new FormData();
+            console.log(codProveedor);
+            data.append('codigoProv',codProveedor);
+            $("#con-close-modal").modal("show");
+
+        let url = "{{url('proveedor/datosprov')}}/"+codProveedor;
+
+        console.log(url);
+
+    /*     $.ajax({
+            type: "GET",
+            url: url,
+            success: function (response) {
+                console.log(response);
+            }
+        }); */
+
+       fetch(url,{
+            method:'GET'
+        }).then(resp=> resp.json())
+        .then(response =>{
+            cargarDatosProveedor(response);
+        });
+
+        });
+
+
+
+        /* ------------------------- */
+        /* FUNCION PARA ASIGNAR LOS DATOS A CADA ELEMENTO DEL MODAL EDITAR USURAIO*/
+        /* ------------------------- */
+
+        function cargarDatosProveedor(datos) {
+            document.getElementById("txtRazon").value = datos["rason"];
+            document.getElementById("txtDireccion").value = datos["direccion"];
+            document.getElementById("txtContacto").value = datos["contacto"];
+            document.getElementById("txtIndetificacion").value = datos["ruc"];
+            document.getElementById("txtCelular").value = datos["nCelula"];
+            document.getElementById("txtFijo").value = datos["nFono"];
+            document.getElementById("txtCorreo").value = datos["email"];
+            document.getElementById("txtReferencia").value = datos["referencia"];
+            document.getElementById("txtId").value = datos["id"];
+
+        }
+
+
     $('#tablaProveedor').DataTable({
                         paging: true,
                         ordering: true,
@@ -146,21 +230,39 @@
 
     });
 
-    function abrirModalProveedor(){
 
-        let opcion = 2;
-        let cabeceraModal = document.getElementById("diModal");
-        cabeceraModal.classList.remove("bg-success");
-        cabeceraModal.classList.add("bg-dark");
-        document.getElementById("tituloModal").innerText = "Agregar Proveedor";
-        document.getElementById("btnEditar").innerText = "Guardar Proveedor";
-        document.getElementById("formulario").reset();
+    const form = document.getElementById('formulario');
+    form.addEventListener('submit',function(e){
+        e.preventDefault();
+        let data = new FormData(form);
+        $("#con-close-modal").modal('hide');
+        console.log(data);
+        let opcion = $('#txtOpcion').val();
+        let ruta = "";
+        if (opcion==='ADD') {
+            ruta ="{{route('proveedores.crear')}}";
+        }
+        if (opcion==='EDIT') {
+            ruta ="{{route('proveedores.crear')}}";
+        }
 
-        document.getElementById("txtOpcion").value = opcion;
+        fetch(ruta,
+            {method:"POST",
+            body:data}).then(response => response.text())
+                    .then(response =>{
 
-        $("#con-close-modal").modal("show");
+                   $('#tablaProveedor').DataTable().ajax.reload();
+                    }
+                    );
 
-          }
+
+
+
+
+
+
+});
+
 
 
 
