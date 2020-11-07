@@ -286,6 +286,12 @@ return [
                 ],
             ],
         ],
+        [
+            'text' => 'Usuarios',
+            'url'  => 'usuario',
+            'icon' => 'fas fa-fw fa-users',
+        ],
+
         ['header' => 'labels'],
         [
             'text'       => 'important',

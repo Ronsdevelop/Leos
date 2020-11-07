@@ -132,13 +132,13 @@
 
 
             const data = new FormData();
-            console.log(codProveedor);
+
             data.append('codigoProv',codProveedor);
             $("#con-close-modal").modal("show");
 
         let url = "{{url('proveedor/datosprov')}}/"+codProveedor;
 
-        console.log(url);
+
 
     /*     $.ajax({
             type: "GET",
@@ -236,21 +236,21 @@
         e.preventDefault();
         let data = new FormData(form);
         $("#con-close-modal").modal('hide');
-        console.log(data);
+
         let opcion = $('#txtOpcion').val();
         let ruta = "";
         if (opcion==='ADD') {
             ruta ="{{route('proveedores.crear')}}";
         }
         if (opcion==='EDIT') {
-            ruta ="{{route('proveedores.crear')}}";
+            data.append('_method',"PATCH");
+            ruta ="{{route('proveedores.edit')}}";
         }
 
         fetch(ruta,
             {method:"POST",
             body:data}).then(response => response.text())
                     .then(response =>{
-
                    $('#tablaProveedor').DataTable().ajax.reload();
                     }
                     );

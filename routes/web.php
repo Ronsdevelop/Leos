@@ -27,13 +27,12 @@ Route::get('/user', 'UserController@index');
 
 Route::get('/proveedor', 'ProveedoresController@index')->name('proveedor');
 Route::get('/proveedor/lista', 'ProveedoresController@list')->name('proveedor.lista');
-
-
 Route::get('proveedor/detalle/{id}', ['as'=> 'detalle', 'uses'=>'ProveedoresController@detalle']);
 Route::get('proveedor/datosprov/{id}', ['as'=> 'detalleEdit', 'uses'=>'ProveedoresController@detalleEdit']);
 //Route::get('/proveedor/detalle', 'ProveedoresController@detalleprov')->name('proveedor.detalle');
 Route::post('proveedores/crear', 'ProveedoresController@create' )->name('proveedores.crear');
-
+Route::patch('proveedores/update','ProveedoresController@update')->name('proveedores.edit');
+Route::get('/usuario', 'UserController@index')->name('usuario');
 
 
 

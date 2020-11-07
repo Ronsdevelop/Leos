@@ -81,7 +81,7 @@
             <div class=" text-center ">
 
                 <div class="p-0">
-                    <h6><strong>CELULAR : </strong>{{$proveedor["nCelular"]}}</h6>
+                    <h6><strong>CELULAR : </strong>{{$proveedor["nCelula"]}}</h6>
                     <h6><strong>TELEFONO : </strong>{{$proveedor["nFono"]}}</h6>
                     <h6><strong>DIRECCION : </strong>{{$proveedor["direccion"]}}</h6>
                     <h6><strong>CONTACTO : </strong>{{$proveedor["contacto"]}}</h6>

@@ -117,7 +117,18 @@ class ProveedoresController extends Controller
      */
     public function edit(Proveedores $proveedores)
     {
-        //
+        return $proveedores;
+      /*   $proveedores->update([
+            'rason'=>request('txtRazon'),
+            'ruc'=>request('txtIndetificacion'),
+            'direccion'=>request('txtDireccion'),
+            'contacto'=>request('txtContacto'),
+            'email'=>request('txtCorreo'),
+            'nCelula'=>request('txtCelular'),
+            'nFono'=>request('txtFijo'),
+            'referencia'=>request('txtReferencia')
+            ]
+        ); */
     }
 
     /**
@@ -127,9 +138,21 @@ class ProveedoresController extends Controller
      * @param  \App\Proveedores  $proveedores
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Proveedores $proveedores)
+    public function update()
     {
-        //
+        $proveedores = Proveedores::find(request('txtId'));
+        $proveedores->update([
+            'rason'=>request('txtRazon'),
+            'ruc'=>request('txtIndetificacion'),
+            'direccion'=>request('txtDireccion'),
+            'contacto'=>request('txtContacto'),
+            'email'=>request('txtCorreo'),
+            'nCelula'=>request('txtCelular'),
+            'nFono'=>request('txtFijo'),
+            'referencia'=>request('txtReferencia')
+            ]);
+        return  $proveedores;
+
     }
 
     /**

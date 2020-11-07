@@ -13,26 +13,26 @@
             </div>
 
             <input type="hidden" name="txtId" id="txtId">
-            <input type="hidden"  id="txtOpcion">
+            <input type="hidden" id="txtOpcion">
              @csrf
             <div class="modal-body">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    <span class="input-group-text"><i class="fas fa-user" title="RAZON SOCIAL"></i></span>
                     </div>
                     <input type="text" class="form-control" name="txtRazon" id="txtRazon" placeholder="Razon Social Proveedor">
 
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-map-marked"></i></span>
+                    <span class="input-group-text"><i class="fas fa-map-marked" title="DIRECCIÓN"></i></span>
                     </div>
                     <input type="text" class="form-control" name="txtDireccion" id="txtDireccion" placeholder="Direccion Proveedor">
 
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-id-card-alt"></i></span>
+                    <span class="input-group-text"><i class="fas fa-id-card-alt" title="CONTACTO"></i></span>
                     </div>
                     <input type="text" class="form-control" name="txtContacto" id="txtContacto" placeholder="Contacto para Consultas">
 
@@ -40,7 +40,7 @@
                 </div>
                 <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="far fa-id-card"></i></span>
+                            <span class="input-group-text"><i class="far fa-id-card" title="RUC"></i></span>
                             </div>
                             <input type="text" class="form-control" name="txtIndetificacion" id="txtIndetificacion" placeholder="Ruc o Dni Proveedor">
 
@@ -51,7 +51,7 @@
                     <div class="col-md-6">
                     <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-mobile-alt"></i></span>
+                            <span class="input-group-text"><i class="fas fa-mobile-alt" title="CELULAR"></i></span>
                             </div>
                             <input type="text" class="form-control" name="txtCelular" id="txtCelular" placeholder="Celular">
                         </div>
@@ -59,7 +59,7 @@
                     <div class="col-md-6">
                     <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-phone-square"></i></span>
+                            <span class="input-group-text"><i class="fas fa-phone-square" title="FIJO"></i></span>
                             </div>
                             <input type="text" class="form-control" name="txtFijo" id="txtFijo" placeholder="Telefono fijo">
                         </div>
@@ -68,7 +68,7 @@
 
                 <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-at"></i></span>
+                        <span class="input-group-text"><i class="fas fa-at" title="CORREO"></i></span>
                         </div>
                         <input type="email" class="form-control" name="txtCorreo" id="txtCorreo" placeholder="Direccion de email">
 
@@ -76,7 +76,7 @@
 
                 <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-search-location"></i></span>
+                            <span class="input-group-text"><i class="fas fa-search-location" title="REFERENCIA"></i></span>
                             </div>
                             <textarea class="form-control" name="txtReferencia" id="txtReferencia" cols="30" rows="1" placeholder="Referencia del local"></textarea>
 
