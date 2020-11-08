@@ -2,24 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\cargos;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class CargosController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
-    {   $usuarios = User::paginate(6);
-        return view('Usuarios.index',compact('usuarios'));
+    {
+        //
     }
 
     /**
@@ -46,10 +41,10 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\cargos  $cargos
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(cargos $cargos)
     {
         //
     }
@@ -57,10 +52,10 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\cargos  $cargos
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(cargos $cargos)
     {
         //
     }
@@ -69,10 +64,10 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\cargos  $cargos
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, cargos $cargos)
     {
         //
     }
@@ -80,10 +75,10 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\cargos  $cargos
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(cargos $cargos)
     {
         //
     }

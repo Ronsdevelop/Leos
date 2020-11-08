@@ -25,7 +25,9 @@
     <div class="card card-solid">
 
 
+
         <div class="card-body pb-0">
+
             <div class="row d-flex align-items-stretch">
                 @foreach ($usuarios as $item)
               <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
@@ -44,7 +46,7 @@
                         </ul>
                       </div>
                       <div class="col-5 text-center">
-                        <img src="/img/user1-128x128.jpg" alt="" class="img-circle img-fluid">
+                        <img src="{{$item['avatar']}}" alt="" class="img-circle img-fluid">
                       </div>
                     </div>
                   </div>

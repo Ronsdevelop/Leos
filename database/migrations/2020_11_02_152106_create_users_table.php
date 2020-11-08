@@ -14,7 +14,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->integer('id')->autoIncrement();
+            $table->increments('id');
             $table->string('name');
             $table->char('dni',8)->nullable();
             $table->string('direccion',100)->nullable();
@@ -25,11 +25,17 @@ class CreateUsersTable extends Migration
             $table->datetime('ultimoLogeo')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->unsignedInteger('cargos_id');
+            $table->foreign('cargos_id')->references('id')->on('cargos');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->engine = 'InnoDB';
+            $table->charset = 'utf8';
+            $table->collation = 'utf8_general_ci';
 
             /*
+            php -S localhost:8000 server.php
              $table->integer('cargo_id')->autoIncrement();
             $table->string('cargo',45);
             $table->string('descripcion',100)->nullable();
