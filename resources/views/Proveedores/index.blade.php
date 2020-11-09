@@ -81,10 +81,11 @@
 
     </div>
     <!-- /.container-fluid -->
+    @include('Proveedores.modal')
 
 @stop
 
-@include('Proveedores.modal')
+
 
 
 

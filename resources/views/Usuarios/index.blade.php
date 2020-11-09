@@ -23,30 +23,34 @@
 
 
     <div class="card card-solid">
+         <div class="card-body pb-0">
+             <div class="row d-flex align-items-stretch">
+                <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch pb-3">
+                    <button type="button" class="btn btn-success width-xl waves-effect waves-light float-right" onClick="abrirModal();" id="btnAbrirModal"><i
+                        class="mdi mdi-plus-circle mr-1"></i>Agregar Usuario</button>
 
-
-
-        <div class="card-body pb-0">
-
-            <div class="row d-flex align-items-stretch">
-                @foreach ($usuarios as $item)
+                </div>
+             </div>
+              <div class="row d-flex align-items-stretch">
+                @foreach ($usuarios as $user)
               <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
                 <div class="card bg-light">
                   <div class="card-header text-muted border-bottom-0">
-                    Digital Strategist
+                    ADMINISTRADOR
                   </div>
                   <div class="card-body pt-0">
                     <div class="row">
                       <div class="col-7">
-                        <h2 class="lead"><b>{{$item['name']}}</b></h2>
-                        <p class="text-muted text-sm"><b>About: </b> Web Designer / UX / Graphic Artist / Coffee Lover </p>
+                        <h2 class="lead"><b>{{$user['name']}}</b></h2>
+                        <p class="text-muted text-sm"><b>Ultimo Logueo: </b> {{$user['ultimoLogeo']}} </p>
                         <ul class="ml-4 mb-0 fa-ul text-muted">
-                          <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: Demo Street 123, Demo City 04312, NJ</li>
-                          <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li>
+                          <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> <b>DIRECCIÓN: </b>{{$user['direccion']}}</li>
+                          <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> <b>CELULAR #:</b> {{$user['nCelular']}}</li>
+                          <li class="small"><span class="fa-li"><i class="fas fa-lg fa-id-card"></i></span> <b>DNI #:</b> {{$user['dni']}}</li>
                         </ul>
                       </div>
                       <div class="col-5 text-center">
-                        <img src="{{$item['avatar']}}" alt="" class="img-circle img-fluid">
+                        <img src="{{$user['avatar']}}" alt="" class="img-circle img-fluid">
                       </div>
                     </div>
                   </div>
@@ -82,6 +86,7 @@
         <!-- /.card-footer -->
       </div>
       <!-- /.card -->
+      @include('Usuarios.modal')
 @stop
 
 @section('css')
@@ -89,5 +94,31 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+<script src="vendor/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<script>
+$(document).ready(function () {
+  bsCustomFileInput.init();
+});
+
+function abrirModal() {
+
+
+    let opcion = 2;
+    let cabeceraModal = document.getElementById("cabeceraM");
+    cabeceraModal.classList.remove("bg-success");
+    cabeceraModal.classList.add("bg-dark");
+    document.getElementById("tituloModal").innerText = "Agregar Nuevo Usuario";
+    document.getElementById("txtUsuario").readOnly = false;
+    document.getElementById("btnEditar").innerText = "Guardar Usuario";
+    document.getElementById("formulario").reset();
+
+    document.getElementById("previsualizar").setAttribute("src","img/usuarios/default/anonymousoficial.png");
+    document.getElementById("txtOpcion").value = opcion;
+
+    $("#con-close-modal").modal("show");
+
+}
+
+</script>
+
 @stop
