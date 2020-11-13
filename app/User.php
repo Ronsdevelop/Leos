@@ -2,10 +2,12 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+
+use  App\cargos;
 
 class User extends Authenticatable
 {
@@ -19,6 +21,11 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'password','cargos_id','avatar'
     ];
+
+    public function cargo()
+    {
+        return $this->belongsTo('App\cargos');
+    }
 
     /**
      * The attributes that should be hidden for arrays.
@@ -47,6 +54,17 @@ class User extends Authenticatable
 
     public function adminlte_desc()
     {
-        return 'Administrador';
+        $id = Auth::user()->cargos_id;
+
+        $cargo = cargos::find($id);
+
+
+        return $cargo['cargo'];
+
+
     }
+
+
+
+
 }

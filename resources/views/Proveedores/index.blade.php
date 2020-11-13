@@ -2,6 +2,7 @@
 
 @section('title', 'Proveedores')
 @section('plugins.Datatables',true)
+@section('plugins.Sweetalert2',true)
 
 @section('content_header')
 <div class="container-fluid">
@@ -100,9 +101,9 @@
 
     <script>
 
+    window.CSRF_TOKEN = '{{ csrf_token() }}';
+
     function abrirModalProveedor(){
-
-
         let cabeceraModal = document.getElementById("diModal");
         cabeceraModal.classList.remove("bg-success");
         cabeceraModal.classList.add("bg-dark");
@@ -110,10 +111,81 @@
         document.getElementById("btnEditar").innerText = "Guardar Proveedor";
         document.getElementById("formulario").reset();
         document.getElementById("txtOpcion").value = "ADD";
+        $("#txtRazonError").addClass('d-none');
+        $("#txtDireccionError").addClass('d-none');
+        $("#txtContactoError").addClass('d-none');
+        $("#txtIndetificacionError").addClass('d-none');
+        $("#txtCelularError").addClass('d-none');
+        $("#txtFijoError").addClass('d-none');
+        $("#txtCorreoError").addClass('d-none');
+        $("#txtReferenciaError").addClass('d-none');
 
         $("#con-close-modal").modal("show");
 
         }
+
+
+        const form = document.getElementById('formulario');
+        form.addEventListener('submit',function(e){
+        e.preventDefault();
+        let data = new FormData(form);
+
+
+        let opcion = $('#txtOpcion').val();
+
+        let ruta = "";
+        if (opcion==='ADD') {
+            ruta ="{{route('proveedores.crear')}}";
+
+        }
+        if (opcion==='EDIT') {
+            data.append('_method',"PATCH");
+            ruta ="{{route('proveedores.edit')}}";
+        }
+
+        $.ajax({
+            type:'POST',
+            headers: {'X-CSRF-TOKEN': window.CSRF_TOKEN},
+            url: ruta,
+            data:data,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                console.log(response);
+                $("#con-close-modal").modal('hide');
+                $('#tablaProveedor').DataTable().ajax.reload();
+
+            },
+            error: function(response){
+                let errors = response.responseJSON;
+                if ($.isEmptyObject(errors)==false) {
+                    $.each(errors.errors, function(key,value){
+                        let ErrorID ='#'+key+'Error';
+                        $(ErrorID).removeClass('d-none');
+                        $(ErrorID).text(value);
+                    })
+                }
+
+            }
+        });
+
+      /*   fetch(ruta,
+            {method:"POST",
+            body:data}).then(response => response.text())
+                    .then(response =>{
+                   $('#tablaProveedor').DataTable().ajax.reload();
+                    }
+                    ); */
+
+
+
+
+
+
+
+});
+
+
 
     $(document).ready(function() {
 
@@ -127,6 +199,15 @@
             let cabeceraModal = document.getElementById("diModal");
             cabeceraModal.classList.remove("bg-dark");
             cabeceraModal.classList.add("bg-success");
+
+            $("#txtRazonError").addClass('d-none');
+            $("#txtDireccionError").addClass('d-none');
+            $("#txtContactoError").addClass('d-none');
+            $("#txtIndetificacionError").addClass('d-none');
+            $("#txtCelularError").addClass('d-none');
+            $("#txtFijoError").addClass('d-none');
+            $("#txtCorreoError").addClass('d-none');
+            $("#txtReferenciaError").addClass('d-none');
         document.getElementById("tituloModal").innerText = "Editar Usuario";
 
         document.getElementById("btnEditar").innerText = "Actualizar Usuario";
@@ -184,7 +265,6 @@
                         info: true,
                         autoWidth: false,
                         responsive: true,
-
                         language: {
                             "sProcessing":     "Procesando...",
                             "sLengthMenu":     "Mostrar _MENU_ registros",
@@ -231,38 +311,88 @@
 
     });
 
+/* ======================================
+FUNCION PARA ELIMINAR PROVEEDOR
+====================================== */
 
-    const form = document.getElementById('formulario');
-    form.addEventListener('submit',function(e){
-        e.preventDefault();
-        let data = new FormData(form);
-        $("#con-close-modal").modal('hide');
+$(document).on("click",".btn-eliminarPro", function () {
+    let codProveedor = $(this).attr("idProveedor");
+    const datos = new FormData();
+    datos.append('_method','DELETE');
+    datos.append('codigo',codProveedor)
+    let ruta ="{{route('proveedores.delete')}}";
 
-        let opcion = $('#txtOpcion').val();
-        let ruta = "";
-        if (opcion==='ADD') {
-            ruta ="{{route('proveedores.crear')}}";
+    Swal.fire({
+        title: 'Seguro que deseas elimar el Proveedor?',
+        text: "Se eliminara totalmente de la base de datos!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Si, eliminar!'
+      }).then((result) => {
+          if (result.value) {
+              $.ajax({
+                type:'POST',
+                headers: {'X-CSRF-TOKEN': window.CSRF_TOKEN},
+                url: ruta,
+                data:datos,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    console.log(response);
+                    confirmarEliminacionProveedor(response);
+
+                  }
+              });
+               /*  fetch(url,{
+                    headers: {'X-CSRF-TOKEN': window.CSRF_TOKEN},
+                    method:'POST',
+                    body: datos
+
+                }).then(resp => resp.text())
+                .then(response => {
+                    console.log(response);
+                    confirmarEliminacionProveedor(response);
+                }) */
         }
-        if (opcion==='EDIT') {
-            data.append('_method',"PATCH");
-            ruta ="{{route('proveedores.edit')}}";
-        }
-
-        fetch(ruta,
-            {method:"POST",
-            body:data}).then(response => response.text())
-                    .then(response =>{
-                   $('#tablaProveedor').DataTable().ajax.reload();
-                    }
-                    );
 
 
-
-
-
-
-
+        });
 });
+
+
+function confirmarEliminacionProveedor(respuesta){
+
+
+    if (respuesta === "ok"){
+        Swal.fire({
+            icon:"success",
+            title:"Se Elimino correctamente",
+            showConfirmButton: true,
+            confirmButtonText: "Cerrar"
+        }).then(function(result){
+
+            if(result.value){
+                $('#tablaProveedor').DataTable().ajax.reload();
+
+            }
+
+        });
+
+
+    }else{
+        $('#tablaProveedor').DataTable().ajax.reload();
+        Swal.fire(
+            'No se pudo Eliminar!',
+            'El Proveedor no se a eliminado de la base de datos.',
+            'error')
+
+      }
+}
+
+
 
 
 

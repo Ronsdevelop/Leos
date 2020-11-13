@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Proveedores;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreProveedoresRequest;
 
 class ProveedoresController extends Controller
 {
@@ -57,18 +58,21 @@ class ProveedoresController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-       return Proveedores::create([
-            'rason'=>request('txtRazon'),
-            'ruc'=>request('txtIndetificacion'),
-            'direccion'=>request('txtDireccion'),
-            'contacto'=>request('txtContacto'),
-            'email'=>request('txtCorreo'),
-            'nCelula'=>request('txtCelular'),
-            'nFono'=>request('txtFijo'),
-            'referencia'=>request('txtReferencia'),
-        ]);
+
+
+      /*  return Proveedores::create([
+            'rason'=>$request('txtRazon'),
+            'ruc'=>$request('txtIndetificacion'),
+            'direccion'=>$request('txtDireccion'),
+            'contacto'=>$request('txtContacto'),
+            'email'=>$request('txtCorreo'),
+            'nCelula'=>$request('txtCelular'),
+            'nFono'=>$request('txtFijo'),
+            'referencia'=>$request('txtReferencia'),
+        ]);*/
+        return view('Proveedores.index');
 
     }
 
@@ -93,9 +97,19 @@ class ProveedoresController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProveedoresRequest $request)
     {
-        //
+        $proveedor = new Proveedores();
+        $proveedor->rason=$request->txtRazon;
+        $proveedor->ruc = $request->txtIndetificacion;
+        $proveedor->direccion = $request->txtDireccion;
+        $proveedor->contacto=$request->txtContacto;
+        $proveedor->email=$request->txtCorreo;
+        $proveedor->nCelula=$request->txtCelular;
+        $proveedor->nFono=$request->txtFijo;
+        $proveedor->referencia = $request->txtReferencia;
+        $proveedor->save();
+        return true;
     }
 
     /**
@@ -138,8 +152,19 @@ class ProveedoresController extends Controller
      * @param  \App\Proveedores  $proveedores
      * @return \Illuminate\Http\Response
      */
-    public function update()
+    public function update(Request $request)
     {
+        $DatosValidados= $request->validate([
+            'txtRazon'=>'required',
+            'txtIndetificacion'=>'required|numeric',
+            'txtDireccion'=>'required',
+            'txtContacto'=>'required',
+            'txtCorreo'=>'required|email' ,
+            'txtCelular'=>'required|numeric',
+            'txtFijo'=>'required',
+            'txtReferencia'=>'required',
+        ]);
+
         $proveedores = Proveedores::find(request('txtId'));
         $proveedores->update([
             'rason'=>request('txtRazon'),
@@ -161,8 +186,12 @@ class ProveedoresController extends Controller
      * @param  \App\Proveedores  $proveedores
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Proveedores $proveedores)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->codigo;
+        $proveedor = Proveedores::find($id);
+        $proveedor->delete();
+
+        return  'ok';
     }
 }

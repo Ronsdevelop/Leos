@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\cargos;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -19,7 +20,8 @@ class UserController extends Controller
 
     public function index()
     {   $usuarios = User::paginate(6);
-        return view('Usuarios.index',compact('usuarios'));
+        $cargos = cargos::all();
+        return view('Usuarios.index',compact('usuarios','cargos'));
     }
 
     /**

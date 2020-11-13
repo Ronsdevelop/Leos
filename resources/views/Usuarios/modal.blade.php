@@ -102,11 +102,14 @@
                         <span class="input-group-text"><i class="fas fa-at" title="CORREO"></i></span>
                         </div>
                         <select class="form-control" name="txtTipo" id="selecTCargo"  data-toggle="select2">
-                            <option>Seleciona</option>
+                            <option>Seleciona un cargo</option>
+                            @foreach ($cargos as $cargo)
+                            <option value="{{$cargo['id']}}"">{{$cargo['cargo']}}</option>
 
-                                <option value=""">OPCION 1</option>
-                                <option value=""">OPCION 2</option>
-                                <option value=""">OPCION 3</option>
+                            @endforeach
+
+
+
                             </select>
                     </div>
                     <div class="form-group">
