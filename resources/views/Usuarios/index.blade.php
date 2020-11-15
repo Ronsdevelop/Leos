@@ -62,7 +62,7 @@
                     <a href="#" class="btn btn-sm btn-success">
                         <i class="fas fa-edit"></i>
                       </a>
-                      <a href="#" class="btn btn-sm btn-primary">
+                      <a href="user/detalle/{{$user['id']}}" class="btn btn-sm btn-primary">
                         <i class="fas fa-eye"></i>
                       </a>
                     </div>

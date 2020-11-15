@@ -45,6 +45,13 @@ class UserController extends Controller
         //
     }
 
+    public function detalle($id)
+    {
+        $user = User::find($id);
+        return view('Usuarios.detalle',compact('user'));
+
+    }
+
     /**
      * Display the specified resource.
      *

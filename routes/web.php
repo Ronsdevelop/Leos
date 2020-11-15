@@ -34,5 +34,6 @@ Route::post('proveedores/crear', 'ProveedoresController@store' )->name('proveedo
 Route::patch('proveedores/update','ProveedoresController@update')->name('proveedores.edit');
 Route::get('/usuario', 'UserController@index')->name('usuario');
 Route::delete('proveedores/delete','ProveedoresController@destroy')->name('proveedores.delete');
+Route::get('user/detalle/{id}', ['as'=> 'detalle', 'uses'=>'UserController@detalle']);
 
 
