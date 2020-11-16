@@ -32,8 +32,8 @@ Route::get('proveedor/datosprov/{id}', ['as'=> 'detalleEdit', 'uses'=>'Proveedor
 //Route::get('/proveedor/detalle', 'ProveedoresController@detalleprov')->name('proveedor.detalle');
 Route::post('proveedores/crear', 'ProveedoresController@store' )->name('proveedores.crear');
 Route::patch('proveedores/update','ProveedoresController@update')->name('proveedores.edit');
-Route::get('/usuario', 'UserController@index')->name('usuario');
+Route::get('/usuarios', 'UserController@index')->name('usuarios');
 Route::delete('proveedores/delete','ProveedoresController@destroy')->name('proveedores.delete');
-Route::get('user/detalle/{id}', ['as'=> 'detalle', 'uses'=>'UserController@detalle']);
+Route::get('usuarios/detalle/{id}', ['as'=> 'detalle', 'uses'=>'UserController@detalle']);
 
 

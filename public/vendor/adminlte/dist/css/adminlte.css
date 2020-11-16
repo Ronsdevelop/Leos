@@ -20322,7 +20322,7 @@ html.maximized-card {
 .register-page {
   -ms-flex-align: center;
   align-items: center;
-  background: #e9ecef;
+  background: url('/vendor/adminlte/dist/img/fondo.png');
   display: -ms-flexbox;
   display: flex;
   -ms-flex-direction: column;

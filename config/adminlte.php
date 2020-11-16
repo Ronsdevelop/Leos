@@ -288,7 +288,7 @@ return [
         ],
         [
             'text' => 'Usuarios',
-            'url'  => 'usuario',
+            'url'  => 'usuarios',
             'icon' => 'fas fa-fw fa-users',
         ],
 
