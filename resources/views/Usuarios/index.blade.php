@@ -1,6 +1,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Usuarios')
+@section('plugins.Sweetalert2',true)
 
 @section('content_header')
 <div class="container-fluid">
@@ -94,7 +95,7 @@
 @stop
 
 @section('js')
-<script src="vendor/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<script src="{{asset('vendor/bs-custom-file-input/bs-custom-file-input.min.js')}}" type="text/javascript"></script>
 <script>
 $(document).ready(function () {
   bsCustomFileInput.init();
@@ -118,6 +119,69 @@ function abrirModal() {
     $("#con-close-modal").modal("show");
 
 }
+
+/* ======================================
+EVENTO SUBMIT PARA AGREGAR Y EDITAR USUARIO
+====================================== */
+
+const form = document.getElementById('formulario');
+form.addEventListener('submit',function(e){
+    e.preventDefault();
+    let data = new FormData(form);
+    $("#con-close-modal").modal('hide');
+    fetch("{{route('usuario.crear')}}",
+        {method:"POST",
+        body:data}).then(response => response.text())
+                   .then(response =>
+                   console.log(response))
+
+
+
+
+})
+
+
+
+/* ======================================
+VALIDANDO IMAGEN DE PERFIL
+====================================== */
+
+$(".nuevaFoto").change(function() {
+    let imagen = this.files[0];
+    /* ------------------------- */
+    /* VALIDAMOS EL FORMATO DE LA IMAGEN SEA JPG O PNG */
+    /* ------------------------- */
+
+    if (imagen["type"] !== "image/jpeg" && imagen["type"] !== "image/png" && imagen["type"] !== "image/jpg") {
+        $(".nuevaFoto").val("");
+        Swal.fire({
+            title:"Error al subir la imagen",
+            text:"!La imagen debe estar en formato JPG o PNG!",
+            icon:"error",
+            confirmButtonText:"!Cerrar¡"
+        });
+
+    }else if (imagen["size"]>2000000) {
+       $(".nuevaFoto").val("");
+       Swal.fire({
+           title:"Error al subir la imagen",
+           text:"!La imagen no debe pesar mas de 2MB!",
+           icon:"error",
+           confirmButtonText:"!Cerrar¡"
+       });
+
+    }else{
+        let datosImagen = new FileReader;
+        datosImagen.readAsDataURL(imagen);
+        $(datosImagen).on("load",function(event){
+            var rutaImagen = event.target.result;
+            $(".previsualizar").attr("src",rutaImagen);
+        })
+    }
+
+
+})
+
 
 </script>
 

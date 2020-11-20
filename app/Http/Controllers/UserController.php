@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\cargos;
+use App\Http\Requests\UsuariosRequest;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -42,7 +46,25 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $idLogueado = Auth::user()->users_id;
+        $imgStore = $request->nuevaFoto->store('public/img/avatar');
+        $urlimg = Storage::url( $imgStore);
+        $usuario = new User();
+        $usuario->name = $request->txtNombres;
+        /*$usuario-> = $request->txtApaterno;
+        $usuario = $request->txtAmaterno;*/
+        $usuario->direccion = $request->txtDireccion;
+        $usuario->dni = $request->txtDni;
+        $usuario->nCelular = $request->txtCelular;
+        $usuario->fIngreso = $request->txtFecha;
+        $usuario->user = $request->txtUsuario;
+        $usuario->password = Hash::make($request->txtPass);
+        $usuario->email = $request->txtCorreo;
+        $usuario->cargos_id = $request->txtTipo;
+        $usuario->avatar = $urlimg;
+        $usuario->users_id = $idLogueado;
+        $usuario->save();
+        return true;
     }
 
     public function detalle($id)

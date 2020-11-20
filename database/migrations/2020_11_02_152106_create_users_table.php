@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('direccion',100)->nullable();
             $table->char('nCelular',9)->nullable();
             $table->date('fIngreso')->nullable();
-            $table->string('avatar',60)->nullable();
+            $table->string('avatar')->nullable();
             $table->string('user',30)->nullable();
             $table->datetime('ultimoLogeo')->nullable();
             $table->string('email')->unique();
@@ -28,6 +28,8 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('cargos_id');
             $table->foreign('cargos_id')->references('id')->on('cargos');
             $table->string('password');
+            $table->unsignedInteger('users_id');
+            $table->foreign('users_id')->references('id')->on('users');
             $table->rememberToken();
             $table->timestamps();
             $table->engine = 'InnoDB';

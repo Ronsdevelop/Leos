@@ -120,9 +120,7 @@
                             <input type="file" class="custom-file-input nuevaFoto"  name="nuevaFoto"   id="exampleInputFile" >
                             <label class="custom-file-label" for="exampleInputFile">Agregar Foto</label>
                           </div>
-                          <div class="input-group-append">
-                            <span class="input-group-text" id="">Subir</span>
-                          </div>
+
                         </div>
                         <p class="text-muted font-13 m-b-30">
                             Peso Maximo de la foto 2MB

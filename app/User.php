@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','cargos_id','avatar'
+        'name', 'email', 'password','cargos_id','avatar','user','direccion','fIngreso','nCelular','dni','users_id'
     ];
 
     public function cargo()
@@ -62,6 +62,10 @@ class User extends Authenticatable
 
         return $cargo['cargo'];
 
+
+    }
+    public function setAvatar($foto)
+    {
 
     }
 
