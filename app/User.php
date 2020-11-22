@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','cargos_id','avatar','user','direccion','fIngreso','nCelular','dni','users_id'
+        'name', 'email', 'password','cargos_id','avatar','user','direccion','fIngreso','nCelular','dni','users_id','ultimoLogeo'
     ];
 
     public function cargo()

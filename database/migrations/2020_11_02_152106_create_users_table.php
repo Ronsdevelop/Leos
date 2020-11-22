@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->char('nCelular',9)->nullable();
             $table->date('fIngreso')->nullable();
             $table->string('avatar')->nullable();
-            $table->string('user',30)->nullable();
+            $table->string('user',30)->unique();
             $table->datetime('ultimoLogeo')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

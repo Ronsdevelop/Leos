@@ -115,6 +115,7 @@ return [
     'uploaded'    => 'Subir :attribute ha fallado.',
     'url'         => 'El formato :attribute es inválido.',
     'uuid'        => 'El campo :attribute debe ser un UUID válido.',
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
