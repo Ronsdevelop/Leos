@@ -6,6 +6,7 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
 
 use  App\cargos;
 
@@ -20,13 +21,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','cargos_id','avatar','user','direccion','fIngreso','nCelular','dni','users_id','ultimoLogeo'
+        'name', 'aPaterno','aMaterno','dni','direccion','nCelular','fIngreso','avatar','user','ultimoLogeo','email', 'cargos_id','password','users_id',
     ];
 
     public function cargo()
     {
-        return $this->belongsTo('App\cargos');
+        return $this->belongsTo(cargos::class,'cargos_id');
     }
+
 
     /**
      * The attributes that should be hidden for arrays.
@@ -67,6 +69,17 @@ class User extends Authenticatable
     public function setAvatar($foto)
     {
 
+    }
+
+    public function nombreUsuario()
+    {
+        $nombreauth = Auth::user()->name;
+        $nombrearray = explode(' ',$nombreauth);
+        $nombre = $nombrearray[0];
+        $apellido = Auth::user()->aPaterno;
+        $nombreUser = $nombre.' '.$apellido;
+
+        return $nombreUser;
     }
 
 

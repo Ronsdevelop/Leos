@@ -51,8 +51,8 @@ class UserController extends Controller
         $urlimg = Storage::url( $imgStore);
         $usuario = new User();
         $usuario->name = $request->txtNombres;
-        /*$usuario-> = $request->txtApaterno;
-        $usuario = $request->txtAmaterno;*/
+        $usuario->aPaterno = $request->txtApaterno;
+        $usuario->aMaterno = $request->txtAmaterno;
         $usuario->direccion = $request->txtDireccion;
         $usuario->dni = $request->txtDni;
         $usuario->nCelular = $request->txtCelular;

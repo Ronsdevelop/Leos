@@ -37,12 +37,17 @@
               <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
                 <div class="card bg-light">
                   <div class="card-header text-muted border-bottom-0">
-                    ADMINISTRADOR
+                    {{$user->cargo->cargo}}
                   </div>
                   <div class="card-body pt-0">
                     <div class="row">
                       <div class="col-7">
-                        <h2 class="lead"><b>{{$user['name']}}</b></h2>
+                          @php
+                              $fullname = $user['name'];
+                              $arrayname = explode(' ',$fullname);
+                              $name=$arrayname[0];
+                          @endphp
+                        <h2 class="lead"><b>{{$name.' '.$user['aPaterno']}}</b></h2>
                         <p class="text-muted text-sm"><b>Ultimo Logueo: </b> {{$user['ultimoLogeo']}} </p>
                         <ul class="ml-4 mb-0 fa-ul text-muted">
                           <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> <b>DIRECCIÓN: </b>{{$user['direccion']}}</li>
@@ -133,7 +138,7 @@ form.addEventListener('submit',function(e){
         {method:"POST",
         body:data}).then(response => response.text())
                    .then(response =>
-                   console.log(response))
+                    )
 
 
 
