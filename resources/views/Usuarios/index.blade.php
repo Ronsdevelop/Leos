@@ -137,7 +137,10 @@ form.addEventListener('submit',function(e){
     fetch("{{route('usuario.crear')}}",
         {method:"POST",
         body:data}).then(response => response.text())
-                   .then(response =>
+                   .then(response =>{
+                       console.log(response);
+                       window.location.assign("{{url('usuarios?page=')}}"+response);
+                   }
                     )
 
 

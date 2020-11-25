@@ -34,7 +34,7 @@
 
           </div>
           <div class="widget-user-image">
-            <img class="img-circle elevation-2" src="/img/sistema/proveedor.png" alt="User Avatar">  
+            <img class="img-circle elevation-2" src="/img/sistema/proveedor.png" alt="User Avatar">
           </div>
           <div class="card-footer">
             <div class="row">
@@ -339,5 +339,5 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+
 @stop

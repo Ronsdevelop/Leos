@@ -46,6 +46,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
         $idLogueado = Auth::user()->users_id;
         $imgStore = $request->nuevaFoto->store('public/img/avatar');
         $urlimg = Storage::url( $imgStore);
@@ -64,7 +65,8 @@ class UserController extends Controller
         $usuario->avatar = $urlimg;
         $usuario->users_id = $idLogueado;
         $usuario->save();
-        return true;
+        $paginacion = User::paginate(6);
+        return $paginacion->lastPage();
     }
 
     public function detalle($id)
