@@ -21,17 +21,177 @@
 
 @section('content')
     <!-- Default box -->
+    <div class="row">
+        <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                <span class="fa fa-fw fa-plus"></span>
+                NUEVO USUARIO</h3>
+              <!-- tools box -->
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool btn-sm" data-card-widget="collapse" data-toggle="tooltip"
+                        title="Collapse">
+                  <i class="fas fa-minus"></i></button>
+
+              </div>
+              <!-- /. tools -->
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body pad">
+              <div class="mb-3">
+
+                <form role="form" id="formulario" enctype="multipart/form-data" autocomplete="off">
+
+                    <input type="hidden" id="txtOpcion" name="txtOpcion">
+                    @csrf
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-user" title="NOMBRES COMPLETOS"></i></span>
+                            </div>
+                            <input type="text" class="form-control" name="txtNombres" id="txtNombres" placeholder="Nombres Completos">
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                            <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user" title="APELLIDO PATERNO"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" name="txtApaterno" id="txtApaterno" placeholder="Apellido Paterno">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                            <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user" title="APELLIDO MATERNO"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" name="txtAmaterno" id="txtAmaterno" placeholder="Apellido Materno">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-map-marked" title="DIRECCIÓN"></i></span>
+                            </div>
+                            <input type="text" class="form-control" name="txtDireccion" id="txtDireccion" placeholder="Direccion Proveedor">
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                            <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user" title="DNI"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" name="txtDni" id="txtDni" placeholder="Dni">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user" title="CELULAR"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" name="txtCelular" id="txtCelular" placeholder="Celular">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-user" title="FECHA DE INGRESO"></i></span>
+                                        </div>
+                                        <input type="date" class="form-control" name="txtFecha" id="txtFecha" placeholder="fecha">
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                            <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user" title="USUARIO"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" name="txtUsuario" id="txtUsuario" placeholder="Usuario">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                            <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user" title="CONTRASEÑA"></i></span>
+                                    </div>
+                                    <input type="password" class="form-control" name="txtPass" placeholder="Ingrese Clave" autocomplete="off">
+                                    <input type="hidden" name="passwordActual" id="passwordActual">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-at" title="CORREO"></i></span>
+                            </div>
+                            <input type="email" class="form-control" name="txtCorreo" id="txtCorreo" placeholder="Direccion de email">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-at" title="CORREO"></i></span>
+                            </div>
+                            <select class="form-control" name="txtTipo" id="selecTCargo"  data-toggle="select2">
+                                <option>Seleciona un cargo</option>
+                                @foreach ($cargos as $cargo)
+                                <option value="{{$cargo['id']}}"">{{$cargo['cargo']}}</option>
+
+                                @endforeach
 
 
-    <div class="card card-solid">
+
+                                </select>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="input-group">
+                              <div class="custom-file">
+                                <input type="hidden" name="fotoSinEditar" id="fotoSinEditar" >
+                                <input type="file" class="custom-file-input nuevaFoto"  name="nuevaFoto"   id="exampleInputFile" >
+                                <label class="custom-file-label" for="exampleInputFile">Agregar Foto</label>
+                              </div>
+
+                            </div>
+                            <p class="text-muted font-13 m-b-30">
+                                Peso Maximo de la foto 2MB
+                            </p>
+                            <img src="img/usuarios/default/anonymousoficial.png"  alt="" id="previsualizar" class="img-thumbnail avatar-xl previsualizar">
+                        </div>
+
+
+
+                        <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success waves-effect waves-light" id="btnEditar">Guardar</button>
+
+
+                </form>
+
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <!-- /.col-->
+      </div>
+
+
+    <div class="card card-outline card-info">
+        <div class="card-header">
+            <h3 class="card-title">LISTA DE USUARIOS</h3>
+
+          </div>
          <div class="card-body pb-0">
-             <div class="row d-flex align-items-stretch">
+             {{-- <div class="row d-flex align-items-stretch">
                 <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch pb-3">
                     <button type="button" class="btn btn-success width-xl waves-effect waves-light float-right" onClick="abrirModal();" id="btnAbrirModal"><i
                         class="mdi mdi-plus-circle mr-1"></i>Agregar Usuario</button>
 
                 </div>
-             </div>
+             </div> --}}
               <div class="row d-flex align-items-stretch">
                 @foreach ($usuarios as $user)
               <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
