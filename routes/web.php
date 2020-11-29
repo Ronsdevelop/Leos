@@ -36,5 +36,6 @@ Route::get('/usuarios', 'UserController@index')->name('usuarios');
 Route::delete('proveedores/delete','ProveedoresController@destroy')->name('proveedores.delete');
 Route::get('usuarios/detalle/{id}', ['as'=> 'detalle', 'uses'=>'UserController@detalle']);
 Route::post('usuarios', 'UserController@store')->name('usuario.crear');
+Route::get('usuarios/datosuser/{id}', ['as'=> 'detalleEdit', 'uses'=>'UserController@detalleEdit']);
 
 

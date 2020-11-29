@@ -27,9 +27,9 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">PROVEEDORES DE LA PANADERIA</h3>
+                        <h3 class="card-title">LISTA DE PROVEEDORES</h3>
                         <button type="button" class="btn btn-dark width-xl waves-effect waves-light float-right" onClick="abrirModalProveedor();" id="btnAbrirModal"><i
-                                            class="mdi mdi-plus-circle mr-1"></i>Agregar Proveedor</button>
+                                            class="mdi mdi-plus-circle mr-1"></i>AGREGAR PROVEEDOR</button>
                     </div>
             <!-- /.card-header -->
                     <div class="card-body">
