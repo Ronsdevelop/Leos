@@ -187,10 +187,10 @@ $(document).ready(function () {
         document.getElementById("txtCelular").value = datos["nCelular"];
         document.getElementById("txtFecha").value = datos["fIngreso"];
         document.getElementById("txtUsuario").value = datos["user"];
-        document.getElementById("passwordActual").value = datos["pass"];
+        document.getElementById("passwordActual").value = datos["password"];
         document.getElementById("fotoSinEditar").value = datos["avatar"];
         document.getElementById("txtCorreo").value = datos["email"];
-        document.getElementById("selecTCargo").selectedIndex = datos["cargo_id"];
+        document.getElementById("selecTCargo").selectedIndex = datos["cargos_id"];
         if (datos["avatar"] != "") {
             document.getElementById("previsualizar").setAttribute("src",datos["avatar"]);
     }

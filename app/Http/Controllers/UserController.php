@@ -46,9 +46,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-
         $idLogueado = Auth::user()->users_id;
-        $imgStore = $request->nuevaFoto->store('public/img/avatar');
+        $carpetaUser = $request->txtUsuario;
+        $imgStore = $request->nuevaFoto->store('public/img/avatar/'.$carpetaUser);
         $urlimg = Storage::url( $imgStore);
         $usuario = new User();
         $usuario->name = $request->txtNombres;
