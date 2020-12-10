@@ -35,17 +35,17 @@ class ClienteController extends Controller
 
                     "Direccion" => $value['direccion'],
 
-                    "Contacto" => $value['contacto'],
+                    "Contacto" => $value['representante'],
 
-                    "Celular" => $value['nCelula'],
+                    "Celular" => $value['nCelular'],
 
-                    "Comprar" => "<button class='btn btn-sm btn-block btn-primary btn-editarPro' idProveedor='".$value['id']."'><i class='fas fa-shopping-cart'></i></button> ",
+                    "Comprar" => "<button class='btn btn-sm btn-block btn-primary btn-editar' idCliente='".$value['id']."'><i class='fas fa-shopping-cart'></i></button> ",
 
                     "Ver" => "<a class='btn btn-sm btn-block btn-info btn-detalles' href='proveedor/detalle/".$value['id']."' idProveedor='".$value['proveedor_id']."'><i class='fas fa-eye'></i></a>",
 
-                    "Editar" => "<button class='btn btn-sm btn-block btn-success btn-editarPro' idProveedor='".$value['id']."'><i class='fas fa-edit'></i></button> ",
+                    "Editar" => "<button class='btn btn-sm btn-block btn-success btn-editar' idCliente='".$value['id']."'><i class='fas fa-edit'></i></button> ",
 
-                    "Eliminar" => "<button class='btn btn-sm btn-block btn-danger btn-eliminarPro' idProveedor='".$value['id']."'><i class='fas fa-trash'></i></button>"
+                    "Eliminar" => "<button class='btn btn-sm btn-block btn-danger btn-eliminar' idCliente='".$value['id']."'><i class='fas fa-trash'></i></button>"
                 ];
 
         }
