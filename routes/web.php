@@ -32,10 +32,21 @@ Route::get('proveedor/datosprov/{id}', ['as'=> 'detalleEdit', 'uses'=>'Proveedor
 //Route::get('/proveedor/detalle', 'ProveedoresController@detalleprov')->name('proveedor.detalle');
 Route::post('proveedores/crear', 'ProveedoresController@store' )->name('proveedores.crear');
 Route::patch('proveedores/update','ProveedoresController@update')->name('proveedores.edit');
-Route::get('/usuarios', 'UserController@index')->name('usuarios');
 Route::delete('proveedores/delete','ProveedoresController@destroy')->name('proveedores.delete');
+
+Route::get('/usuarios', 'UserController@index')->name('usuarios');
 Route::get('usuarios/detalle/{id}', ['as'=> 'detalle', 'uses'=>'UserController@detalle']);
 Route::post('usuarios', 'UserController@store')->name('usuario.crear');
+Route::patch('usuarios/update','UserController@update')->name('usuario.edit');
 Route::get('usuarios/datosuser/{id}', ['as'=> 'detalleEdit', 'uses'=>'UserController@detalleEdit']);
+
+Route::get('/cliente', 'ClienteController@index')->name('cliente');
+Route::get('/cliente/lista', 'ClienteController@list')->name('cliente.lista');
+Route::get('cliente/detalle/{id}', ['as'=> 'detalle', 'uses'=>'ClienteController@detalle']);
+Route::get('cliente/datoscliente/{id}', ['as'=> 'detalleEdit', 'uses'=>'ClienteController@detalleEdit']);
+Route::post('cliente/crear', 'ClienteController@store' )->name('cliente.crear');
+Route::patch('cliente/update','ClienteController@update')->name('cliente.edit');
+Route::delete('cliente/delete','ClienteController@destroy')->name('cliente.delete');
+
 
 

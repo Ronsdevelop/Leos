@@ -111,7 +111,8 @@
 
 @section('js')
 <script src="{{asset('vendor/bs-custom-file-input/bs-custom-file-input.min.js')}}" type="text/javascript"></script>
-<script>
+<script type="text/javascript">
+window.CSRF_TOKEN = '{{ csrf_token() }}';
 $(document).ready(function () {
   bsCustomFileInput.init();
 
@@ -204,7 +205,7 @@ $(document).ready(function () {
 function abrirModal() {
 
 
-    let opcion = 2;
+
     let cabeceraModal = document.getElementById("cabeceraM");
     cabeceraModal.classList.remove("bg-success");
     cabeceraModal.classList.add("bg-dark");
@@ -212,9 +213,9 @@ function abrirModal() {
     document.getElementById("txtUsuario").readOnly = false;
     document.getElementById("btnEditar").innerText = "Guardar Usuario";
     document.getElementById("formulario").reset();
-
+    document.getElementById("txtOpcion").value = "ADD";
     document.getElementById("previsualizar").setAttribute("src","img/usuarios/default/anonymousoficial.png");
-    document.getElementById("txtOpcion").value = opcion;
+
 
     $("#con-close-modal").modal("show");
 
@@ -228,7 +229,50 @@ const form = document.getElementById('formulario');
 form.addEventListener('submit',function(e){
     e.preventDefault();
     let data = new FormData(form);
-    $("#con-close-modal").modal('hide');
+
+
+
+    let opcion = $('#txtOpcion').val();
+
+    let ruta = "";
+    if (opcion==='ADD') {
+        ruta ="{{route('usuario.crear')}}";
+
+    }
+    if (opcion==='EDIT') {
+        data.append('_method',"PATCH");
+        ruta ="{{route('usuario.edit')}}";
+    }
+
+    $.ajax({
+        type:'POST',
+        headers: {'X-CSRF-TOKEN': window.CSRF_TOKEN},
+        url: ruta,
+        data:data,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            console.log(response);
+            window.location.assign("{{url('usuarios?page=')}}"+response);
+            $("#con-close-modal").modal('hide');
+
+
+        },
+        error: function(response){
+            let errors = response.responseJSON;
+            if ($.isEmptyObject(errors)==false) {
+                $.each(errors.errors, function(key,value){
+                    let ErrorID ='#'+key+'Error';
+                    $(ErrorID).removeClass('d-none');
+                    $(ErrorID).text(value);
+                })
+            }
+
+        }
+    });
+
+
+ /*    $("#con-close-modal").modal('hide');
     fetch("{{route('usuario.crear')}}",
         {method:"POST",
         body:data}).then(response => response.text())
@@ -236,7 +280,7 @@ form.addEventListener('submit',function(e){
                        console.log(response);
                        window.location.assign("{{url('usuarios?page=')}}"+response);
                    }
-                    )
+                    ) */
 
 
 
