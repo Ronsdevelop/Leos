@@ -39,8 +39,8 @@
                                 <th>
                                     ID
                                 </th>
-                                <th>RAZON SOCIAL</th>
-                                <th>DIRECCION</th>
+                                <th>RAZON SOCIAL / NOMBRE</th>
+                                <th>RUC/DNI</th>
                                 <th>CONTACTO</th>
                                 <th>CELULAR</th>
                                 <th class="text-center" width="80px" >COMPRAR</th>
@@ -57,8 +57,8 @@
                                 <th>
                                     ID
                                 </th>
-                                <th>RAZON SOCIAL</th>
-                                <th>DIRECCION</th>
+                                <th>RAZON SOCIAL / NOMBRE</th>
+                                <th>RUC/DNI</th>
                                 <th>CONTACTO</th>
                                 <th>CELULAR</th>
                                 <th>COMPRAR</th>
@@ -285,13 +285,13 @@ $('#tablaCliente').DataTable({
                     },
 
                     ajax:{
-                        "url": "{{route('proveedor.lista')}}",
+                        "url": "{{route('cliente.lista')}}",
                         "dataSrc":""
                     },
                     columns: [
                       {data: "ID" },
                       {data: "Rason"},
-                       {data: "Direccion"},
+                       {data: "Documento"},
                        {data: "Contacto"},
                        {data: "Celular"},
                        {data: "Comprar"},

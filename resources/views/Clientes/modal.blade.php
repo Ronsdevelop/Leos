@@ -8,7 +8,7 @@
 
             <div id="cabeceraM" class="modal-header">
 
-            <h5 class="modal-title" id="tituloModal"><span class="fa fa-pencil-alt"></span> Agregar Proveedor</h5>
+            <h5 class="modal-title" id="tituloModal"><span class="fa fa-pencil-alt"></span> Agregar Ciente</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="close" aria-hidden="true"><span aria-hidden="true">&times;</span></button></button>
             </div>
 
@@ -52,6 +52,29 @@
                 </div>
                 <div class="alert alert-warning" role="alert" id="txtIndetificacionError" ></div>
 
+                <div class="row">
+                    <div class="col-md-6">
+                        <select class="form-control" name="txtTipo" id="selecTCargo"  data-toggle="select2">
+                            <option>Seleciona un Tipo de Documento</option>
+                            @foreach ($identificacion as $tipo)
+                            <option value="{{$tipo['id']}}"">{{$tipo['identificacions']}}</option>
+
+                            @endforeach
+
+
+
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-phone-square" title="FIJO"></i></span>
+                            </div>
+                            <input type="text" class="form-control" name="txtFijo" id="txtFijo" placeholder="Telefono fijo">
+                            <div class="alert alert-warning" role="alert" id="txtFijoError" ></div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="input-group mb-3">

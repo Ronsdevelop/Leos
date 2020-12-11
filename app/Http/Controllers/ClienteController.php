@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
+use App\Identificacion;
+use App\TipoCliente;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
@@ -20,12 +22,14 @@ class ClienteController extends Controller
 
     public function index()
     {
-        return view('Clientes.index');
+        $identificacion = Identificacion::all();
+        $tipoCliente = TipoCliente::all();
+        return view('Clientes.index', compact('identificacion','tipoCliente'));
     }
 
     public function list()
     {
-        $respuesta = Cliente::select('id','nombre_razon','direccion','representante','nCelular')->get();
+        $respuesta = Cliente::select('id','nombre_razon','documento_identi','representante','nCelular')->get();
         $clientes = array();
         foreach ($respuesta as $key => $value) {
                 $clientes[$key] =[
@@ -33,7 +37,7 @@ class ClienteController extends Controller
 
                     "Rason" => $value['nombre_razon'],
 
-                    "Direccion" => $value['direccion'],
+                    "Documento" => $value['documento_identi'],
 
                     "Contacto" => $value['representante'],
 
@@ -41,7 +45,7 @@ class ClienteController extends Controller
 
                     "Comprar" => "<button class='btn btn-sm btn-block btn-primary btn-editar' idCliente='".$value['id']."'><i class='fas fa-shopping-cart'></i></button> ",
 
-                    "Ver" => "<a class='btn btn-sm btn-block btn-info btn-detalles' href='proveedor/detalle/".$value['id']."' idProveedor='".$value['proveedor_id']."'><i class='fas fa-eye'></i></a>",
+                    "Ver" => "<a class='btn btn-sm btn-block btn-info btn-detalles' href='cliente/detalle/".$value['id']."' ><i class='fas fa-eye'></i></a>",
 
                     "Editar" => "<button class='btn btn-sm btn-block btn-success btn-editar' idCliente='".$value['id']."'><i class='fas fa-edit'></i></button> ",
 
