@@ -108,9 +108,11 @@ function abrirModal(){
     $("#txtContactoError").addClass('d-none');
     $("#txtIndetificacionError").addClass('d-none');
     $("#txtCelularError").addClass('d-none');
-    $("#txtFijoError").addClass('d-none');
+    $("#txtCumpleError").addClass('d-none');
     $("#txtCorreoError").addClass('d-none');
     $("#txtReferenciaError").addClass('d-none');
+    $("#txtAliasError").addClass('d-none');
+    $("#txtDocError").addClass('d-none');
 
     $("#con-close-modal").modal("show");
 
