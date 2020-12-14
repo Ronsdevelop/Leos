@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
+use App\Http\Requests\ClientesRequest;
 use App\Identificacion;
 use App\TipoCliente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ClienteController extends Controller
 {
@@ -86,9 +88,25 @@ class ClienteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ClientesRequest $request)
     {
-        //
+        $userid=Auth::user()->users_id;
+        $cliente = new Cliente();
+        $cliente->nombre_razon=$request->txtRazon;
+        $cliente->direccion = $request->txtDireccion;
+        $cliente->documento_identi = $request->txtDoc;
+        $cliente->alias = $request->txtAlias;
+        $cliente->referencia = $request->txtReferencia;
+        $cliente->representante=$request->txtContacto;
+        $cliente->nCelular=$request->txtCelular;
+        $cliente->email=$request->txtCorreo;
+        $cliente->cumpleanos=$request->txtCumple;
+        $cliente->tipoCliente_id=$request->txtTipoCliente;
+        $cliente->identificacion_id=$request->txtTipoIdentificacion;
+        $cliente->users_id=$userid;
+        $cliente->save();
+        return true;
+
     }
 
     /**

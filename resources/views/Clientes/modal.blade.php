@@ -84,7 +84,7 @@
 
 
                     </div>
-                    <div class="alert alert-warning" role="alert" id="selecTCliente" ></div>
+                    <div class="alert alert-warning" role="alert" id="selecTClienteError" ></div>
 
 
                     <div class="row">

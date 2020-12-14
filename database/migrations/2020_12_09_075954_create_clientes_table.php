@@ -23,7 +23,7 @@ class CreateClientesTable extends Migration
             $table->string('representante',150);
             $table->char('nCelular',9);
             $table->string('email',150);
-            $table->date('cumpleaños');
+            $table->date('cumpleanos');
             $table->unsignedInteger('tipoCliente_id');
             $table->foreign('tipoCliente_id')->references('id')->on('tipo_clientes');
             $table->unsignedInteger('identificacion_id');

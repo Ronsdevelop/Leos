@@ -113,7 +113,7 @@ function abrirModal(){
     $("#txtReferenciaError").addClass('d-none');
     $("#txtAliasError").addClass('d-none');
     $("#txtDocError").addClass('d-none');
-
+    $("#selecTClienteError").addClass('d-none');
     $("#con-close-modal").modal("show");
 
     }
@@ -129,12 +129,12 @@ function abrirModal(){
 
     let ruta = "";
     if (opcion==='ADD') {
-        ruta ="{{route('proveedores.crear')}}";
+        ruta ="{{route('cliente.crear')}}";
 
     }
     if (opcion==='EDIT') {
         data.append('_method',"PATCH");
-        ruta ="{{route('proveedores.edit')}}";
+        ruta ="{{route('cliente.edit')}}";
     }
 
     $.ajax({
@@ -147,7 +147,7 @@ function abrirModal(){
         success: function(response) {
             console.log(response);
             $("#con-close-modal").modal('hide');
-            $('#tablaProveedor').DataTable().ajax.reload();
+            $('#tablaCliente').DataTable().ajax.reload();
 
         },
         error: function(response){
