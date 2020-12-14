@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Categoria;
 use App\Producto;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,16 @@ class ProductoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        //
+        $categorias = Categoria::all();
+
+        return view('Productos.index', compact('categorias'));
     }
 
     /**

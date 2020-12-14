@@ -125,7 +125,7 @@
                         <p class="text-muted font-13 m-b-30">
                             Peso Maximo de la foto 2MB
                         </p>
-                        <img src="img/usuarios/default/anonymousoficial.png"  alt="" id="previsualizar" class="img-thumbnail avatar-xl previsualizar">
+                        <img src="img/usuarios/default/anonymousoficial.png"  alt="" id="previsualizar" class="profile-user-img img-fluid img-rounded previsualizar">
                     </div>
 
 
