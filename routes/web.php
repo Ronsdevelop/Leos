@@ -56,7 +56,10 @@ Route::post('producto/crear', 'ProductoController@store' )->name('producto.crear
 Route::patch('producto/update','ProductoController@update')->name('producto.edit');
 Route::delete('producto/delete','ProductoController@destroy')->name('producto.delete');
 
-Route::get('/pedidos', 'PedidoController@index')->name('pedido');
+Route::get('/pedidos/all', 'PedidoController@todos')->name('pedidos.all');
+Route::get('/pedidos/pendientes', 'PedidoController@pendientes')->name('pedidos.pendientes');
+Route::get('/pedidos/xcobrar', 'PedidoController@xcobrar')->name('pedidos.xcobrar');
+Route::get('/pedidos', 'PedidoController@todos')->name('pedido');
 Route::get('/pedidos/lista', 'PedidoController@list')->name('pedido.lista');
 Route::get('pedidos/detalle/{id}', ['as'=> 'detalle', 'uses'=>'PedidoController@detalle']);
 Route::get('pedidos/datoscliente/{id}', ['as'=> 'detalleEdit', 'uses'=>'PedidoController@detalleEdit']);

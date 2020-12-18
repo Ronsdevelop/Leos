@@ -18,9 +18,18 @@ class PedidoController extends Controller
     }
 
 
-    public function index()
+    public function todos()
     {
-        return view('Pedidos.index');
+        return view('Pedidos.todos');
+    }
+
+    public function pendientes()
+    {
+        return view('Pedidos.pendientes');
+    }
+    public function xcobrar()
+    {
+        return view('Pedidos.xcobrar');
     }
 
     /**

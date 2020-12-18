@@ -20,7 +20,7 @@
                 <div class="icon">
                     <i class="flaticon-baguette" aria-hidden="true"></i>
                 </div>
-                    <a href="#" class="small-box-footer">Detalle<i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer">Detalle Pedido <i class="fas fa-eye"></i></a>
             </div>
         </div>
         <div class="col-lg-3 col-6">

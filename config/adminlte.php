@@ -249,6 +249,28 @@ return [
 
         ],
         [
+            'text'    => 'Pedidos',
+            'icon'    => 'fas fa-fw fa-archway',
+            'submenu' => [
+                [
+                    'text' => 'Todos',
+                    'url'  => 'pedidos/all',
+                    'icon' => 'fas fa-fw fa-users',
+                ],
+                [
+                    'text'    => 'Por Cobrar',
+                    'url'     => 'pedidos/xcobrar',
+                    'icon' => 'fas fa-fw fa-users',
+
+                ],
+                [
+                    'text' => 'Pendientes',
+                    'url'  => 'pedidos/pendientes',
+                    'icon' => 'fas fa-fw fa-users',
+                ],
+            ],
+        ],
+        [
             'text'        => 'pages',
             'url'         => 'admin/pages',
             'icon'        => 'far fa-fw fa-file',
