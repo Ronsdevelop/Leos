@@ -18,7 +18,7 @@
                     <p>Las Rejas</p>
                 </div>
                 <div class="icon">
-                    <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                    <i class="flaticon-baguette" aria-hidden="true"></i>
                 </div>
                     <a href="#" class="small-box-footer">Detalle<i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -32,7 +32,7 @@
                     <p>New Orders</p>
                 </div>
                 <div class="icon">
-                    <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                    <i class="flaticon-baguette" aria-hidden="true"></i>
                 </div>
                     <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -46,12 +46,20 @@
                     <p>New Orders</p>
                 </div>
                 <div class="icon">
-                    <i class="flaticon-wicker-basket" aria-hidden="true"></i>
+                    <i class="flaticon-tupper-1"></i>
                 </div>
                     <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
     </div>
+
+    {{--
+         font-family: Flaticon;
+    font-style: normal;
+    font-size: 0.85em;
+    line-height: 0.75em;
+    vertical-align: 0.35em;
+        --}}
 
 
 @stop

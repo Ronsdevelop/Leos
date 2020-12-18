@@ -1,6 +1,6 @@
 	/*
   	Flaticon icon font: Flaticon
-  	Creation date: 17/12/2020 13:22
+  	Creation date: 18/12/2020 13:38
   	*/
 
 @font-face {
@@ -24,13 +24,32 @@
 
 [class^="flaticon-"]:before, [class*=" flaticon-"]:before,
 [class^="flaticon-"]:after, [class*=" flaticon-"]:after {
-  font-family: Flaticon;
-        font-size: 20px;
-font-style: normal;
-margin-left: 20px;
+    font-family: Flaticon;
+    font-style: normal;
+    font-size: 0.95em;
+    line-height: 0.75em;
+    vertical-align: 0.15em;
 }
 
 .flaticon-canasta-de-mercado:before { content: "\f100"; }
 .flaticon-canasta-de-supermercado:before { content: "\f101"; }
 .flaticon-canasta:before { content: "\f102"; }
 .flaticon-wicker-basket:before { content: "\f103"; }
+.flaticon-lunch-box:before { content: "\f104"; }
+.flaticon-tupper:before { content: "\f105"; }
+.flaticon-shopping-basket:before { content: "\f106"; }
+.flaticon-bakery:before { content: "\f107"; }
+.flaticon-basket:before { content: "\f108"; }
+.flaticon-baguette:before {
+    content: "\f109";
+
+    vertical-align: 0.3em;
+
+     }
+.flaticon-food-donation:before { content: "\f10a"; }
+.flaticon-bread:before { content: "\f10b"; }
+.flaticon-tupper-1:before {
+     content: "\f10c";
+     font-size: 1.2em;
+     vertical-align: 0.05em;
+    }
