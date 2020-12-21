@@ -2,35 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Pedido;
+use App\RecipienteEntrega;
 use Illuminate\Http\Request;
 
-class PedidoController extends Controller
+class RecipienteEntregaController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
+    public function index()
     {
-        $this->middleware('auth');
-    }
-
-
-    public function todos()
-    {
-        $pedidos = Pedido::all();
-        return view('Pedidos.todos',compact('pedidos'));
-    }
-
-    public function pendientes()
-    {
-        return view('Pedidos.pendientes');
-    }
-    public function xcobrar()
-    {
-        return view('Pedidos.xcobrar');
+        //
     }
 
     /**
@@ -57,10 +41,10 @@ class PedidoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Pedido  $pedido
+     * @param  \App\RecipienteEntrega  $recipienteEntrega
      * @return \Illuminate\Http\Response
      */
-    public function show(Pedido $pedido)
+    public function show(RecipienteEntrega $recipienteEntrega)
     {
         //
     }
@@ -68,10 +52,10 @@ class PedidoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Pedido  $pedido
+     * @param  \App\RecipienteEntrega  $recipienteEntrega
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pedido $pedido)
+    public function edit(RecipienteEntrega $recipienteEntrega)
     {
         //
     }
@@ -80,10 +64,10 @@ class PedidoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Pedido  $pedido
+     * @param  \App\RecipienteEntrega  $recipienteEntrega
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pedido $pedido)
+    public function update(Request $request, RecipienteEntrega $recipienteEntrega)
     {
         //
     }
@@ -91,10 +75,10 @@ class PedidoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Pedido  $pedido
+     * @param  \App\RecipienteEntrega  $recipienteEntrega
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pedido $pedido)
+    public function destroy(RecipienteEntrega $recipienteEntrega)
     {
         //
     }

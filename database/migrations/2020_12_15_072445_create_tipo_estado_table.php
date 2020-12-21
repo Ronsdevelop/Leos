@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCantVentaPansTable extends Migration
+class CreateTipoEstadoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateCantVentaPansTable extends Migration
      */
     public function up()
     {
-        Schema::create('cant_venta_pans', function (Blueprint $table) {
+        Schema::create('tipo_estado', function (Blueprint $table) {
             $table->increments('id');
-            $table->tinyInteger('cantidad');
-            $table->string('detalles',100)->nullable();
+            $table->string('estado',45);
+            $table->string('descripcion',100)->nullable();
             $table->timestamps();
             $table->engine = 'InnoDB';
             $table->charset = 'utf8';
@@ -31,6 +31,6 @@ class CreateCantVentaPansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cant_venta_pans');
+        Schema::dropIfExists('tipo_estado');
     }
 }

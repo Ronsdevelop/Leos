@@ -3,54 +3,32 @@
 @section('title', 'Pedidos')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1>Pedidos del Día</h1>
 @stop
 
 @section('content')
 
     <div class="row">
+        @foreach ($pedidos as $pedido)
         <div class="col-lg-3 col-6">
-        <!-- small box -->
-            <div class="small-box bg-info">
-                <div class="inner">
-                    <h3>10.00</h3>
+            <!-- small box -->
+                <div class="small-box {{$pedido->TipoEstado->color}}">
+                    <div class="inner">
+                        <h3>{{$pedido['monto']}}</h3>
 
-                    <p>Las Rejas</p>
+                        <p>{{$pedido->alias->alias}}</p>
+                    </div>
+                    <div class="icon">
+                        <i class="icon {{$pedido->recipiente->icono}}"></i>
+                    </div>
+                        <a href="#" class="small-box-footer">Detalle Pedido <i class="fas fa-eye"></i></a>
                 </div>
-                <div class="icon">
-                    <i class="icon icon-baguette"></i>
-                </div>
-                    <a href="#" class="small-box-footer">Detalle Pedido <i class="fas fa-eye"></i></a>
             </div>
-        </div>
-        <div class="col-lg-3 col-6">
-        <!-- small box -->
-            <div class="small-box bg-info">
-                <div class="inner">
-                    <h3>150</h3>
 
-                    <p>New Orders</p>
-                </div>
-                <div class="icon">
-                    <i class="icon icon-bakery"></i>
-                </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-6">
-        <!-- small box -->
-            <div class="small-box bg-info">
-                <div class="inner">
-                    <h3>150</h3>
+        @endforeach
 
-                    <p>New Orders</p>
-                </div>
-                <div class="icon">
-                    <i class="icon icon-tupper"></i>
-                </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
+
+
     </div>
 
     {{--

@@ -14,8 +14,24 @@ class CreatePedidosTable extends Migration
     public function up()
     {
         Schema::create('pedidos', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->date('fPedido');
+            $table->decimal('monto',9,2);
+            $table->text('observaciones')->nullable();
+            $table->unsignedInteger('cliente_id');
+            $table->foreign('cliente_id')->references('id')->on('clientes');
+            $table->unsignedInteger('turno_id');
+            $table->foreign('turno_id')->references('id')->on('turnos');
+            $table->unsignedInteger('users_id');
+            $table->foreign('users_id')->references('id')->on('users');
+            $table->unsignedInteger('estado_id');
+            $table->foreign('estado_id')->references('id')->on('tipo_estado');
+            $table->unsignedInteger('recipiente_id');
+            $table->foreign('recipiente_id')->references('id')->on('recipiente_entregas');
             $table->timestamps();
+            $table->engine = 'InnoDB';
+            $table->charset = 'utf8';
+            $table->collation = 'utf8_general_ci';
         });
     }
 

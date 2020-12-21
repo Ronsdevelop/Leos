@@ -14,8 +14,17 @@ class CreateDetallePedidosTable extends Migration
     public function up()
     {
         Schema::create('detalle_pedidos', function (Blueprint $table) {
-            $table->id();
+            $table->tinyInteger('cantidad');
+            $table->unsignedInteger('pedido_id');
+            $table->foreign('pedido_id')->references('id')->on('pedidos');
+            $table->unsignedInteger('producto_id');
+            $table->foreign('producto_id')->references('id')->on('pedidos');
+            $table->unsignedInteger('cantpan_id');
+            $table->foreign('cantpan_id')->references('id')->on('cant_venta_pans');
             $table->timestamps();
+            $table->engine = 'InnoDB';
+            $table->charset = 'utf8';
+            $table->collation = 'utf8_general_ci';
         });
     }
 
