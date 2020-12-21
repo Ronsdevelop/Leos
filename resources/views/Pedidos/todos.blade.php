@@ -18,7 +18,7 @@
                     <p>Las Rejas</p>
                 </div>
                 <div class="icon">
-                    <i class="flaticon-baguette" aria-hidden="true"></i>
+                    <i class="icon icon-baguette"></i>
                 </div>
                     <a href="#" class="small-box-footer">Detalle Pedido <i class="fas fa-eye"></i></a>
             </div>
@@ -32,7 +32,7 @@
                     <p>New Orders</p>
                 </div>
                 <div class="icon">
-                    <i class="flaticon-baguette" aria-hidden="true"></i>
+                    <i class="icon icon-bakery"></i>
                 </div>
                     <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -46,7 +46,7 @@
                     <p>New Orders</p>
                 </div>
                 <div class="icon">
-                    <i class="flaticon-tupper-1"></i>
+                    <i class="icon icon-tupper"></i>
                 </div>
                     <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -65,7 +65,8 @@
 @stop
 
 @section('css')
-<link rel="stylesheet" href="{{asset('vendor/iconsfont/font/flaticon.css')}}">
+
+<link rel="stylesheet" href="{{asset('vendor/iconspropios/style.css')}}">
 
 @stop
 
