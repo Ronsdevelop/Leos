@@ -14,7 +14,7 @@
             <!-- small box -->
                 <div class="small-box {{$pedido->TipoEstado->color}}">
                     <div class="inner">
-                        <h3>{{$pedido['monto']}}</h3>
+                        <h3>S/ {{$pedido['monto']}}</h3>
 
                         <p>{{$pedido->alias->alias}}</p>
                     </div>
