@@ -18,7 +18,7 @@ class CreateDetallePedidosTable extends Migration
             $table->unsignedInteger('pedido_id');
             $table->foreign('pedido_id')->references('id')->on('pedidos');
             $table->unsignedInteger('producto_id');
-            $table->foreign('producto_id')->references('id')->on('pedidos');
+            $table->foreign('producto_id')->references('id')->on('productos');
             $table->unsignedInteger('cantpan_id');
             $table->foreign('cantpan_id')->references('id')->on('cant_venta_pans');
             $table->timestamps();
