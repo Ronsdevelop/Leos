@@ -21,7 +21,7 @@
                     <div class="icon">
                         <i class="icon {{$pedido->recipiente->icono}}"></i>
                     </div>
-                        <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-sm">Detalle Pedido <i class="fas fa-eye"></i></a>
+                        <a href="#" class="small-box-footer btn-detalle" data-toggle="modal" data-target="#detallePedido" idPedido="{{$pedido['id']}}" >Detalle Pedido <i class="fas fa-eye"></i></a>
                 </div>
             </div>
 
@@ -31,7 +31,7 @@
 
     </div>
 
-    <div class="modal fade" id="modal-sm">
+    <div class="modal fade" id="detallePedido">
         <div class="modal-dialog modal-sm">
           <div class="modal-content">
             <div class="modal-header">
@@ -41,7 +41,18 @@
               </button>
             </div>
             <div class="modal-body">
-              <p>One fine body&hellip;</p>
+             <table class="table table-bordered"  id="Detalles" >
+                 <thead>
+                     <tr>
+                         <th>PRODUCTO</th>
+                         <th>CANTIDAD</th>
+                     </tr>
+                 </thead>
+                 <tbody id="datos">
+
+                 </tbody>
+
+             </table>
             </div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -80,5 +91,41 @@
 @stop
 
 @section('js')
+<script type="text/javascript">
+$(document).ready(function () {
+    $(document).on('click','btn-detalle' function () {
+        let codPedido = $(this).attr('idPedido');
+
+        let url = "{{url('pedidos/detalle')}}/"+codPedido;;
+        fetch(url,{
+            method:'POST',
+        }).then(resp => resp.json())
+        .then(resp=>{
+            cargardetallepedido(resp);
+        })
+
+
+    });
+    function cargardetallepedido(datos) {
+        datos.forEach(element => {
+            console.log(element);
+        });
+       /* let datos = "";
+        datos.forEach(element => {
+            datos +  `
+        <tr>
+
+        </tr>
+         `
+
+
+        }); */
+
+    }
+
+
+});
+
+</script>
 
 @stop

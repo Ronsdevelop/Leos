@@ -33,6 +33,11 @@ class PedidoController extends Controller
         return view('Pedidos.xcobrar');
     }
 
+    public function detallePedido($id)
+    {
+         
+    }
+
     /**
      * Show the form for creating a new resource.
      *
