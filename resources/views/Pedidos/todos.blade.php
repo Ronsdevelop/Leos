@@ -35,7 +35,7 @@
         <div class="modal-dialog modal-sm">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Detalle de Pedido de </h4>
+              <h4 class="modal-title" id="titulocliente"></h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -92,13 +92,15 @@
 
 @section('js')
 <script type="text/javascript">
+
+
 $(document).ready(function () {
-    $(document).on('click','btn-detalle' function () {
+    $(document).on('click','.btn-detalle', function () {
         let codPedido = $(this).attr('idPedido');
 
         let url = "{{url('pedidos/detalle')}}/"+codPedido;;
         fetch(url,{
-            method:'POST',
+            method:'GET',
         }).then(resp => resp.json())
         .then(resp=>{
             cargardetallepedido(resp);
@@ -107,19 +109,27 @@ $(document).ready(function () {
 
     });
     function cargardetallepedido(datos) {
-        datos.forEach(element => {
-            console.log(element);
-        });
-       /* let datos = "";
-        datos.forEach(element => {
-            datos +  `
-        <tr>
-
-        </tr>
-         `
+        console.log(datos);
 
 
-        }); */
+  let info= "";
+        datos.forEach((element,index) => {
+
+            if (index != 0) {
+            info+=`
+            <tr>
+                <td>${element['nombre']}</td>
+                <td>${element['cantidad']}</td>
+            </tr>
+             `;}
+
+            } );
+
+             document.getElementById('titulocliente').innerHTML='LISTA DE '+datos[0]['alias'];
+             document.getElementById('datos').innerHTML = info;
+
+
+
 
     }
 

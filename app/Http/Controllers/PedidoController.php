@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Cliente;
+use App\DetallePedido;
 use App\Pedido;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PedidoController extends Controller
 {
@@ -35,7 +39,17 @@ class PedidoController extends Controller
 
     public function detallePedido($id)
     {
-         
+        $aliascliente=DB::table('pedidos')->join('clientes','clientes.id','=','pedidos.cliente_id')->select('clientes.alias')->where('pedidos.id',$id)->get();
+
+     $als=$aliascliente[0]->alias;
+
+     $detalle = DB::table('detalle_pedidos')->join('productos','productos.id','=','detalle_pedidos.producto_id')->select('productos.nombre','detalle_pedidos.cantidad')->where('detalle_pedidos.pedido_id',$id)->get();
+       $datos = $detalle->toArray();
+       array_unshift($datos,array("alias"=> $als));
+
+      /*  dd($datos); */
+      return $datos;
+
     }
 
     /**
