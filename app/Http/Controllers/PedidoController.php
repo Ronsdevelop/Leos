@@ -21,11 +21,61 @@ class PedidoController extends Controller
         $this->middleware('auth');
     }
 
-
-    public function todos()
+    public function index()
     {
-        $pedidos = Pedido::all();
-        return view('Pedidos.todos',compact('pedidos'));
+     return view('Pedidos.index');
+    }
+
+
+    public function list()
+    {
+        $respuesta=DB::table('pedidos')->join('clientes','clientes.id','=','pedidos.cliente_id')->join('turnos','turnos.id','=','pedidos.turno_id')->join('tipo_estado','tipo_estado.id','=','pedidos.estado_id')->select('pedidos.id','clientes.alias','pedidos.fPedido','pedidos.monto','turnos.turno','tipo_estado.estado','pedidos.observaciones')->get();
+
+
+
+        $pedidos = array();
+        foreach ($respuesta as $key => $pedido) {
+            $observa = is_null($pedido->observaciones)?'NINGUNA':$pedido->observaciones;
+
+            $pedidos[$key] =[
+                "ID" => $pedido->id,
+                "Cliente" => $pedido->alias,
+                "Fecha" => $pedido->fPedido,
+                "Monto" => $pedido->monto,
+                "Turno" => $pedido->turno,
+                "Estado" => $pedido->estado,
+                "Observaciones" => $observa,
+                "Ver" => "<a class='btn btn-sm btn-block btn-info btn-detalles' href='cliente/detalle/".$pedido->id."' ><i class='fas fa-eye'></i></a>",
+
+                "Editar" => "<button class='btn btn-sm btn-block btn-success btn-editar' idPedido='".$pedido->id."'><i class='fas fa-edit'></i></button> ",
+
+                "Eliminar" => "<button class='btn btn-sm btn-block btn-danger btn-eliminar' idPedido='".$pedido->id."'><i class='fas fa-trash'></i></button>",
+
+            ];
+
+        }
+       return $pedidos;
+
+
+
+    }
+    public function dia()
+    {
+        $pedidosdia = Pedido::all();
+        return view('Pedidos.deldia',compact('pedidosdia'));
+    }
+    public function cliente(Request $request)
+    {
+        $clientes = Cliente::where('alias','LIKE','%'.$request->term.'%')->get();
+        $info = [];
+        foreach ($clientes as $cliente) {
+            $info[] = [
+                "label"=>$cliente->alias,
+
+            ];
+        };
+        return $info;
+
     }
 
     public function pendientes()

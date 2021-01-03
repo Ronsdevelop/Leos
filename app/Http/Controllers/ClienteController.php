@@ -32,6 +32,7 @@ class ClienteController extends Controller
     public function list()
     {
         $respuesta = Cliente::select('id','nombre_razon','documento_identi','representante','nCelular')->get();
+
         $clientes = array();
         foreach ($respuesta as $key => $value) {
                 $clientes[$key] =[

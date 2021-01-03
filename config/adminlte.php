@@ -46,9 +46,9 @@ return [
     */
 
     'logo' => '',
-    'logo_img' => 'vendor/adminlte/dist/img/logo_sistema_sm.png',
+    'logo_img' => 'vendor/adminlte/dist/img/logo_sistema_sm-min.png',
     'logo_img_class' => 'brand-image-xl logo-xs',
-    'logo_img_xl' => 'vendor/adminlte/dist/img/logo_sistema.png',
+    'logo_img_xl' => 'vendor/adminlte/dist/img/logo_sistema-min.png',
     'logo_img_xl_class' => 'brand-image-xs logo-xl',
     'logo_img_alt' => 'AdminLTE',
     'logo_img_gen' => 'vendor/adminlte/dist/img/logo.png',
@@ -254,7 +254,12 @@ return [
             'submenu' => [
                 [
                     'text' => 'Todos',
-                    'url'  => 'pedidos/all',
+                    'url'  => 'pedidos',
+                    'icon' => 'fas fa-fw fa-users',
+                ],
+                [
+                    'text' => 'Deldia',
+                    'url'  => 'pedidos/deldia',
                     'icon' => 'fas fa-fw fa-users',
                 ],
                 [
@@ -403,7 +408,7 @@ return [
             ],
         ],
         'Select2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',

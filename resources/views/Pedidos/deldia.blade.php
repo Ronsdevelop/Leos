@@ -9,7 +9,7 @@
 @section('content')
 
     <div class="row">
-        @foreach ($pedidos as $pedido)
+        @foreach ($pedidosdia as $pedido)
         <div class="col-lg-3 col-6">
             <!-- small box -->
                 <div class="small-box {{$pedido->TipoEstado->color}}">
