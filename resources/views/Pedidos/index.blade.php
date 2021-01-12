@@ -34,7 +34,7 @@
                          AGREGAR PEDIDO
 
                     </h3>
-                <!-- tools box -->
+                    <!-- tools box -->
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool btn-sm" data-card-widget="collapse" data-toggle="tooltip"
                                 title="Collapse">
@@ -44,131 +44,126 @@
                 <!-- /. tools -->
                 </div>
             <!-- /.card-header -->
-                <div class="card-body pad">
-                    <div class="mb-3">
-                        <form class="form-horizontal">
-                            <div class="card-body">
-                              <div class="form-group row">
-                                <label for="inputEmail3" class="col-sm-3 col-form-label text-right">CLIENTE</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="cliente"  >
-                                  </div>
-                              </div>
-                              <div class="form-group row">
-                                <label for="inputEmail3" class="col-sm-3 col-form-label text-right">TURNO</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="inputPassword3"  >
-                                  </div>
-                              </div>
-                              <div class="form-group row">
-                                <label for="inputEmail3" class="col-sm-3 col-form-label text-right">RECIPIENTE</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="inputPassword3"  >
-                                  </div>
-                              </div>
-                              <div class="form-group row">
-                                <label for="inputPassword3" class="col-sm-3 col-form-label text-right">FECHA</label>
-                                <div class="col-sm-6">
-                                  <input type="date" class="form-control" id="inputPassword3"  >
-                                </div>
-                              </div>
-                              <div class="form-group row">
-                                <label for="inputPassword3" class="col-sm-3 col-form-label text-right">OBSERVACION</label>
-                                <div class="col-sm-6">
-                                   <textarea name="" id="" class="form-control" cols="30" rows="2"></textarea>
-                                </div>
-                              </div>
-                              <div class="form-group row">
-                                <label for="inputPassword3" class="col-sm-3 col-form-label text-right">AGREGAR PRODUCTO</label>
-                                <div class="col-sm-6">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                          <span class="input-group-text">
-                                            <i class="fas fa-barcode"></i>
-                                          </span>
+                    <div class="card-body pad">
+                        <div class="mb-3">
+                            <form class="form-horizontal">
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-3 col-form-label text-right">CLIENTE</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control" id="addCliente"  >
                                         </div>
-                                        <input type="text" class="form-control form-control-lg">
-                                        <div class="input-group-append">
-                                          <div class="input-group-text"><i class="fas fa-plus-circle"></i></div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-3 col-form-label text-right">TURNO</label>
+                                        <div class="col-sm-6">
+                                            <select class="form-control" id="turno">
+                                                @foreach ($turnos as $turno)
+                                                <option>{{$turno['turno']}}</option>
+                                                @endforeach
+                                            </select>
+
                                         </div>
-                                      </div>
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-3 col-form-label text-right">RECIPIENTE</label>
+                                        <div class="col-sm-6">
+                                            <select class="form-control" id="recipiente">
+                                                @foreach ($recipientes as $recipiente)
+                                                <option>{{$recipiente['recipiente']}}</option>
+                                                @endforeach
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputPassword3" class="col-sm-3 col-form-label text-right">FECHA</label>
+                                        <div class="col-sm-6">
+                                        <input type="date" class="form-control" id="inputPassword3"  >
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputPassword3" class="col-sm-3 col-form-label text-right">OBSERVACION</label>
+                                        <div class="col-sm-6">
+                                        <textarea name="" id="" class="form-control" cols="30" rows="2"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputPassword3" class="col-sm-3 col-form-label text-right">AGREGAR PRODUCTO</label>
+                                        <div class="col-sm-6">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="fas fa-barcode"></i>
+                                                    </span>
+                                                </div>
+                                                <input type="text" class="form-control form-control-lg" id="addProducto">
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text"><i class="fas fa-plus-circle"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
-                              </div>
 
-                            </div>
-
-                                <!-- Table row -->
-                            <div class="row">
-                                <div class="col-12 table-responsive">
-                                <table class="table table-striped table-sm table-bordered">
-                                    <thead >
-                                    <tr class="bg-info">
-                                    <th class="text-center">Item</th>
-                                    <th class="text-center">Producto</th>
-                                    <th class="text-center">Cantidad</th>
-                                    <th class="text-center">Total</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">Call of Duty</td>
-                                    <td class="text-center">455-981-221</td>
-
-                                    <td class="text-center">$64.50</td>
-                                    </tr>
-                                    <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">Need for Speed IV</td>
-                                    <td class="text-center">247-925-726</td>
-
-
-                                    <td class="text-center">$50.00</td>
-                                    </tr>
-                                    <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">Monsters DVD</td>
-                                    <td class="text-center">735-845-642</td>
-
-
-                                    <td class="text-center">$10.70</td>
-                                    </tr>
-                                    <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">Grown Ups Blue Ray</td>
-                                    <td class="text-center">422-568-642</td>
-
-
-                                    <td class="text-center">$25.99</td>
-                                    </tr>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr class="bg-gray">
-                                            <th class="text-right" colspan="3">TOTAL DE PEDIDO</th>
-                                            <th class="text-center">0.00</th>
-
-                                        </tr>
-
-
-                                    </tfoot>
-                                </table>
+                                    <!-- Table row -->
+                                <div class="row">
+                                    <div class="col-12 table-responsive">
+                                        <table class="table table-striped table-sm table-bordered">
+                                            <thead >
+                                                <tr class="bg-info">
+                                                    <th class="text-center">Item</th>
+                                                    <th class="text-center">Producto</th>
+                                                    <th class="text-center">Cantidad</th>
+                                                    <th class="text-center">Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-center">1</td>
+                                                    <td class="text-center">Call of Duty</td>
+                                                    <td class="text-center">455-981-221</td>
+                                                    <td class="text-center">$64.50</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">1</td>
+                                                    <td class="text-center">Need for Speed IV</td>
+                                                    <td class="text-center">247-925-726</td>
+                                                    <td class="text-center">$50.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">1</td>
+                                                    <td class="text-center">Monsters DVD</td>
+                                                    <td class="text-center">735-845-642</td>
+                                                    <td class="text-center">$10.70</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">1</td>
+                                                    <td class="text-center">Grown Ups Blue Ray</td>
+                                                    <td class="text-center">422-568-642</td>
+                                                    <td class="text-center">$25.99</td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr class="bg-gray">
+                                                    <th class="text-right" colspan="3">TOTAL DE PEDIDO</th>
+                                                    <th class="text-center">0.00</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                    <!-- /.col -->
                                 </div>
-                                <!-- /.col -->
-                            </div>
+                            </form>
 
-
-
-
-                          </form>
-
-                    </div>
-
-
-
+                        </div>
                     </div>
                 </div>
             </div>
-        <!-- /.col-->
+         <!-- /.col-->
         </div>
       <!-- ./row -->
     </div>
@@ -249,8 +244,8 @@
 @section('js')
 <script src="{{ asset('vendor/jquery-ui/jquery-ui.min.js') }} "></script>
 <script type="text/javascript">
-let datos =["Primero","Segundo","Tercero","Cuarto","Quinto","Sexto"];
- $("#cliente").autocomplete({
+
+ $("#addCliente").autocomplete({
      source:function(request,response) {
          $.ajax({
              url: "{{route('pedido.cliente')}}",
@@ -265,10 +260,26 @@ let datos =["Primero","Segundo","Tercero","Cuarto","Quinto","Sexto"];
 
      }
  });
+ $("#addProducto").autocomplete({
+     source:function(request,response) {
+         $.ajax({
+             url: "{{route('pedido.producto')}}",
+             data: {
+                 term:request.term
+             },
+             dataType: "json",
+             success: function (data) {
+                 response(data);
+             }
+         });
+
+     }
+ });
 
 
 $(document).ready(function () {
-    $('.select2').select2();
+    $('#turno').select2();
+    $('#recipiente').select2();
     $('#tablaPedidos').DataTable({
                     paging: true,
                     ordering: true,

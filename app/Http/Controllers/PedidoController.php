@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Cliente;
 use App\DetallePedido;
 use App\Pedido;
-
+use App\Producto;
+use App\RecipienteEntrega;
+use App\Turno;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -23,7 +25,9 @@ class PedidoController extends Controller
 
     public function index()
     {
-     return view('Pedidos.index');
+        $turnos = Turno::All();
+        $recipientes = RecipienteEntrega::all();
+     return view('Pedidos.index', compact('turnos'),compact('recipientes'));
     }
 
 
@@ -71,6 +75,19 @@ class PedidoController extends Controller
         foreach ($clientes as $cliente) {
             $info[] = [
                 "label"=>$cliente->alias,
+
+            ];
+        };
+        return $info;
+
+    }
+    public function producto(Request $request)
+    {
+        $productos = Producto::where('nombre','LIKE','%'.$request->term.'%')->get();
+        $info = [];
+        foreach ($productos as $producto) {
+            $info[] = [
+                "label"=>$producto->nombre,
 
             ];
         };

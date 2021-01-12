@@ -69,6 +69,7 @@ Route::post('pedidos/crear', 'PedidoController@store' )->name('pedido.crear');
 Route::patch('pedidos/update','PedidoController@update')->name('pedido.edit');
 Route::delete('pedidos/delete','PedidoController@destroy')->name('pedido.delete');
 Route::get('pedidos/cliente','PedidoController@cliente')->name('pedido.cliente');
+Route::get('pedidos/producto','PedidoController@producto')->name('pedido.producto');
 
 
 
