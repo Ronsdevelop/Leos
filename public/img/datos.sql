@@ -2,7 +2,9 @@
 SQLyog Ultimate v11.11 (64 bit)
 MySQL - 5.5.5-10.4.14-MariaDB : Database - panleos
 *********************************************************************
-*/
+https://www.codigofuentepuntodeventa.com/pos_simple/pos
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
