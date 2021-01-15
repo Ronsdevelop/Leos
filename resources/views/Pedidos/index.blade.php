@@ -98,7 +98,7 @@
                                                         <i class="fas fa-barcode"></i>
                                                     </span>
                                                 </div>
-                                                <input type="text" class="form-control form-control-lg" id="addProducto">
+                                                <input type="text" class="form-control form-control-lg autocomplete-product" data-type="p_name"  name="add_item"  id="add_item">
                                                 <div class="input-group-append">
                                                     <div class="input-group-text"><i class="fas fa-plus-circle"></i>
                                                     </div>
@@ -112,44 +112,23 @@
                                     <!-- Table row -->
                                 <div class="row">
                                     <div class="col-12 table-responsive">
-                                        <table class="table table-striped table-sm table-bordered">
+                                        <table class="table table-striped table-sm table-bordered" id="product-table">
                                             <thead >
                                                 <tr class="bg-info">
                                                     <th class="text-center">Item</th>
                                                     <th class="text-center">Producto</th>
                                                     <th class="text-center">Cantidad</th>
+                                                    <th class="text-center">Precio</th>
                                                     <th class="text-center">Total</th>
+                                                    <th class="text-center"><i class="fa fa-trash"></i></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td class="text-center">1</td>
-                                                    <td class="text-center">Call of Duty</td>
-                                                    <td class="text-center">455-981-221</td>
-                                                    <td class="text-center">$64.50</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center">1</td>
-                                                    <td class="text-center">Need for Speed IV</td>
-                                                    <td class="text-center">247-925-726</td>
-                                                    <td class="text-center">$50.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center">1</td>
-                                                    <td class="text-center">Monsters DVD</td>
-                                                    <td class="text-center">735-845-642</td>
-                                                    <td class="text-center">$10.70</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center">1</td>
-                                                    <td class="text-center">Grown Ups Blue Ray</td>
-                                                    <td class="text-center">422-568-642</td>
-                                                    <td class="text-center">$25.99</td>
-                                                </tr>
+
                                             </tbody>
                                             <tfoot>
                                                 <tr class="bg-gray">
-                                                    <th class="text-right" colspan="3">TOTAL DE PEDIDO</th>
+                                                    <th class="text-right" colspan="5">TOTAL DE PEDIDO</th>
                                                     <th class="text-center">0.00</th>
                                                 </tr>
                                             </tfoot>
@@ -260,25 +239,138 @@
 
      }
  });
- $("#addProducto").autocomplete({
-     source:function(request,response) {
-         $.ajax({
-             url: "{{route('pedido.producto')}}",
-             data: {
-                 term:request.term
-             },
-             dataType: "json",
-             success: function (data) {
-                 response(data);
-             }
-         });
+ $("#add_item").autocomplete({
+    source:function(request,response) {
+        $.ajax({
+            url: "{{route('pedido.producto')}}",
+            data: {
+                term:request.term
+            },
+            dataType: "json",
+            success: function (data) {
+                response(data);
+            }
+        });
 
-     },
-     select:function(event,ui) {
-         console.log(ui.item.precio);
+    },
+    focusOpen: true,
+    autoFocus: true,
+    minLength: 0,
+    select:function(event,ui) {
 
-     }
+        var data = {
+                itemId: ui.item.id,
+                itemName: ui.item.value,
+                itemCode: 1,
+                itemQuantity: 1,
+                unitPrice: ui.item.precio,
+                itemSellPrice: ui.item.precio,
+                itemTaxAmount: 6,
+                itemTaxMethod: 6,
+                itemTaxrate: 6,
+            };
+            addProduct(data);
+
+
+
+    },
+    open: function () {
+           /*      $(".ui-autocomplete").perfectScrollbar(); */
+                if ($(".ui-autocomplete .ui-menu-item").length == 1) {
+                    $(".ui-autocomplete .ui-menu-item:first-child").trigger("click");
+                    $("#add_item").val("");
+                    $("#add_item").focus();
+                }
+    },
+    close: function () {
+        $(document).find(".autocomplete-product").blur();
+        $(document).find(".autocomplete-product").val("");
+        $("#add_item").focus();
+    },
  });
+    $("#add_item").trigger("focus");
+
+    $(document).on("change keyup blur", ".quantity, .unit-price", function (){
+        id = $(this).data("id");
+        totalTax = 0;
+        total = 0;
+       /*  $scope._calculate(id); */
+    });
+
+    $(document).delegate(".remove", "click", function () {
+        id = $(this).data("id");
+        $("#"+id).remove();
+        totalTax = 0;
+        total = 0;
+       /*  $scope._calculate(id); */
+    });
+
+var addProduct = function(data) {
+        if (data.itemTaxMethod == 'exclusive') {
+            sellPrice = (parseFloat(data.itemSellPrice) * parseFloat(data.itemQuantity)) + parseFloat(data.itemTaxAmount);
+        } else {
+            sellPrice = parseFloat(data.itemSellPrice) * parseFloat(data.itemQuantity);
+        }
+        var html = "<tr id=\""+data.itemId+"\">";
+        html += "<td class=\"text-center\" style=\"min-width:100px;\" data-title=\"Product Name\">";
+        html += "<input name=\"products["+data.itemId+"][item_id]\" type=\"hidden\" class=\"item-id\" value=\""+data.itemId+"\">";
+        html += "<input name=\"products["+data.itemId+"][item_name]\" type=\"hidden\" class=\"item-name\" value=\""+data.itemName+"\">";
+
+        html += "<span class=\"name\" id=\"name-"+data.itemId+"\">"+data.itemCode+"</span>";
+        html += "</td>";
+        html += "<td class=\"text-center\" data-title=\"Available\">";
+        html += "<span class=\"text-center available\" id=\"available-"+data.itemId+"\">"+data.itemName+"</span>";
+        html += "</td>";
+        html += "<td style=\"padding:2px;\" data-title=\"Quantity\">";
+        html += "<input class=\"form-control input-sm text-center quantity\" name=\"products["+data.itemId+"][quantity]\" type=\"text\" value=\""+data.itemQuantity+"\" data-id=\""+data.itemId+"\" id=\"quantity-"+data.itemId+"\" onclick=\"this.select();\" onkeypress=\"return IsNumeric(event);\" ondrop=\"return false;\" onpaste=\"return false;\" onKeyUp=\"if(this.value<0){this.value='1';}\">";
+        html += "</td>";
+        html += "<td style=\"padding:2px;min-width:80px;\" data-title=\"Unit Price\">";
+        html += "<input id=\"unit-price-"+data.itemId+"\" class=\"form-control input-sm text-center unit-price\" type=\"text\" name=\"products["+data.itemId+"][unit_price]\" value=\""+data.itemSellPrice+"\" data-id=\""+data.itemId+"\" data-item=\""+data.itemId+"\" onclick=\"this.select();\" onkeypress=\"return IsNumeric(event);\" ondrop=\"return false;\" onpaste=\"return false;\" onKeyUp=\"if(this.value<0){this.value='1';}\">";
+        html += "</td>";
+/*         html += "<td class=\"text-center\" data-title=\"Tax Amount\">";
+        html += "<input id=\"tax-method-"+data.itemId+"\" name=\"products["+data.itemId+"][tax_method]\" type=\"hidden\" value=\""+data.itemTaxMethod+"\">";
+        html += "<input id=\"taxrate-"+data.itemId+"\" name=\"products["+data.itemId+"][taxrate]\" type=\"hidden\" value=\""+data.itemTaxrate+"\">";
+        html += "<input id=\"tax-amount-"+data.itemId+"\" name=\"products["+data.itemId+"][tax_amount]\" type=\"hidden\" value=\""+data.itemTaxAmount+"\">";
+        html += "<span id=\"tax-amount-view-"+data.itemId+"\" class=\"tax tax-amount-view\">"+data.itemTaxAmount+"</span>";
+        html += "</td>"; */
+        html += "<td class=\"text-right\" data-title=\"Total\">";
+        html += "<span class=\"subtotal\" id=\"subtotal-"+data.itemId+"\">"+sellPrice+"</span>";
+        html += "</td>";
+        html += "<td class=\"text-center\">";
+        html += "<i class=\"fa fa-times text-red pointer remove\" data-id=\""+data.itemId+"\" title=\"Remove\"></i>";
+        html += "</td>";
+        html += "</tr>";
+
+    /*     totalTax = parseFloat(totalTax) + parseFloat(data.itemTaxAmount);
+        total = parseFloat(total) + parseFloat(sellPrice); */
+
+        // Update existing if find
+        if ($("#"+data.itemId).length) {
+            quantity = $(document).find("#quantity-"+data.itemId);
+            quantity.val(parseFloat(quantity.val()) + 1);
+            unitPrice = $(document).find("#unit-price-"+data.itemId);
+            itemTaxMethod = $(document).find("#tax-method-"+data.itemId);
+            itemTaxrate = $(document).find("#taxrate-"+data.itemId);
+            itemTaxAmount = $(document).find("#tax-amount-"+data.itemId);
+            taxAmount = $(document).find("#tax-amount-"+data.itemId);
+            realItemTaxAmount = parseFloat((itemTaxrate.val() / 100 ) * parseFloat(unitPrice.val()));
+            itemTaxAmount.val(parseFloat(quantity.val()) * realItemTaxAmount);
+            taxAmount.val(parseFloat(parseFloat(quantity.val()) * realItemTaxAmount).toFixed(2));
+            itemTaxAmountView = $(document).find("#tax-amount-view-"+data.itemId);
+            itemTaxAmountView.text(itemTaxAmount.val());
+            subTotal = $(document).find("#subtotal-"+data.itemId);
+            subTotal.text(window.formatDecimal(parseFloat(subTotal.text()) + parseFloat(sellPrice),2));
+        } else {
+            $(document).find("#product-table tbody").append(html);
+        }
+
+   /*      $("#total-tax").val(totalTax);
+        $("#total-amount").val(total);
+        $("#total-amount-view").text(window.formatDecimal(total,2));
+
+        $scope._calculateTotalPayable(); */
+    };
+
 
 
 $(document).ready(function () {
