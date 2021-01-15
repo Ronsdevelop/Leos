@@ -273,6 +273,10 @@
              }
          });
 
+     },
+     select:function(event,ui) {
+         console.log(ui.item.precio);
+
      }
  });
 

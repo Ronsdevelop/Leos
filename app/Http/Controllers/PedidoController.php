@@ -88,6 +88,9 @@ class PedidoController extends Controller
         foreach ($productos as $producto) {
             $info[] = [
                 "label"=>$producto->nombre,
+                "value"=>$producto->nombre,
+                "id"=>$producto->id,
+                "precio"=>$producto->pVenta
 
             ];
         };
