@@ -311,11 +311,37 @@ var addProduct = function(data) {
         } else {
             sellPrice = parseFloat(data.itemSellPrice) * parseFloat(data.itemQuantity);
         }
+        let addItem =`
+            <tr id="${data.itemId}">
+                <td class="text-center" style="min-width:100px;" data-title="Product Name">
+                    <input name="products[${data.itemId}][item_id]" type="hidden" class="item-id" value="${data.itemId}">
+                    <input name="products[${data.itemId}][item_name]" type="hidden" class="item-name" value="${data.itemName}">
+                    <span class="name" id="name-${data.itemId}">${data.itemCode}</span>
+                </td>
+                <td class="text-center" data-title="Available">
+                    <span class="text-center available" id="available-${data.itemId}">${data.itemName}</span>
+                </td>
+                <td style="padding:2px;" data-title="Quantity">
+                    <input class="form-control input-sm text-center quantity" name="products[${data.itemId}][quantity]" type="text" value="${data.itemQuantity}" data-id="${data.itemId}" id="quantity-${data.itemId}" onclick="this.select();" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" onKeyUp="if(this.value<0){this.value='1';}">
+                </td>
+                <td style="padding:2px;min-width:80px;" data-title="Unit Price">
+                    <input id="unit-price-${data.itemId}" class="form-control input-sm text-center unit-price" type="text" name="products[${data.itemId}][unit_price]" value="${data.itemSellPrice}" data-id="${data.itemId}" data-item="${data.itemId}" onclick="this.select();" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" onKeyUp="if(this.value<0){this.value='1';}">
+                </td>
+                <td class="text-right" data-title="Total">
+                    <span class="subtotal" id="subtotal-${data.itemId}">${sellPrice}</span>
+                </td>
+                <td class="text-center">
+                    <i class="fa fa-times text-red pointer remove" data-id="${data.itemId}" title="Remove"></i>
+                </td>
+            </tr>
+
+         `;
+
+
         var html = "<tr id=\""+data.itemId+"\">";
         html += "<td class=\"text-center\" style=\"min-width:100px;\" data-title=\"Product Name\">";
         html += "<input name=\"products["+data.itemId+"][item_id]\" type=\"hidden\" class=\"item-id\" value=\""+data.itemId+"\">";
         html += "<input name=\"products["+data.itemId+"][item_name]\" type=\"hidden\" class=\"item-name\" value=\""+data.itemName+"\">";
-
         html += "<span class=\"name\" id=\"name-"+data.itemId+"\">"+data.itemCode+"</span>";
         html += "</td>";
         html += "<td class=\"text-center\" data-title=\"Available\">";
@@ -361,7 +387,7 @@ var addProduct = function(data) {
             subTotal = $(document).find("#subtotal-"+data.itemId);
             subTotal.text(window.formatDecimal(parseFloat(subTotal.text()) + parseFloat(sellPrice),2));
         } else {
-            $(document).find("#product-table tbody").append(html);
+            $(document).find("#product-table tbody").append(addItem);
         }
 
    /*      $("#total-tax").val(totalTax);
