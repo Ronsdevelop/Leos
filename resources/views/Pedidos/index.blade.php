@@ -232,6 +232,8 @@
 <script src="{{ asset('vendor/jquery-ui/jquery-ui.min.js') }} "></script>
 <script type="text/javascript">
 
+var nroItem = 0;
+
  $("#addCliente").autocomplete({
      source:function(request,response) {
          $.ajax({
@@ -310,12 +312,18 @@
         $("#"+id).remove();
         totalTax = 0;
         total = 0;
+<<<<<<< HEAD
 
         console.log(id);
+=======
+        nroItem--;
+>>>>>>> 4a745b93bb969914d069c1c9150359758818f983
        /*  $scope._calculate(id); */
     });
 
+
 var addProduct = function(data) {
+    nroItem++;
         if (data.itemTaxMethod == 'exclusive') {
             sellPrice = (parseFloat(data.itemSellPrice) * parseFloat(data.itemQuantity)) + parseFloat(data.itemTaxAmount);
         } else {
@@ -326,7 +334,7 @@ var addProduct = function(data) {
                 <td class="text-center" style="min-width:100px;" data-title="Product Name">
                     <input name="products[${data.itemId}][item_id]" type="hidden" class="item-id" value="${data.itemId}">
                     <input name="products[${data.itemId}][item_name]" type="hidden" class="item-name" value="${data.itemName}">
-                    <span class="name" id="name-${data.itemId}">${data.itemCode}</span>
+                    <span class="name" id="name-${data.itemId}">${nroItem}</span>
                 </td>
                 <td class="text-center" data-title="Available">
                     <span class="text-center available" id="available-${data.itemId}">${data.itemName}</span>
