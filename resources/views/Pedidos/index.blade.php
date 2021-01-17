@@ -343,34 +343,7 @@ var addProduct = function(data) {
          `;
 
 
-        var html = "<tr id=\""+data.itemId+"\">";
-        html += "<td class=\"text-center\" style=\"min-width:100px;\" data-title=\"Product Name\">";
-        html += "<input name=\"products["+data.itemId+"][item_id]\" type=\"hidden\" class=\"item-id\" value=\""+data.itemId+"\">";
-        html += "<input name=\"products["+data.itemId+"][item_name]\" type=\"hidden\" class=\"item-name\" value=\""+data.itemName+"\">";
-        html += "<span class=\"name\" id=\"name-"+data.itemId+"\">"+data.itemCode+"</span>";
-        html += "</td>";
-        html += "<td class=\"text-center\" data-title=\"Available\">";
-        html += "<span class=\"text-center available\" id=\"available-"+data.itemId+"\">"+data.itemName+"</span>";
-        html += "</td>";
-        html += "<td style=\"padding:2px;\" data-title=\"Quantity\">";
-        html += "<input class=\"form-control input-sm text-center quantity\" name=\"products["+data.itemId+"][quantity]\" type=\"text\" value=\""+data.itemQuantity+"\" data-id=\""+data.itemId+"\" id=\"quantity-"+data.itemId+"\" onclick=\"this.select();\" onkeypress=\"return IsNumeric(event);\" ondrop=\"return false;\" onpaste=\"return false;\" onKeyUp=\"if(this.value<0){this.value='1';}\">";
-        html += "</td>";
-        html += "<td style=\"padding:2px;min-width:80px;\" data-title=\"Unit Price\">";
-        html += "<input id=\"unit-price-"+data.itemId+"\" class=\"form-control input-sm text-center unit-price\" type=\"text\" name=\"products["+data.itemId+"][unit_price]\" value=\""+data.itemSellPrice+"\" data-id=\""+data.itemId+"\" data-item=\""+data.itemId+"\" onclick=\"this.select();\" onkeypress=\"return IsNumeric(event);\" ondrop=\"return false;\" onpaste=\"return false;\" onKeyUp=\"if(this.value<0){this.value='1';}\">";
-        html += "</td>";
-/*         html += "<td class=\"text-center\" data-title=\"Tax Amount\">";
-        html += "<input id=\"tax-method-"+data.itemId+"\" name=\"products["+data.itemId+"][tax_method]\" type=\"hidden\" value=\""+data.itemTaxMethod+"\">";
-        html += "<input id=\"taxrate-"+data.itemId+"\" name=\"products["+data.itemId+"][taxrate]\" type=\"hidden\" value=\""+data.itemTaxrate+"\">";
-        html += "<input id=\"tax-amount-"+data.itemId+"\" name=\"products["+data.itemId+"][tax_amount]\" type=\"hidden\" value=\""+data.itemTaxAmount+"\">";
-        html += "<span id=\"tax-amount-view-"+data.itemId+"\" class=\"tax tax-amount-view\">"+data.itemTaxAmount+"</span>";
-        html += "</td>"; */
-        html += "<td class=\"text-right\" data-title=\"Total\">";
-        html += "<span class=\"subtotal\" id=\"subtotal-"+data.itemId+"\">"+sellPrice+"</span>";
-        html += "</td>";
-        html += "<td class=\"text-center\">";
-        html += "<i class=\"fa fa-times text-red pointer remove\" data-id=\""+data.itemId+"\" title=\"Remove\"></i>";
-        html += "</td>";
-        html += "</tr>";
+      
 
     /*     totalTax = parseFloat(totalTax) + parseFloat(data.itemTaxAmount);
         total = parseFloat(total) + parseFloat(sellPrice); */
