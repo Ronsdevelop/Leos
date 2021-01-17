@@ -128,8 +128,16 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr class="bg-gray">
+                                                    <th class="text-right" colspan="5">TOTAL PANES</th>
+                                                    <th class="text-center">
+                                                         300
+                                                    </th>
+                                                </tr>
+                                                <tr class="bg-gray">
                                                     <th class="text-right" colspan="5">TOTAL DE PEDIDO</th>
-                                                    <th class="text-center">0.00</th>
+                                                    <th class="text-center" id="total">
+                                                       
+                                                    </th>
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -294,7 +302,7 @@
         id = $(this).data("id");
         totalTax = 0;
         total = 0;
-       /*  $scope._calculate(id); */
+        calcImporItem(id);
     });
 
     $(document).delegate(".remove", "click", function () {
@@ -302,6 +310,8 @@
         $("#"+id).remove();
         totalTax = 0;
         total = 0;
+
+        console.log(id);
        /*  $scope._calculate(id); */
     });
 
@@ -322,7 +332,7 @@ var addProduct = function(data) {
                     <span class="text-center available" id="available-${data.itemId}">${data.itemName}</span>
                 </td>
                 <td style="padding:2px;" data-title="Quantity">
-                    <input class="form-control input-sm text-center quantity" name="products[${data.itemId}][quantity]" type="text" value="${data.itemQuantity}" data-id="${data.itemId}" id="quantity-${data.itemId}" onclick="this.select();" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" onKeyUp="if(this.value<0){this.value='1';}">
+                    <input class="form-control input-sm text-center quantity" name="products[${data.itemId}][quantity]" type="text" value="${data.itemQuantity}" data-id="${data.itemId}" id="quantity-${data.itemId}" onclick="this.select();"  ondrop="return false;" onpaste="return false;" onKeyUp="if(this.value<0){this.value='1';}">
                 </td>
                 <td style="padding:2px;min-width:80px;" data-title="Unit Price">
                     <input id="unit-price-${data.itemId}" class="form-control input-sm text-center unit-price" type="text" name="products[${data.itemId}][unit_price]" value="${data.itemSellPrice}" data-id="${data.itemId}" data-item="${data.itemId}" onclick="this.select();" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" onKeyUp="if(this.value<0){this.value='1';}">
@@ -336,7 +346,7 @@ var addProduct = function(data) {
             </tr>
 
          `;
-
+/*
 
         var html = "<tr id=\""+data.itemId+"\">";
         html += "<td class=\"text-center\" style=\"min-width:100px;\" data-title=\"Product Name\">";
@@ -358,7 +368,7 @@ var addProduct = function(data) {
         html += "<input id=\"taxrate-"+data.itemId+"\" name=\"products["+data.itemId+"][taxrate]\" type=\"hidden\" value=\""+data.itemTaxrate+"\">";
         html += "<input id=\"tax-amount-"+data.itemId+"\" name=\"products["+data.itemId+"][tax_amount]\" type=\"hidden\" value=\""+data.itemTaxAmount+"\">";
         html += "<span id=\"tax-amount-view-"+data.itemId+"\" class=\"tax tax-amount-view\">"+data.itemTaxAmount+"</span>";
-        html += "</td>"; */
+        html += "</td>";
         html += "<td class=\"text-right\" data-title=\"Total\">";
         html += "<span class=\"subtotal\" id=\"subtotal-"+data.itemId+"\">"+sellPrice+"</span>";
         html += "</td>";
@@ -396,6 +406,18 @@ var addProduct = function(data) {
 
         $scope._calculateTotalPayable(); */
     };
+
+    let cantidad = 0;
+    let precio = 0;
+    let total = 0;
+
+    function calcImporItem(id) {
+        cantidad = $(document).find("#quantity-"+id);
+        precio = $(document).find("#unit-price-"+id);
+        total = parseFloat(cantidad.val()) * parseFloat(precio.val());
+        jq
+        console.log(total);
+    }
 
 
 
