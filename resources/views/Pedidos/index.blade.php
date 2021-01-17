@@ -356,6 +356,7 @@ var addProduct = function(data) {
          `;
 /*
 
+<<<<<<< HEAD
         var html = "<tr id=\""+data.itemId+"\">";
         html += "<td class=\"text-center\" style=\"min-width:100px;\" data-title=\"Product Name\">";
         html += "<input name=\"products["+data.itemId+"][item_id]\" type=\"hidden\" class=\"item-id\" value=\""+data.itemId+"\">";
@@ -384,6 +385,9 @@ var addProduct = function(data) {
         html += "<i class=\"fa fa-times text-red pointer remove\" data-id=\""+data.itemId+"\" title=\"Remove\"></i>";
         html += "</td>";
         html += "</tr>";
+=======
+      
+>>>>>>> bf7547a83eebe09001cc8deb96ddaa6af9ad73a7
 
     /*     totalTax = parseFloat(totalTax) + parseFloat(data.itemTaxAmount);
         total = parseFloat(total) + parseFloat(sellPrice); */
