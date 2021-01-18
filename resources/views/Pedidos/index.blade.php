@@ -115,7 +115,7 @@
                                         <table class="table table-striped table-sm table-bordered" id="product-table">
                                             <thead >
                                                 <tr class="bg-info">
-                                                    <th class="text-center">Item</th>
+
                                                     <th class="text-center">Producto</th>
                                                     <th class="text-center">Cantidad</th>
                                                     <th class="text-center">Precio</th>
@@ -128,15 +128,15 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr class="bg-gray">
-                                                    <th class="text-right" colspan="5">TOTAL PANES</th>
+                                                    <th class="text-right" colspan="4">TOTAL PANES</th>
                                                     <th class="text-center">
                                                          300
                                                     </th>
                                                 </tr>
                                                 <tr class="bg-gray">
-                                                    <th class="text-right" colspan="5">TOTAL DE PEDIDO</th>
+                                                    <th class="text-right" colspan="4">TOTAL DE PEDIDO</th>
                                                     <th class="text-center" id="total">
-                                                       
+
                                                     </th>
                                                 </tr>
                                             </tfoot>
@@ -232,7 +232,7 @@
 <script src="{{ asset('vendor/jquery-ui/jquery-ui.min.js') }} "></script>
 <script type="text/javascript">
 
-var nroItem = 0;
+
 
  $("#addCliente").autocomplete({
      source:function(request,response) {
@@ -270,16 +270,17 @@ var nroItem = 0;
 
         var data = {
                 itemId: ui.item.id,
-                itemName: ui.item.value,
-                itemCode: 1,
-                itemQuantity: 1,
-                unitPrice: ui.item.precio,
-                itemSellPrice: ui.item.precio,
-                itemTaxAmount: 6,
-                itemTaxMethod: 6,
-                itemTaxrate: 6,
+                itemNombre: ui.item.value,
+                itemCantidad: 1,
+                itemPrecioU: ui.item.precio,
+                tipoCliente:1
+
+
             };
             addProduct(data);
+
+
+
 
 
 
@@ -312,41 +313,38 @@ var nroItem = 0;
         $("#"+id).remove();
         totalTax = 0;
         total = 0;
-<<<<<<< HEAD
 
-        console.log(id);
-=======
-        nroItem--;
->>>>>>> 4a745b93bb969914d069c1c9150359758818f983
        /*  $scope._calculate(id); */
     });
 
 
+var totalPrecio = 0;
+
 var addProduct = function(data) {
-    nroItem++;
-        if (data.itemTaxMethod == 'exclusive') {
-            sellPrice = (parseFloat(data.itemSellPrice) * parseFloat(data.itemQuantity)) + parseFloat(data.itemTaxAmount);
+
+        if (data.tipoCliente == 'exclusive') {
+            totalPrecio = (parseFloat(data.itemPrecioU) * parseFloat(data.itemCantidad)) ;
         } else {
-            sellPrice = parseFloat(data.itemSellPrice) * parseFloat(data.itemQuantity);
+            totalPrecio = parseFloat(data.itemCantidad) * parseFloat(data.itemPrecioU);
+
         }
         let addItem =`
             <tr id="${data.itemId}">
-                <td class="text-center" style="min-width:100px;" data-title="Product Name">
-                    <input name="products[${data.itemId}][item_id]" type="hidden" class="item-id" value="${data.itemId}">
-                    <input name="products[${data.itemId}][item_name]" type="hidden" class="item-name" value="${data.itemName}">
-                    <span class="name" id="name-${data.itemId}">${nroItem}</span>
-                </td>
+
                 <td class="text-center" data-title="Available">
-                    <span class="text-center available" id="available-${data.itemId}">${data.itemName}</span>
+                    <input name="products[${data.itemId}][item_id]" type="hidden" class="item-id" value="${data.itemId}">
+                    <input name="products[${data.itemId}][item_name]" type="hidden" class="item-name" value="${data.itemNombre}">
+
+                    <span class="text-center available" id="available-${data.itemId}">${data.itemNombre}</span>
                 </td>
                 <td style="padding:2px;" data-title="Quantity">
-                    <input class="form-control input-sm text-center quantity" name="products[${data.itemId}][quantity]" type="text" value="${data.itemQuantity}" data-id="${data.itemId}" id="quantity-${data.itemId}" onclick="this.select();"  ondrop="return false;" onpaste="return false;" onKeyUp="if(this.value<0){this.value='1';}">
+                    <input class="form-control input-sm text-center quantity" name="products[${data.itemId}][quantity]" type="text" value="${data.itemCantidad}" data-id="${data.itemId}" id="quantity-${data.itemId}" onclick="this.select();"  ondrop="return false;" onpaste="return false;" onKeyUp="if(this.value<0){this.value='1';}">
                 </td>
                 <td style="padding:2px;min-width:80px;" data-title="Unit Price">
-                    <input id="unit-price-${data.itemId}" class="form-control input-sm text-center unit-price" type="text" name="products[${data.itemId}][unit_price]" value="${data.itemSellPrice}" data-id="${data.itemId}" data-item="${data.itemId}" onclick="this.select();" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" onKeyUp="if(this.value<0){this.value='1';}">
+                    <input id="unit-price-${data.itemId}" class="form-control input-sm text-center unit-price" type="text" name="products[${data.itemId}][unit_price]" value="${data.itemPrecioU}" data-id="${data.itemId}" data-item="${data.itemId}" onclick="this.select();" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" onKeyUp="if(this.value<0){this.value='1';}">
                 </td>
                 <td class="text-right" data-title="Total">
-                    <span class="subtotal" id="subtotal-${data.itemId}">${sellPrice}</span>
+                    <span class="subtotal" id="subtotal-${data.itemId}">${totalPrecio}</span>
                 </td>
                 <td class="text-center">
                     <i class="fa fa-times text-red pointer remove" data-id="${data.itemId}" title="Remove"></i>
@@ -354,60 +352,18 @@ var addProduct = function(data) {
             </tr>
 
          `;
-/*
 
-<<<<<<< HEAD
-        var html = "<tr id=\""+data.itemId+"\">";
-        html += "<td class=\"text-center\" style=\"min-width:100px;\" data-title=\"Product Name\">";
-        html += "<input name=\"products["+data.itemId+"][item_id]\" type=\"hidden\" class=\"item-id\" value=\""+data.itemId+"\">";
-        html += "<input name=\"products["+data.itemId+"][item_name]\" type=\"hidden\" class=\"item-name\" value=\""+data.itemName+"\">";
-        html += "<span class=\"name\" id=\"name-"+data.itemId+"\">"+data.itemCode+"</span>";
-        html += "</td>";
-        html += "<td class=\"text-center\" data-title=\"Available\">";
-        html += "<span class=\"text-center available\" id=\"available-"+data.itemId+"\">"+data.itemName+"</span>";
-        html += "</td>";
-        html += "<td style=\"padding:2px;\" data-title=\"Quantity\">";
-        html += "<input class=\"form-control input-sm text-center quantity\" name=\"products["+data.itemId+"][quantity]\" type=\"text\" value=\""+data.itemQuantity+"\" data-id=\""+data.itemId+"\" id=\"quantity-"+data.itemId+"\" onclick=\"this.select();\" onkeypress=\"return IsNumeric(event);\" ondrop=\"return false;\" onpaste=\"return false;\" onKeyUp=\"if(this.value<0){this.value='1';}\">";
-        html += "</td>";
-        html += "<td style=\"padding:2px;min-width:80px;\" data-title=\"Unit Price\">";
-        html += "<input id=\"unit-price-"+data.itemId+"\" class=\"form-control input-sm text-center unit-price\" type=\"text\" name=\"products["+data.itemId+"][unit_price]\" value=\""+data.itemSellPrice+"\" data-id=\""+data.itemId+"\" data-item=\""+data.itemId+"\" onclick=\"this.select();\" onkeypress=\"return IsNumeric(event);\" ondrop=\"return false;\" onpaste=\"return false;\" onKeyUp=\"if(this.value<0){this.value='1';}\">";
-        html += "</td>";
-/*         html += "<td class=\"text-center\" data-title=\"Tax Amount\">";
-        html += "<input id=\"tax-method-"+data.itemId+"\" name=\"products["+data.itemId+"][tax_method]\" type=\"hidden\" value=\""+data.itemTaxMethod+"\">";
-        html += "<input id=\"taxrate-"+data.itemId+"\" name=\"products["+data.itemId+"][taxrate]\" type=\"hidden\" value=\""+data.itemTaxrate+"\">";
-        html += "<input id=\"tax-amount-"+data.itemId+"\" name=\"products["+data.itemId+"][tax_amount]\" type=\"hidden\" value=\""+data.itemTaxAmount+"\">";
-        html += "<span id=\"tax-amount-view-"+data.itemId+"\" class=\"tax tax-amount-view\">"+data.itemTaxAmount+"</span>";
-        html += "</td>";
-        html += "<td class=\"text-right\" data-title=\"Total\">";
-        html += "<span class=\"subtotal\" id=\"subtotal-"+data.itemId+"\">"+sellPrice+"</span>";
-        html += "</td>";
-        html += "<td class=\"text-center\">";
-        html += "<i class=\"fa fa-times text-red pointer remove\" data-id=\""+data.itemId+"\" title=\"Remove\"></i>";
-        html += "</td>";
-        html += "</tr>";
-=======
-      
->>>>>>> bf7547a83eebe09001cc8deb96ddaa6af9ad73a7
-
-    /*     totalTax = parseFloat(totalTax) + parseFloat(data.itemTaxAmount);
+    /*
         total = parseFloat(total) + parseFloat(sellPrice); */
 
         // Update existing if find
         if ($("#"+data.itemId).length) {
-            quantity = $(document).find("#quantity-"+data.itemId);
-            quantity.val(parseFloat(quantity.val()) + 1);
-            unitPrice = $(document).find("#unit-price-"+data.itemId);
-            itemTaxMethod = $(document).find("#tax-method-"+data.itemId);
-            itemTaxrate = $(document).find("#taxrate-"+data.itemId);
-            itemTaxAmount = $(document).find("#tax-amount-"+data.itemId);
-            taxAmount = $(document).find("#tax-amount-"+data.itemId);
-            realItemTaxAmount = parseFloat((itemTaxrate.val() / 100 ) * parseFloat(unitPrice.val()));
-            itemTaxAmount.val(parseFloat(quantity.val()) * realItemTaxAmount);
-            taxAmount.val(parseFloat(parseFloat(quantity.val()) * realItemTaxAmount).toFixed(2));
-            itemTaxAmountView = $(document).find("#tax-amount-view-"+data.itemId);
-            itemTaxAmountView.text(itemTaxAmount.val());
+            cantidad = $(document).find("#quantity-"+data.itemId);
+            cantidad.val(parseFloat(cantidad.val()) + 1);
+            precioUnitario = $(document).find("#unit-price-"+data.itemId);
+
             subTotal = $(document).find("#subtotal-"+data.itemId);
-            subTotal.text(window.formatDecimal(parseFloat(subTotal.text()) + parseFloat(sellPrice),2));
+            subTotal.text( parseFloat(subTotal.text() + parseFloat(totalPrecio),2));
         } else {
             $(document).find("#product-table tbody").append(addItem);
         }
@@ -427,8 +383,8 @@ var addProduct = function(data) {
         cantidad = $(document).find("#quantity-"+id);
         precio = $(document).find("#unit-price-"+id);
         total = parseFloat(cantidad.val()) * parseFloat(precio.val());
-        jq
         console.log(total);
+
     }
 
 
@@ -506,7 +462,7 @@ $(document).ready(function () {
 
     });
     function cargardetallepedido(datos) {
-        console.log(datos);
+
 
 
   let info= "";
