@@ -361,9 +361,11 @@ var addProduct = function(data) {
             cantidad = $(document).find("#quantity-"+data.itemId);
             cantidad.val(parseFloat(cantidad.val()) + 1);
             precioUnitario = $(document).find("#unit-price-"+data.itemId);
+            totalitem = $(document).find("#subtotal-"+data.itemId);
 
-            subTotal = $(document).find("#subtotal-"+data.itemId);
-            subTotal.text( parseFloat(subTotal.text() + parseFloat(totalPrecio),2));
+            totalitem.text(parseFloat(cantidad.val()) * parseFloat(precioUnitario.val()));
+
+            console.log(cantidad.val()*precioUnitario.val());
         } else {
             $(document).find("#product-table tbody").append(addItem);
         }
@@ -375,6 +377,7 @@ var addProduct = function(data) {
         $scope._calculateTotalPayable(); */
     };
 
+   /*
     let cantidad = 0;
     let precio = 0;
     let total = 0;
@@ -386,7 +389,7 @@ var addProduct = function(data) {
         console.log(total);
 
     }
-
+*/
 
 
 $(document).ready(function () {
