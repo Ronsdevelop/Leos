@@ -130,12 +130,15 @@
                                                 <tr class="bg-gray">
                                                     <th class="text-right" colspan="4">TOTAL PANES</th>
                                                     <th class="text-center">
-                                                         300
+                                                        <input type="hidden" name="" id="totalPanes">
+                                                        <span id="totalPanesview">0</span>
                                                     </th>
                                                 </tr>
                                                 <tr class="bg-gray">
                                                     <th class="text-right" colspan="4">TOTAL DE PEDIDO</th>
                                                     <th class="text-center" id="total">
+                                                        <input type="hidden" name="" id="totalPedido">
+                                                        <span id="totalPedidoview">S/ 0.00</span>
 
                                                     </th>
                                                 </tr>
@@ -144,6 +147,24 @@
                                     </div>
                                     <!-- /.col -->
                                 </div>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-4 col-6 col-sm-offset-3 text-center">
+                                          <button id="create-quotation-submit" class="btn btn-block btn-lg btn-info" data-form="#form-quotation" data-datatable="#quotation-quotation-list" name="submit" data-loading-text="Saving...">
+                                            <i class="fa fa-fw fa-save"></i>
+                                            Guardar
+                                          </button>
+                                        </div>
+                                        <div class="col-sm-2  col-6 text-center">
+                                          <button type="reset" class="btn btn-block btn-lg btn-danger" id="reset" name="reset">
+                                            <span class="fa fa-fw fa-circle-o"></span>
+                                            Resetear
+                                          </button>
+                                        </div>
+                                    </div>
+
+
+
                             </form>
 
                         </div>
@@ -232,6 +253,11 @@
 <script src="{{ asset('vendor/jquery-ui/jquery-ui.min.js') }} "></script>
 <script type="text/javascript">
 
+    var total = 0;
+    var totalPrecio = 0;
+    var totalPanes = 0;
+
+
 
 
  $("#addCliente").autocomplete({
@@ -303,7 +329,6 @@
 
     $(document).on("change keyup blur", ".quantity, .unit-price", function (){
         id = $(this).data("id");
-        totalTax = 0;
         total = 0;
         calcImporItem(id);
     });
@@ -311,14 +336,14 @@
     $(document).delegate(".remove", "click", function () {
         id = $(this).data("id");
         $("#"+id).remove();
-        totalTax = 0;
+
         total = 0;
 
-       /*  $scope._calculate(id); */
+        calcImporItem(id);
     });
 
 
-var totalPrecio = 0;
+
 
 var addProduct = function(data) {
 
@@ -344,7 +369,7 @@ var addProduct = function(data) {
                     <input id="unit-price-${data.itemId}" class="form-control input-sm text-center unit-price" type="text" name="products[${data.itemId}][unit_price]" value="${data.itemPrecioU}" data-id="${data.itemId}" data-item="${data.itemId}" onclick="this.select();" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" onKeyUp="if(this.value<0){this.value='1';}">
                 </td>
                 <td class="text-right" data-title="Total">
-                    <span class="subtotal" id="subtotal-${data.itemId}">${totalPrecio}</span>
+                    <span class="subtotal" id="subtotal-${data.itemId}">${totalPrecio.toFixed(2)}</span>
                 </td>
                 <td class="text-center">
                     <i class="fa fa-times text-red pointer remove" data-id="${data.itemId}" title="Remove"></i>
@@ -353,8 +378,9 @@ var addProduct = function(data) {
 
          `;
 
-    /*
-        total = parseFloat(total) + parseFloat(sellPrice); */
+
+        total = parseFloat(total) + parseFloat(totalPrecio);
+        totalPanes = totalPanes + data.itemCantidad;
 
         // Update existing if find
         if ($("#"+data.itemId).length) {
@@ -362,34 +388,46 @@ var addProduct = function(data) {
             cantidad.val(parseFloat(cantidad.val()) + 1);
             precioUnitario = $(document).find("#unit-price-"+data.itemId);
             totalitem = $(document).find("#subtotal-"+data.itemId);
+            totalitem.text((parseFloat(cantidad.val()) * parseFloat(precioUnitario.val())).toFixed(2));
 
-            totalitem.text(parseFloat(cantidad.val()) * parseFloat(precioUnitario.val()));
 
-            console.log(cantidad.val()*precioUnitario.val());
         } else {
             $(document).find("#product-table tbody").append(addItem);
         }
 
-   /*      $("#total-tax").val(totalTax);
-        $("#total-amount").val(total);
-        $("#total-amount-view").text(window.formatDecimal(total,2));
+        $('#totalPanes').val(totalPanes);
+        $('#totalPanesview').text(totalPanes);
+        $("#totalPedido").val(total);
+        $("#totalPedidoview").text('S/ '+total.toFixed(2));
 
+  /*
         $scope._calculateTotalPayable(); */
     };
 
    /*
     let cantidad = 0;
     let precio = 0;
-    let total = 0;
+    let total = 0;*/
 
     function calcImporItem(id) {
         cantidad = $(document).find("#quantity-"+id);
         precio = $(document).find("#unit-price-"+id);
-        total = parseFloat(cantidad.val()) * parseFloat(precio.val());
-        console.log(total);
+        totalitem = $(document).find("#subtotal-"+id);
+        totalitem.text((parseFloat(cantidad.val()) * parseFloat(precio.val())).toFixed(2));
+        $(document).find(".subtotal").each(function (i, obj) {
+            total = (parseFloat(total) + parseFloat($(this).text())).toFixed(2);
+        });
+      /*   $(document).find(".quantity").each(function (i, obj) {
+            totalPanes = parseFloat(totalPanes) + parseFloat($(this).val());
+        }); */
+        $("#totalPedido").val(total);
+        $("#totalPedidoview").text('S/ '+total);
+   /*      $("#totalPanes").val(totalPanes);
+        $("#totalPanesview").text(totalPanes);
+ */
 
     }
-*/
+
 
 
 $(document).ready(function () {
