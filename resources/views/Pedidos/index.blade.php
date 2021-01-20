@@ -147,25 +147,36 @@
                                     </div>
                                     <!-- /.col -->
                                 </div>
+                                <div class="card-footer">
+                                     <!-- this row will not appear when printing -->
+                                     <div class="row justify-content-center" >
+                                        <div class="col-3">
+                                            <button type="submit" class="btn btn-success btn-block float-right"><i class="far fa-save"></i>  Guardar Pedido
+                                                </button>
 
-                                    <div class="form-group">
-                                        <div class="col-sm-4 col-6 col-sm-offset-3 text-center">
-                                          <button id="create-quotation-submit" class="btn btn-block btn-lg btn-info" data-form="#form-quotation" data-datatable="#quotation-quotation-list" name="submit" data-loading-text="Saving...">
-                                            <i class="fa fa-fw fa-save"></i>
-                                            Guardar
-                                          </button>
                                         </div>
-                                        <div class="col-sm-2  col-6 text-center">
-                                          <button type="reset" class="btn btn-block btn-lg btn-danger" id="reset" name="reset">
-                                            <span class="fa fa-fw fa-circle-o"></span>
-                                            Resetear
-                                          </button>
+                                        <div class="col-3">
+                                            <button type="reset" class="btn btn-danger btn-block float-right" style="margin-right: 5px;">
+                                                <i class="fas fa-sync"></i>  Resetear
+                                                </button>
+
                                         </div>
+                                    <!--
+
+                                    <div class="col-12">
+
+                                        <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
+                                        Payment
+                                        </button>
+                                        <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                                        <i class="fas fa-download"></i> Generate PDF
+                                        </button>
+                                    </div> -->
                                     </div>
 
+                                </div>
 
-
-                            </form>
+                             </form>
 
                         </div>
                     </div>
