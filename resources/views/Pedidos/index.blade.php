@@ -147,7 +147,7 @@
                                     </div>
                                     <!-- /.col -->
                                 </div>
-                                <div class="card-footer">
+
                                      <!-- this row will not appear when printing -->
                                      <div class="row justify-content-center" >
                                         <div class="col-3">
@@ -161,18 +161,6 @@
                                                 </button>
 
                                         </div>
-                                    <!--
-
-                                    <div class="col-12">
-
-                                        <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
-                                        Payment
-                                        </button>
-                                        <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                                        <i class="fas fa-download"></i> Generate PDF
-                                        </button>
-                                    </div> -->
-                                    </div>
 
                                 </div>
 
@@ -341,6 +329,7 @@
     $(document).on("change keyup blur", ".quantity, .unit-price", function (){
         id = $(this).data("id");
         total = 0;
+        totalPanes = 0;
         calcImporItem(id);
     });
 
@@ -349,6 +338,7 @@
         $("#"+id).remove();
 
         total = 0;
+        totalPanes = 0;
 
         calcImporItem(id);
     });
@@ -428,14 +418,14 @@ var addProduct = function(data) {
         $(document).find(".subtotal").each(function (i, obj) {
             total = (parseFloat(total) + parseFloat($(this).text())).toFixed(2);
         });
-      /*   $(document).find(".quantity").each(function (i, obj) {
+      $(document).find(".quantity").each(function (i, obj) {
             totalPanes = parseFloat(totalPanes) + parseFloat($(this).val());
-        }); */
+        });
         $("#totalPedido").val(total);
         $("#totalPedidoview").text('S/ '+total);
-   /*      $("#totalPanes").val(totalPanes);
+     $("#totalPanes").val(totalPanes);
         $("#totalPanesview").text(totalPanes);
- */
+
 
     }
 
