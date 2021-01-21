@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\CantVentaPan;
+use App\PanXSol;
 use Illuminate\Http\Request;
 
-class CantVentaPanController extends Controller
+class PanXSolController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class CantVentaPanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\CantVentaPan  $cantVentaPan
+     * @param  \App\PanXSol  $panXSol
      * @return \Illuminate\Http\Response
      */
-    public function show(CantVentaPan $cantVentaPan)
+    public function show(PanXSol $panXSol)
     {
         //
     }
@@ -52,10 +52,10 @@ class CantVentaPanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\CantVentaPan  $cantVentaPan
+     * @param  \App\PanXSol  $panXSol
      * @return \Illuminate\Http\Response
      */
-    public function edit(CantVentaPan $cantVentaPan)
+    public function edit(PanXSol $panXSol)
     {
         //
     }
@@ -64,10 +64,10 @@ class CantVentaPanController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\CantVentaPan  $cantVentaPan
+     * @param  \App\PanXSol  $panXSol
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CantVentaPan $cantVentaPan)
+    public function update(Request $request, PanXSol $panXSol)
     {
         //
     }
@@ -75,10 +75,10 @@ class CantVentaPanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\CantVentaPan  $cantVentaPan
+     * @param  \App\PanXSol  $panXSol
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CantVentaPan $cantVentaPan)
+    public function destroy(PanXSol $panXSol)
     {
         //
     }

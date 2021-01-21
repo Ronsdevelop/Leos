@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDetallePedidosTable extends Migration
+class CreatePrecioVentasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateDetallePedidosTable extends Migration
      */
     public function up()
     {
-        Schema::create('detalle_pedidos', function (Blueprint $table) {
-            $table->tinyInteger('cantidad');
-            $table->unsignedInteger('pedido_id');
-            $table->foreign('pedido_id')->references('id')->on('pedidos');
+        Schema::create('precio_ventas', function (Blueprint $table) {
             $table->unsignedInteger('producto_id');
             $table->foreign('producto_id')->references('id')->on('productos');
-            $table->timestamps();
+            $table->unsignedInteger('preciop_id');
+            $table->foreign('preciop_id')->references('id')->on('pan_x_sols');
+            $table->unsignedInteger('tipclient_id');
+            $table->foreign('tipclient_id')->references('id')->on('tipo_clientes');
             $table->engine = 'InnoDB';
             $table->charset = 'utf8';
             $table->collation = 'utf8_general_ci';
@@ -33,6 +33,6 @@ class CreateDetallePedidosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detalle_pedidos');
+        Schema::dropIfExists('precio_ventas');
     }
 }

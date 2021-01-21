@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCantVentaPansTable extends Migration
+class CreatePanXSolsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCantVentaPansTable extends Migration
      */
     public function up()
     {
-        Schema::create('cant_venta_pans', function (Blueprint $table) {
+        Schema::create('pan_x_sols', function (Blueprint $table) {
             $table->increments('id');
             $table->tinyInteger('cantidad');
             $table->string('detalles',100)->nullable();
@@ -31,6 +31,6 @@ class CreateCantVentaPansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cant_venta_pans');
+        Schema::dropIfExists('pan_x_sols');
     }
 }
