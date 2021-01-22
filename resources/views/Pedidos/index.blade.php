@@ -52,6 +52,7 @@
                                         <label for="inputEmail3" class="col-sm-3 col-form-label text-right">CLIENTE</label>
                                         <div class="col-sm-6">
                                             <input type="text" class="form-control" id="addCliente"  >
+                                            <input type="hidden" id="idcliente">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -255,6 +256,8 @@
     var total = 0;
     var totalPrecio = 0;
     var totalPanes = 0;
+    var idTCliente = 0;
+
 
 
 
@@ -269,10 +272,16 @@
              dataType: "json",
              success: function (data) {
                  response(data);
+
              }
          });
 
-     }
+     },
+     select:function(event,ui) {
+        document.getElementById('idcliente').value = ui.item.id;
+        idTCliente = ui.item.idTipo;
+
+    },
  });
  $("#add_item").autocomplete({
     source:function(request,response) {
@@ -284,6 +293,7 @@
             dataType: "json",
             success: function (data) {
                 response(data);
+
             }
         });
 
@@ -347,6 +357,9 @@
 
 
 var addProduct = function(data) {
+
+
+
 
         if (data.tipoCliente == 'exclusive') {
             totalPrecio = (parseFloat(data.itemPrecioU) * parseFloat(data.itemCantidad)) ;
@@ -423,7 +436,7 @@ var addProduct = function(data) {
         });
         $("#totalPedido").val(total);
         $("#totalPedidoview").text('S/ '+total);
-     $("#totalPanes").val(totalPanes);
+        $("#totalPanes").val(totalPanes);
         $("#totalPanesview").text(totalPanes);
 
 

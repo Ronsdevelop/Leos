@@ -75,6 +75,8 @@ class PedidoController extends Controller
         foreach ($clientes as $cliente) {
             $info[] = [
                 "label"=>$cliente->alias,
+                "id"=>$cliente->id,
+                "idTipo"=>$cliente->tipoCliente_id
 
             ];
         };

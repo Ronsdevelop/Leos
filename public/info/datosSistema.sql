@@ -15,7 +15,7 @@ INSERT  INTO `proveedores`(`id`,`rason`,`ruc`,`direccion`,`contacto`,`email`,`nC
 
 insert  into `precio_ventas`(`tipclient_id`,`producto_id`,`preciop_id`) values (1,1,2),(1,2,3),(1,3,3),(1,4,3),(1,5,3),(1,6,3),(1,7,3),(1,8,3),(1,9,3),(1,10,3),(2,1,4),(2,2,6),(2,3,6),(2,4,6),(2,5,6),(2,6,6),(2,7,6),(2,8,6),(2,9,6),(2,10,4);
 
-
+SELECT pv.tipclient_id,pv.producto_id, pxs.cantidad FROM precio_ventas pv INNER JOIN pan_x_sols pxs ON pxs.id=pv.preciop_id WHERE pv.tipclient_id  = 1
 
 
 
