@@ -283,16 +283,21 @@
 
     },
  });
+
+
+
  $("#add_item").autocomplete({
+
     source:function(request,response) {
         $.ajax({
             url: "{{route('pedido.producto')}}",
             data: {
+                idTipo:idTCliente,
                 term:request.term
             },
             dataType: "json",
             success: function (data) {
-                response(data);
+              response(data);
 
             }
         });
@@ -303,12 +308,12 @@
     minLength: 0,
     select:function(event,ui) {
 
+
         var data = {
                 itemId: ui.item.id,
                 itemNombre: ui.item.value,
                 itemCantidad: 1,
-                itemPrecioU: ui.item.precio,
-                tipoCliente:1
+                itemPrecioU: ui.item.precio
 
 
             };
@@ -358,15 +363,9 @@
 
 var addProduct = function(data) {
 
-
-
-
-        if (data.tipoCliente == 'exclusive') {
-            totalPrecio = (parseFloat(data.itemPrecioU) * parseFloat(data.itemCantidad)) ;
-        } else {
             totalPrecio = parseFloat(data.itemCantidad) * parseFloat(data.itemPrecioU);
 
-        }
+
         let addItem =`
             <tr id="${data.itemId}">
 

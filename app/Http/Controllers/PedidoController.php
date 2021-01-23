@@ -86,16 +86,22 @@ class PedidoController extends Controller
     public function producto(Request $request)
     {
         $productos = Producto::where('nombre','LIKE','%'.$request->term.'%')->get();
+        $productLis = DB::table('precio_ventas')->join('pan_x_sols','pan_x_sols.id','=','precio_ventas.preciop_id')->join('productos','productos.id','=','precio_ventas.producto_id')->select('precio_ventas.producto_id','productos.nombre','pan_x_sols.cantidad')->where('precio_ventas.tipclient_id',$request->idTipo)->where('productos.nombre','LIKE','%'.$request->term.'%')->get();
+        $informacion = $productLis->toArray();
+
+
+
         $info = [];
-        foreach ($productos as $producto) {
+        foreach ($informacion as $producto) {
             $info[] = [
                 "label"=>$producto->nombre,
                 "value"=>$producto->nombre,
-                "id"=>$producto->id,
-                "precio"=>$producto->pVenta
+                "id"=>$producto->producto_id,
+                "precio"=>$producto->cantidad
 
             ];
         };
+
         return $info;
 
     }
