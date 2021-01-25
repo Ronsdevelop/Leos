@@ -49,16 +49,17 @@
                             <form class="form-horizontal">
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-3 col-form-label text-right">CLIENTE</label>
+                                        <label class="col-sm-3 col-form-label text-right">CLIENTE</label>
                                         <div class="col-sm-6">
                                             <input type="text" class="form-control" id="addCliente"  >
                                             <input type="hidden" id="idcliente">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-3 col-form-label text-right">TURNO</label>
+                                        <label class="col-sm-3 col-form-label text-right">TURNO</label>
                                         <div class="col-sm-6">
                                             <select class="form-control" id="turno">
+                                                <option value="">SELECCIONA UNO</option>
                                                 @foreach ($turnos as $turno)
                                                 <option>{{$turno['turno']}}</option>
                                                 @endforeach
@@ -68,9 +69,10 @@
 
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-3 col-form-label text-right">RECIPIENTE</label>
+                                        <label   class="col-sm-3 col-form-label text-right">RECIPIENTE</label>
                                         <div class="col-sm-6">
                                             <select class="form-control" id="recipiente">
+                                                <option value="">SELECCIONA UNO</option>
                                                 @foreach ($recipientes as $recipiente)
                                                 <option>{{$recipiente['recipiente']}}</option>
                                                 @endforeach
@@ -79,19 +81,19 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputPassword3" class="col-sm-3 col-form-label text-right">FECHA</label>
+                                        <label  class="col-sm-3 col-form-label text-right">FECHA</label>
                                         <div class="col-sm-6">
                                         <input type="date" class="form-control" id="inputPassword3"  >
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputPassword3" class="col-sm-3 col-form-label text-right">OBSERVACION</label>
+                                        <label   class="col-sm-3 col-form-label text-right">OBSERVACION</label>
                                         <div class="col-sm-6">
                                         <textarea name="" id="" class="form-control" cols="30" rows="2"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputPassword3" class="col-sm-3 col-form-label text-right">AGREGAR PRODUCTO</label>
+                                        <label  class="col-sm-3 col-form-label text-right">AGREGAR PRODUCTO</label>
                                         <div class="col-sm-6">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -117,11 +119,11 @@
                                             <thead >
                                                 <tr class="bg-info">
 
-                                                    <th class="text-center">Producto</th>
-                                                    <th class="text-center">Cantidad</th>
-                                                    <th class="text-center">Precio</th>
-                                                    <th class="text-center">Total</th>
-                                                    <th class="text-center"><i class="fa fa-trash"></i></th>
+                                                    <th class="text-center w-45"  >Producto</th>
+                                                    <th class="text-center w-15"  >Cantidad</th>
+                                                    <th class="text-center w-15"  >Precio</th>
+                                                    <th class="text-center w-15"  >Total</th>
+                                                    <th class="text-center w-10" ><i class="fa fa-trash"></i></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -280,6 +282,16 @@
      select:function(event,ui) {
         document.getElementById('idcliente').value = ui.item.id;
         idTCliente = ui.item.idTipo;
+        $(".filasTabla").remove();
+        total = 0;
+        totalPanes = 0;
+        $("#totalPedido").val(total);
+        $("#totalPedidoview").text('S/ '+total.toFixed(2));
+        $("#totalPanes").val(totalPanes);
+        $("#totalPanesview").text(totalPanes);
+
+
+
 
     },
  });
@@ -367,7 +379,7 @@ var addProduct = function(data) {
 
 
         let addItem =`
-            <tr id="${data.itemId}">
+            <tr id="${data.itemId}" class="filasTabla">
 
                 <td class="text-center" data-title="Available">
                     <input name="products[${data.itemId}][item_id]" type="hidden" class="item-id" value="${data.itemId}">
@@ -381,8 +393,8 @@ var addProduct = function(data) {
                 <td style="padding:2px;min-width:80px;" data-title="Unit Price">
                     <input id="unit-price-${data.itemId}" class="form-control input-sm text-center unit-price" type="text" name="products[${data.itemId}][unit_price]" value="${data.itemPrecioU}" data-id="${data.itemId}" data-item="${data.itemId}" onclick="this.select();" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" onKeyUp="if(this.value<0){this.value='1';}">
                 </td>
-                <td class="text-right" data-title="Total">
-                    <span class="subtotal" id="subtotal-${data.itemId}">${totalPrecio.toFixed(2)}</span>
+                <td class="text-center" data-title="Total">
+                    <span  class="subtotal " id="subtotal-${data.itemId}">${totalPrecio.toFixed(2)}</span>
                 </td>
                 <td class="text-center">
                     <i class="fa fa-times text-red pointer remove" data-id="${data.itemId}" title="Remove"></i>
