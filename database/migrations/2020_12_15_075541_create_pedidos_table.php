@@ -17,6 +17,7 @@ class CreatePedidosTable extends Migration
             $table->increments('id');
             $table->date('fPedido');
             $table->decimal('monto',9,2);
+            $table->tinyInteger('cantPan');
             $table->text('observaciones')->nullable();
             $table->unsignedInteger('cliente_id');
             $table->foreign('cliente_id')->references('id')->on('clientes');

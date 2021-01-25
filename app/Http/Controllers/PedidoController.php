@@ -10,6 +10,7 @@ use App\RecipienteEntrega;
 use App\Turno;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PedidoController extends Controller
 {
@@ -148,7 +149,23 @@ class PedidoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $userid=Auth::user()->users_id;
+        $pedido = new Pedido();
+        $pedido->fPedido  = $request->fecha;
+        $pedido->monto = $request->totalPedido;
+        $pedido->cantPan = $request->totalPanes;
+        $pedido->observaciones = $request->observacion;
+        $pedido->cliente_id = $request->idCliente;
+        $pedido->turno_id = $request->idTurno;
+        $pedido->users_id = $userid;
+        $pedido->estado_id = 1;
+        $pedido->recipiente_id = $request->idRecipiente;
+
+
+
+
+
+       return $request;
     }
 
     /**
