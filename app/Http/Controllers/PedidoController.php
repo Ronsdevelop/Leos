@@ -149,6 +149,18 @@ class PedidoController extends Controller
         $pedido->users_id = $userid;
         $pedido->estado_id = 1;
         $pedido->recipiente_id = $request->idRecipiente;
+        $pedido->save();
+        foreach ($request->products as $producto) {
+            $dtPedido = new DetallePedido();
+            $idPedido = $pedido->id;
+            $dtPedido->pedido_id = $idPedido;
+            $dtPedido->producto_id = $producto['item_id'];
+            $dtPedido->cantidad = $producto['item_cantidad'];
+            $dtPedido->cant_x_sol = $producto['item_precio'];
+            $dtPedido->save();
+        }
+        return true;
+
     }
 
     /**

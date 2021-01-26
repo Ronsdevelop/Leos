@@ -7,8 +7,8 @@ use App\DetallePedido;
 
 class Producto extends Model
 {
- public function productoPedido( )
+ public function Pedidos( )
  {
-     return $this->belongsToMany('App\DetallePedido');
+     return $this->belongsToMany('App\Pedido');
  }
 }

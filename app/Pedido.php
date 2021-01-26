@@ -20,7 +20,7 @@ class Pedido extends Model
         return $this->belongsTo(TipoEstado::class,'estado_id');
     }
 
-    public function detallePedido(){
+    public function Productos(){
         return $this->belongsToMany('App\Productos');
 
     }

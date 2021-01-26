@@ -14,11 +14,12 @@ class CreateDetallePedidosTable extends Migration
     public function up()
     {
         Schema::create('detalle_pedidos', function (Blueprint $table) {
-            $table->tinyInteger('cantidad');
             $table->unsignedInteger('pedido_id');
             $table->foreign('pedido_id')->references('id')->on('pedidos');
             $table->unsignedInteger('producto_id');
             $table->foreign('producto_id')->references('id')->on('productos');
+            $table->unsignedInteger('cantidad');
+            $table->tinyInteger('cant_x_sol');
             $table->timestamps();
             $table->engine = 'InnoDB';
             $table->charset = 'utf8';

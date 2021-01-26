@@ -122,7 +122,7 @@
 
                                                     <th class="text-center w-45"  >Producto</th>
                                                     <th class="text-center w-15"  >Cantidad</th>
-                                                    <th class="text-center w-15"  >Precio</th>
+                                                    <th class="text-center w-15"  >Unidades x Sol</th>
                                                     <th class="text-center w-15"  >Total</th>
                                                     <th class="text-center w-10" ><i class="fa fa-trash"></i></th>
                                                 </tr>
@@ -262,6 +262,59 @@
     var totalPanes = 0;
     var idTCliente = 0;
 
+    var tablaPedidos = $('#tablaPedidos').DataTable({
+                    paging: true,
+                    ordering: true,
+                    info: true,
+                    autoWidth: false,
+                    responsive: true,
+                    language: {
+                        "sProcessing":     "Procesando...",
+                        "sLengthMenu":     "Mostrar _MENU_ registros",
+                        "sZeroRecords":    "No se encontraron resultados",
+                        "sEmptyTable":     "Ningún dato disponible en Clientes",
+                        "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                        "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0",
+                        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix":    "",
+                        "sSearch":         "Buscar:",
+                        "sUrl":            "",
+                        "sInfoThousands":  ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                        "sFirst":    "Primero",
+                        "sLast":     "Último",
+                        "sNext":     "Siguiente",
+                        "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        },
+
+
+                    },
+
+                    ajax:{
+                        "url": "{{route('pedido.lista')}}",
+                        "dataSrc":""
+                    },
+                    columns: [
+                      {data: "ID" },
+                      {data: "Cliente"},
+                       {data: "Fecha"},
+                       {data: "Monto"},
+                       {data: "Turno"},
+                       {data: "Estado"},
+                       {data: "Observaciones"},
+                       {data: "Ver"},
+                       {data: "Editar"},
+                       {data: "Eliminar"}
+
+                    ]
+
+    });
+
     $("#addCliente").autocomplete({
         source:function(request,response) {
             $.ajax({
@@ -364,7 +417,7 @@
 
 var addProduct = function(data) {
 
-    totalPrecio = parseFloat(data.itemCantidad) * parseFloat(data.itemPrecioU);
+    totalPrecio = parseFloat(data.itemCantidad) / parseFloat(data.itemPrecioU);
 
 
     let addItem =`
@@ -402,7 +455,7 @@ var addProduct = function(data) {
         cantidad.val(parseFloat(cantidad.val()) + 1);
         precioUnitario = $(document).find("#unit-price-"+data.itemId);
         totalitem = $(document).find("#subtotal-"+data.itemId);
-        totalitem.text((parseFloat(cantidad.val()) * parseFloat(precioUnitario.val())).toFixed(2));
+        totalitem.text((parseFloat(cantidad.val()) / parseFloat(precioUnitario.val())).toFixed(2));
 
 
     } else {
@@ -423,7 +476,7 @@ var addProduct = function(data) {
         cantidad = $(document).find("#quantity-"+id);
         precio = $(document).find("#unit-price-"+id);
         totalitem = $(document).find("#subtotal-"+id);
-        totalitem.text((parseFloat(cantidad.val()) * parseFloat(precio.val())).toFixed(2));
+        totalitem.text((parseFloat(cantidad.val()) / parseFloat(precio.val())).toFixed(2));
         $(document).find(".subtotal").each(function (i, obj) {
             total = (parseFloat(total) + parseFloat($(this).text())).toFixed(2);
         });
@@ -462,6 +515,7 @@ var addProduct = function(data) {
         contentType: false,
         success: function(response) {
             console.log(response);
+            tablaPedidos.ajax.reload();
 
 
         },
@@ -473,59 +527,6 @@ var addProduct = function(data) {
 $(document).ready(function () {
     $('#turno').select2();
     $('#recipiente').select2();
-    $('#tablaPedidos').DataTable({
-                    paging: true,
-                    ordering: true,
-                    info: true,
-                    autoWidth: false,
-                    responsive: true,
-                    language: {
-                        "sProcessing":     "Procesando...",
-                        "sLengthMenu":     "Mostrar _MENU_ registros",
-                        "sZeroRecords":    "No se encontraron resultados",
-                        "sEmptyTable":     "Ningún dato disponible en Clientes",
-                        "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
-                        "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0",
-                        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-                        "sInfoPostFix":    "",
-                        "sSearch":         "Buscar:",
-                        "sUrl":            "",
-                        "sInfoThousands":  ",",
-                        "sLoadingRecords": "Cargando...",
-                        "oPaginate": {
-                        "sFirst":    "Primero",
-                        "sLast":     "Último",
-                        "sNext":     "Siguiente",
-                        "sPrevious": "Anterior"
-                        },
-                        "oAria": {
-                            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                        },
-
-
-                    },
-
-                    ajax:{
-                        "url": "{{route('pedido.lista')}}",
-                        "dataSrc":""
-                    },
-                    columns: [
-                      {data: "ID" },
-                      {data: "Cliente"},
-                       {data: "Fecha"},
-                       {data: "Monto"},
-                       {data: "Turno"},
-                       {data: "Estado"},
-                       {data: "Observaciones"},
-                       {data: "Ver"},
-                       {data: "Editar"},
-                       {data: "Eliminar"}
-
-                    ]
-
-    });
-
 
 
 
