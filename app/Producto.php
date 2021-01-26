@@ -9,6 +9,6 @@ class Producto extends Model
 {
  public function productoPedido( )
  {
-     return $this->hasMany('App\DetallePedido');
+     return $this->belongsToMany('App\DetallePedido');
  }
 }

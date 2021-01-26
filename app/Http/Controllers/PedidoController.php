@@ -136,18 +136,7 @@ class PedidoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function create(Request $request)
     {
         $userid=Auth::user()->users_id;
         $pedido = new Pedido();
@@ -160,6 +149,17 @@ class PedidoController extends Controller
         $pedido->users_id = $userid;
         $pedido->estado_id = 1;
         $pedido->recipiente_id = $request->idRecipiente;
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+
 
 
 

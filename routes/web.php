@@ -65,7 +65,7 @@ Route::get('/pedidos/xcobrar', 'PedidoController@xcobrar')->name('pedidos.xcobra
 Route::get('/pedidos/lista', 'PedidoController@list')->name('pedido.lista');
 Route::get('pedidos/detalle/{id}', ['as'=> 'detalle', 'uses'=>'PedidoController@detallePedido']);
 Route::get('pedidos/datoscliente/{id}', ['as'=> 'detalleEdit', 'uses'=>'PedidoController@detalleEdit']);
-Route::post('pedidos/crear', 'PedidoController@store' )->name('pedido.crear');
+Route::post('pedidos/crear', 'PedidoController@create' )->name('pedido.crear');
 Route::patch('pedidos/update','PedidoController@update')->name('pedido.edit');
 Route::delete('pedidos/delete','PedidoController@destroy')->name('pedido.delete');
 Route::get('pedidos/cliente','PedidoController@cliente')->name('pedido.cliente');

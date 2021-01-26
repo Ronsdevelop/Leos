@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use phpDocumentor\Reflection\Types\This;
 
 class Pedido extends Model
 {
@@ -17,6 +18,11 @@ class Pedido extends Model
     public function TipoEstado()
     {
         return $this->belongsTo(TipoEstado::class,'estado_id');
+    }
+
+    public function detallePedido(){
+        return $this->belongsToMany('App\Productos');
+
     }
 
 
