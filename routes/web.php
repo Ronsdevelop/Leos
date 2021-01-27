@@ -57,7 +57,6 @@ Route::patch('producto/update','ProductoController@update')->name('producto.edit
 Route::delete('producto/delete','ProductoController@destroy')->name('producto.delete');
 
 Route::get('/pedidos', 'PedidoController@index')->name('pedidos.all');
-
 Route::get('/pedidos/deldia', 'PedidoController@dia')->name('pedidos.dia');
 Route::get('/pedidos/pendientes', 'PedidoController@pendientes')->name('pedidos.pendientes');
 Route::get('/pedidos/xcobrar', 'PedidoController@xcobrar')->name('pedidos.xcobrar');
@@ -70,6 +69,10 @@ Route::patch('pedidos/update','PedidoController@update')->name('pedido.edit');
 Route::delete('pedidos/delete','PedidoController@destroy')->name('pedido.delete');
 Route::get('pedidos/cliente','PedidoController@cliente')->name('pedido.cliente');
 Route::get('pedidos/producto','PedidoController@producto')->name('pedido.producto');
+
+Route::get('pos','PosController@index')->name('pos');
+
+
 
 
 

@@ -276,9 +276,9 @@ return [
             ],
         ],
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
+            'text'        => 'P.O.S.',
+            'url'         => 'pos',
+            'icon'        => 'fas fa-vote-yea',
             'label'       => 4,
             'label_color' => 'success',
         ],
