@@ -8,6 +8,7 @@ use App\Pedido;
 use App\Producto;
 use App\RecipienteEntrega;
 use App\Turno;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -43,6 +44,7 @@ class PedidoController extends Controller
             $observa = is_null($pedido->observaciones)?'NINGUNA':$pedido->observaciones;
 
             $pedidos[$key] =[
+                "DT_RowId"=>"row_".$pedido->id,
                 "ID" => $pedido->id,
                 "Cliente" => $pedido->alias,
                 "Fecha" => $pedido->fPedido,
@@ -138,28 +140,40 @@ class PedidoController extends Controller
      */
     public function create(Request $request)
     {
-        $userid=Auth::user()->users_id;
-        $pedido = new Pedido();
-        $pedido->fPedido  = $request->fecha;
-        $pedido->monto = $request->totalPedido;
-        $pedido->cantPan = $request->totalPanes;
-        $pedido->observaciones = $request->observacion;
-        $pedido->cliente_id = $request->idCliente;
-        $pedido->turno_id = $request->idTurno;
-        $pedido->users_id = $userid;
-        $pedido->estado_id = 1;
-        $pedido->recipiente_id = $request->idRecipiente;
-        $pedido->save();
-        foreach ($request->products as $producto) {
-            $dtPedido = new DetallePedido();
-            $idPedido = $pedido->id;
-            $dtPedido->pedido_id = $idPedido;
-            $dtPedido->producto_id = $producto['item_id'];
-            $dtPedido->cantidad = $producto['item_cantidad'];
-            $dtPedido->cant_x_sol = $producto['item_precio'];
-            $dtPedido->save();
+        try {
+
+            $userid=Auth::user()->users_id;
+            $pedido = new Pedido();
+            $pedido->fPedido  = $request->fecha;
+            $pedido->monto = $request->totalPedido;
+            $pedido->cantPan = $request->totalPanes;
+            $pedido->observaciones = $request->observacion;
+            $pedido->cliente_id = $request->idCliente;
+            $pedido->turno_id = $request->idTurno;
+            $pedido->users_id = $userid;
+            $pedido->estado_id = 1;
+            $pedido->recipiente_id = $request->idRecipiente;
+            $pedido->save();
+            foreach ($request->products as $producto) {
+                $dtPedido = new DetallePedido();
+                $idPedido = $pedido->id;
+                $dtPedido->pedido_id = $idPedido;
+                $dtPedido->producto_id = $producto['item_id'];
+                $dtPedido->cantidad = $producto['item_cantidad'];
+                $dtPedido->cant_x_sol = $producto['item_precio'];
+                $dtPedido->save();
+            }
+            header('Content-Type: application/json');
+            echo json_encode(array('msg'=>'Guardado con Exito','id'=> $idPedido));
+            exit();
+
+        } catch (Exception $e) {
+
+            header('HTTP/1.1 422 Unprocessable Entity');
+            header('Content-Type: application/json; charset=UTF-8');
+            echo json_encode(array('errorMsg' => $e->getMessage()));
+            exit();
         }
-        return true;
 
     }
 

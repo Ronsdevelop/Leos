@@ -248,8 +248,6 @@
 @section('css')
 <link rel="stylesheet" href="{{ asset('vendor/jquery-ui/jquery-ui.min.css') }}">
 
-
-
 @stop
 
 @section('js')
@@ -514,8 +512,14 @@ var addProduct = function(data) {
         processData: false,
         contentType: false,
         success: function(response) {
-            console.log(response);
-            tablaPedidos.ajax.reload();
+            console.log(response.id);
+            id = response.id;
+
+            tablaPedidos.ajax.reload(function(json) {
+                if ($("#row_"+id).length) {
+                    $("#row_"+id).flash("yellow", 5000);
+                }
+            }, false);
 
 
         },
