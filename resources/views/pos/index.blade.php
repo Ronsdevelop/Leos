@@ -1,3 +1,4 @@
+
 @extends('adminlte::page')
 
 @section('title', 'Home')
@@ -9,253 +10,303 @@
 
 @section('content')
 
-<table style="width:100%;" class="layout-table">
-    <tr>
-        <td style="width: 460px;">
 
-            <div id="pos">
-                <form action="" id="pos-sale-form" method="post" accept-charset="utf-8">
-                    <div class="well well-sm" id="leftdiv">
-                        <div id="lefttop" style="margin-bottom:5px;">
-                                <div class="form-group" style="margin-bottom:5px;">
-                                    <div class="input-group">
-                                            <input type="text" class="form-control autocomplete-product" data-type="p_name"   id="add_item" placeholder="Seleccione Cliente">
-                                            <div class="input-group-append">
-                                                <div class="input-group-text"><i class="fas fa-plus-circle"></i>
-                                                </div>
-                                            </div>
+<!-- Content Wrapper Start -->
+<div class="content-area">
+    <div class="row-group">
+        <div class="content-row">
+
+            <!-- All Product List Section Start-->
+            <div id="left-panel" class="pos-content" style="<?php echo $user->getPreference('pos_side_panel') == 'left' ? 'float:right' : null; ?>">
+                <div class="contents">
+                    <div id="searchbox">
+                        <input ng-change="showProductList()" onClick="this.select();" type="text" id="product-name" name="product-name" ng-model="productName" placeholder="<?php echo trans('text_search_product'); ?>"  autofocus>
+                        <svg class="svg-icon search-btn"><use href="#icon-pos-search"></svg>
+                        <div class="category-search">
+                            <select class="form-control select2" name="category-search-select" id="category-search-select">
+                                  <option value=""><?php echo sprintf(trans('text_view_all'), 'Products'); ?></option>
+                                  <?php foreach (get_category_tree(array('filter_fetch_all' => true)) as $category_id => $category_name) :
+                                      if (get_total_valid_category_item($category_id) <= 0) { continue; } ?>
+                                      <option value="<?php echo $category_id; ?>"><?php echo $category_name; ?> (<?php echo get_total_valid_category_item($category_id); ?>)</option>
+                                  <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="item-list">
+                        <!-- <div class="pos-product-pagination pagination-top"></div> -->
+                        <div ng-show="showLoader" class="ajax-loader">
+                            <img src="../assets/itsolution24/img/loading2.gif">
+                        </div>
+                        <div class="add-new-product-wrapper" data-ng-class="{'show': showAddProductBtn}">
+                            <div class="add-new-product">
+                                <div class="add-new-product-btn">
+                                    <button ng-click="createNewProduct()" class="btn btn-lg btn-danger" style="width:auto;">
+                                        <span class="fa fa-fw fa-plus"></span>
+                                        <span><?php echo trans('button_add_product'); ?></span>
+                                    </button>
+                                    <a ng-click="OpenPurchaseProductModal();" class="btn btn-lg btn-danger" style="width:auto;">
+                                        <span class="fa fa-fw fa-money"></span>
+                                        <span><?php echo trans('button_add_purchase'); ?></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-repeat="products in productArray" id="{{ $index }}" class="btn btn-flat item">
+                            <div ng-click="addItemToInvoice(products.p_id,products)" class="item-inner">
+                                <div class="item-img">
+                                    <img ng-src="{{ products.p_image }}" alt="{{ products.p_name }}">
+                                </div>
+                                <span class="item-info" data-id="{{ products.p_id }}" data-name="{{ products.p_name }}">
+                                    <span>
+                                        {{ products.p_name | cut:true:20:' ...' }}
+                                    </span>
+                                </span>
+                                <span class="item-mask nowrap" title="{{ products.p_name }}">
+                                    <svg class="svg-icon"><use href="#icon-add"></svg>
+                                    <span><?php echo trans('label_add_to_cart'); ?></span>
+                                </span>
+                                <span ng-show="products.p_type=='service'"class="ibadge">Service</span>
+                            </div>
+                        </div>
+                        <div class="pos-product-pagination pagination-bottom"></div>
+                    </div>
+                    <div id="total-amount">
+                        <div class="total-amount-inner">
+                            <span class="currency-symbol">
+                                <?php echo get_currency_symbol(); ?>
+                            </span>
+                            <span class="main-amount">
+                                {{ totalPayable | formatDecimal:2 }}
+                            </span>
+                        </div>
+                        <div id="salesman">
+                            <input type="hidden" name="salesman_id" value="<?php echo user_id();?>">
+                            <!--
+                            <select id="salesman_id" name="salesman_id">
+                                <option value=""><?php //echo trans('text_select_salesman');?></option>
+                                <?php //foreach (get_salesmans() as $salesman) : ?>
+                                    <option value="<?php //echo $salesman['id']; ?>" <?php //echo store('salesman_id') == $salesman['id'] ? 'selected' : null; ?>>
+                                        <?php //echo $salesman['username']; ?>
+                                    </option>
+                                <?php //endforeach; ?>
+                            </select>
+                            -->
+                        </div>
+                        <a id="invoice-note" ng-click="addInvoiceNote()" data-note="" title="<?php echo trans('text_add_note'); ?>">
+
+                            <span class="fa fa-fw fa-comments-o"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- All Product Section End -->
+
+            <!--Invoive Section Start-->
+            <div id="right-panel" class="pos-content" style="<?php echo $user->getPreference('pos_side_panel') == 'left' ? 'float:left' : null; ?>">
+                <div class="invoice-area">
+                    <div class="well well-sm">
+
+                        <!-- Customer Area Start-->
+                        <div id="people-area">
+                            <input ng-change="showCustomerList()" onClick="this.select();" type="text" id="customer-name" name="customer-name" ng-model="customerName" ng-disabled="isEditMode" autocomplete="off">
+                            <input type="hidden" name="customer-id" value="{{ customerId }}">
+                            <div class="customer-icon">
+                                <a ng-click="showCustomerList(true)" onClick="return false;" href="#">
+                                    <svg class="svg-icon"><use href="#icon-pos-customer"></svg>
+                                </a>
+                            </div>
+                            <div class="edit-icon pointer">
+                                <span ng-click="CustomerEditModal();" class="fa fa-edit"></span>
+                                <span id="add-customer-mobile-number-handler" class="fa fa-mobile" style="font-size:18px;margin-left:5px;"></span>
+                                <input id="customer-mobile-number" type="hidden" name="customer-mobile-number">
+                            </div>
+                            <div ng-click="createNewCustomer();" class="add-icon">
+                                <svg class="svg-icon"><use href="#icon-pos-plus"></svg>
+                            </div>
+                            <div class="previous-due">
+                                <div class="previous-due-inner">
+                                    <h4>
+                                        <?php echo trans('label_due'); ?>
+                                        <a ng-show="dueAmount" href="customer_profile.php?customer_id={{ customerId }}&type=all_due" target="_blink">
+                                            <span id="dueAmount">
+                                                {{ dueAmount| formatDecimal:2 }}
+                                            </span>
+                                        </a>
+                                        <div ng-show="!dueAmount">
+                                            <span id="dueAmount">
+                                                {{ dueAmount| formatDecimal:2 }}
+                                            </span>
                                         </div>
+                                    </h4>
                                 </div>
-                            <div class="form-group" style="margin-bottom:5px;">
-                                <input type="text" name="hold_ref" value="" id="hold_ref" class="form-control kb-text" placeholder="Nota de referencia" />
                             </div>
-                            <div class="form-group" style="margin-bottom:5px;">
-                                <input type="text" name="code" id="add_item" class="form-control" placeholder="Busque el producto por codigo o nombre, también puede escanear el codigo de barras" />
+                            <div ng-hide="hideCustomerDropdown" id="customer-dropdown" class="slidedown-menu">
+                                <div class="slidedown-header">
+                                </div>
+                                <div class="slidedown-body">
+                                    <ul class="customer-list list-unstyled">
+                                        <li ng-repeat="customers in customerArray">
+                                            <a href="#" ng-click="addCustomer(customers);" onclick="return false;"><span class="fa fa-fw fa-user"></span>{{ customers.customer_name }} ({{ customers.customer_mobile || customers.customer_email }})
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                        <div id="print" class="fixed-table-container">
-                            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;"><div id="list-table-div" style="overflow: hidden; width: auto; height: 342px;">
+                        <!-- Customer Area Start-->
 
-                                <table id="posTable" class="table table-striped table-sm table-hover list-table" style="margin:0px;" data-height="100">
-                                    <thead>
-                                        <tr class="bg-success">
-                                            <th>Producto</th>
-                                            <th style="width: 15%;text-align:center;">Precio</th>
-                                            <th style="width: 15%;text-align:center;">Cantidad</th>
-                                            <th style="width: 20%;text-align:center;">Subtotal</th>
-                                            <th style="width: 20px;" class="satu"><i class="fa fa-trash"></i></th>
-                                        </tr>
-                                    </thead>
+                        <!-- Invoice Item Start-->
+                        <div id="invoice-item">
+                            <!-- Selected Product List Title Start -->
+                            <table id="invoice-item-head" class="table table-striped">
+                                <thead>
+                                    <tr class="bg-gray">
+                                        <th>
+                                            <?php echo trans('label_quantity'); ?>
+                                        </th>
+                                        <th>
+                                            <?php echo trans('label_product'); ?>
+                                        </th>
+                                        <th>
+                                            <?php echo trans('label_price'); ?>
+                                        </th>
+                                        <th>
+                                            <?php echo trans('label_subtotal'); ?>
+                                        </th>
+                                        <th>&nbsp; </th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <!-- Selected Product List Title Start -->
+
+                            <!-- Selected Product List Section Start-->
+                            <div id="invoice-item-list">
+                                <table class="table table-hovered">
                                     <tbody>
-                                        <tr id="1611837512757" class="16118375197665 bg-danger" data-item-id="16118375197665" data-id="6">
-                                            <td>
-                                                <input name="product_id[]" type="hidden" class="rid" value="6">
-                                                <input name="item_comment[]" type="hidden" class="ritem_comment" value="">
-                                                <input name="product_code[]" type="hidden" value="100100">
-                                                <input name="product_name[]" type="hidden" value="CARNE">
-                                                <button type="button" class="btn btn-block btn-xs edit btn-warning" id="1611837512757" data-item="16118375197665">
-                                                    <span class="sname" id="name_1611837512757">CARNE (100100)</span>
+                                        <tr ng-repeat="items in itemArray" class="invoice-item">
+                                            <td class="product-quantity" id="invoice-item-{{ items.id }}">
+                                                <input type="hidden" name="p_type" value="{{ items.pType }}">
+                                                <button class="btn btn-xs btn-up" ng-click="addItemToInvoice(items.id)" title="Increase">
+                                                    <span class="fa fa-angle-up"></span>
+                                                </button>
+                                                <input type="text" name="item_price_{{ items.id }}" class="item_quantity text-center" id="item_quantity_{{ items.id }}" value="{{ items.quantity }}" data-itemid="{{ items.id }}" onClick="this.select();" ondrop="return false;" onpaste="return false;" style="width:40px;max-width:40px;border-radius: 50px;border: 1px solid #ddd;padding-top:0;padding-bottom:0;">
+                                                <span style="font-size:12px;"><i>{{ items.unitName }}</i></span>
+                                                <button class="btn btn-xs btn-down increasebtn{{ items.id }}" ng-click="DecreaseItemFromInvoice(items.id)" title="Decrease">
+                                                    <span class="fa fa-angle-down"></span>
                                                 </button>
                                             </td>
-                                            <td class="text-right">
-                                                <input class="realuprice" name="real_unit_price[]" type="hidden" value="16000.0000">
-                                                <input class="rdiscount" name="product_discount[]" type="hidden" id="discount_1611837512757" value="0">
-                                                <span class="text-right sprice" id="sprice_1611837512757">€16,000</span>
+                                            <td class="product-name">
+                                                <span>{{ items.name }}</span>
                                             </td>
-                                            <td>
-                                                <input name="item_was_ordered[]" type="hidden" class="riwo" value="0">
-                                                <input class="form-control input-qty kb-pad text-center rquantity" name="quantity[]" type="text" value="1" data-id="1611837512757" data-item="16118375197665" id="quantity_1611837512757" onclick="this.select();">
-                                            </td><td class="text-right">
-                                                <span class="text-right ssubtotal" id="subtotal_1611837512757">€16,000</span>
+                                            <td class="product-price">
+                                                <?php if (get_preference('change_item_price_while_billing') == 1) : ?>
+                                                    <input type="text" class="text-center item_price" id="item_price_{{ items.id }}" name="item_price_{{ items.id }}" value="{{ items.price | formatDecimal:2 }}" data-itemid="{{ items.id }}" onClick="this.select();" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" style="max-width:80px;padding:5px;border-radius: 20px;border:2px solid #ddd;">
+                                                <?php else : ?>
+                                                    {{ items.price | formatDecimal:2 }}
+                                                <?php endif; ?>
                                             </td>
-                                            <td class="text-center"><i class="fa fa-trash-o tip pointer posdel" id="1611837512757" title="Remove"></i>
+                                            <td class="product-subtotal">
+                                                {{ items.subTotal | formatDecimal:2 }}
                                             </td>
-                                        </tr>
-                                        <tr id="1611837512752" class="16118372814294 bg-danger" data-item-id="16118372814294" data-id="24">
-                                            <td>
-                                                <input name="product_id[]" type="hidden" class="rid" value="24">
-                                                <input name="item_comment[]" type="hidden" class="ritem_comment" value="">
-                                                <input name="product_code[]" type="hidden" value="0102">
-                                                <input name="product_name[]" type="hidden" value="leche">
-                                                <button type="button" class="btn btn-block btn-xs edit btn-warning" id="1611837512752" data-item="16118372814294">
-                                                    <span class="sname" id="name_1611837512752">leche (0102)</span>
-                                                </button>
-                                            </td>
-                                            <td class="text-right">
-                                                <input class="realuprice" name="real_unit_price[]" type="hidden" value="1200.0000">
-                                                <input class="rdiscount" name="product_discount[]" type="hidden" id="discount_1611837512752" value="0">
-                                                <span class="text-right sprice" id="sprice_1611837512752">€1,200</span>
-                                            </td>
-                                            <td>
-                                                <input name="item_was_ordered[]" type="hidden" class="riwo" value="0">
-                                                <input class="form-control input-qty kb-pad text-center rquantity" name="quantity[]" type="text" value="1" data-id="1611837512752" data-item="16118372814294" id="quantity_1611837512752" onclick="this.select();">
-                                            </td>
-                                            <td class="text-right">
-                                                <span class="text-right ssubtotal" id="subtotal_1611837512752">€1,200</span>
-                                            </td>
-                                            <td class="text-center"><i class="fa fa-trash-o tip pointer posdel" id="1611837512752" title="Remove"></i>
+                                            <td class="product-delete text-red pointer" ng-click="removeItemFromInvoice($index, items.id)">
+                                                <span class="fa fa-close"></span>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="slimScrollBar" style="background: rgb(0, 0, 0); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 342px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div></div>
-                            <div style="clear:both;"></div>
-                            <div id="totaldiv">
-                                <table id="totaltbl" class="table table-sm totals" style="margin-bottom:10px;">
+                            <!-- Selected Product List Section End-->
+
+                            <!-- Selected Product Calculation Section Start-->
+                            <div id="invoice-calculation" class="clearfix">
+                                <table class="table">
                                     <tbody>
-                                        <tr class="bg-info">
-                                            <td width="25%">Articulos totales</td>
-                                            <td class="text-right" style="padding-right:10px;"><span id="count">2 (€2)</span></td>
-                                            <td width="25%">Total</td>
-                                            <td class="text-right" colspan="2"><span id="total">€17,200</span></td>
-                                        </tr>
-                                        <tr class="bg-info">
-                                            <td width="25%"><a href="#" id="add_discount">Descuento</a></td>
-                                            <td class="text-right" style="padding-right:10px;"><span id="ds_con">(€0) €0</span></td>
-                                            <td width="25%"><a href="#" id="add_tax">Orden impuesto</a></td>
-                                            <td class="text-right"><span id="ts_con">€0</span></td>
-                                        </tr>
-                                        <tr class="bg-success">
-                                            <td colspan="2" style="font-weight:bold;">
-                                                Total a pagar                                                            <a role="button" data-toggle="modal" data-target="#noteModal">
-                                                    <i class="fa fa-comment"></i>
-                                                </a>
+                                        <tr class="bg-gray">
+                                            <td width="30%">
+                                                <?php echo trans('label_total_items'); ?>
                                             </td>
-                                            <td class="text-right" colspan="2" style="font-weight:bold;"><span id="total-payable">€17,200</span></td>
+                                            <td class="text-right" width="20%">
+                                                {{ totalItem }} ({{ totalQuantity }})
+                                            </td>
+                                            <td width="30%">
+                                                <?php echo trans('label_total'); ?>
+                                            </td>
+                                            <td class="text-right" width="20%">
+                                                {{ totalAmount  | formatDecimal:2 }}
+                                            </td>
+                                        </tr>
+                                        <tr class="pay-top">
+                                            <td>
+                                                <?php echo trans('label_discount'); ?>
+                                            </td>
+                                            <td class="text-right">
+                                                <input id="discount-input" ng-change="addDiscount()" onClick="this.select();" type="text" name="discount-amount" ng-model="discountInput" ondrop="return false;" onpaste="return false;" autocomplete="off">
+                                            </td>
+                                            <td>
+                                                <?php echo trans('label_tax_amount'); ?> (%)
+                                            </td>
+                                            <td class="text-right">
+                                                <input ng-init="taxInput=<?php echo get_preference('tax'); ?>" ng-change="addTax()" onClick="this.select();" type="text" name="tax-amount" ng-model="taxInput" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" autocomplete="off">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <?php echo trans('label_shipping_charge'); ?>
+                                            </td>
+                                            <td class="text-right">
+                                                <input class="text-center shipping" ng-change="addShipping()" onClick="this.select();" type="text" name="shipping-amount" ng-model="shippingInput" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" autocomplete="off">
+                                            </td>
+                                            <td>
+                                                <?php echo trans('label_others_charge'); ?>
+                                            </td>
+                                            <td class="text-right">
+                                                <input class="text-center others-charge" ng-change="addOthersCharge()" onClick="this.select();" type="text" name="others-charge" ng-model="othersChargeInput" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" autocomplete="off">
+                                            </td>
+                                        </tr>
+                                        <tr class="bg-gray">
+                                            <td colspan="3">
+                                                <?php echo trans('label_total_payable'); ?>
+                                            </td>
+                                            <td class="text-right">
+                                                {{ totalPayable  | formatDecimal:2 }}
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
+                            <!-- Selected Product Calculation Section End-->
                         </div>
+                        <!-- Invoice Item End-->
 
-
-                        <div id="botbuttons" class="col-sm-12 text-center">
-                            <div class="row">
-                                <div class="col-sm-4" style="padding: 0;">
-                                    <div class="btn-group-vertical btn-block">
-                                        <button type="button" class="btn btn-warning btn-block "
-                                        id="suspend">Hold</button>
-                                        <button type="button" class="btn btn-danger btn-block "
-                                        id="reset">Cancelar</button>
-                                    </div>
-
+                        <!-- Action Button Section Start-->
+                        <div id="pay-button" class="text-center">
+                            <div class="btn-group btn-group-justified">
+                                <div class="btn-group">
+                                    <button ng-click="payNow()" onClick="return false;" class="btn btn-success" data-loading-text="Processing..." title="Payment">
+                                        <span class="fa fa-fw fa-money"></span>
+                                        <?php echo trans('button_pay'); ?>
+                                    </button>
                                 </div>
-                                <div class="col-sm-4" style="padding: 0 5px;">
-                                    <div class="btn-group-vertical btn-block">
-                                        <button type="button" class="btn bg-purple btn-block " id="print_order">Imprimir orden</button>
-
-                                        <button type="button" class="btn bg-navy btn-block " id="print_bill">Imprimir factura</button>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4" style="padding: 0;">
-                                    <button type="button" class="btn btn-success btn-block " id="payment" style="height:100%;">Pago</button>
+                                <div class="btn-group">
+                                    <button ng-click="HoldingOrderModal()" on-click="return false;" class="btn btn-danger" data-loading-text="Processing..." title="Order Holdinbg">
+                                        <span class="fa fa-fw fa-crosshairs"></span>
+                                        <?php echo trans('button_hold'); ?>
+                                    </button>
                                 </div>
                             </div>
+                        </div>
+                        <!-- Action Button Section End-->
 
-                        </div>
-
-
-                        <input type="hidden" name="spos_note" value="" id="spos_note">
-
-                        <div id="payment-con">
-                            <input type="hidden" name="amount" id="amount_val" value=""/>
-                            <input type="hidden" name="balance_amount" id="balance_val" value=""/>
-                            <input type="hidden" name="paid_by" id="paid_by_val" value="cash"/>
-                            <input type="hidden" name="cc_no" id="cc_no_val" value=""/>
-                            <input type="hidden" name="paying_gift_card_no" id="paying_gift_card_no_val" value=""/>
-                            <input type="hidden" name="cc_holder" id="cc_holder_val" value=""/>
-                            <input type="hidden" name="cheque_no" id="cheque_no_val" value=""/>
-                            <input type="hidden" name="cc_month" id="cc_month_val" value=""/>
-                            <input type="hidden" name="cc_year" id="cc_year_val" value=""/>
-                            <input type="hidden" name="cc_type" id="cc_type_val" value=""/>
-                            <input type="hidden" name="cc_cvv2" id="cc_cvv2_val" value=""/>
-                            <input type="hidden" name="balance" id="balance_val" value=""/>
-                            <input type="hidden" name="payment_note" id="payment_note_val" value=""/>
-                        </div>
-                        <input type="hidden" name="customer" id="customer" value="3" />
-                        <input type="hidden" name="order_tax" id="tax_val" value="" />
-                        <input type="hidden" name="order_discount" id="discount_val" value="" />
-                        <input type="hidden" name="count" id="total_item" value="" />
-                        <input type="hidden" name="did" id="is_delete" value="0" />
-                        <input type="hidden" name="eid" id="is_delete" value="0" />
-                        <input type="hidden" name="total_items" id="total_items" value="0" />
-                        <input type="hidden" name="total_quantity" id="total_quantity" value="0" />
-                        <input type="submit" id="submit" value="Submit Sale" style="display: none;" />
-                    </div>
-                </form>
-            </div>
-
-        </td>
-        <td>
-            <div class="container-fluid" id="right-col" style="height: 100%;">
-                <div id="item-list">
-                    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 250px;">
-                        <div class="items" style="overflow: hidden; width: auto; height: 652px;">
-                        <div>
-                            <button type="button" data-name="leche" id="product-0024" value="0102" class="btn btn-name btn-default btn-flat product">leche</button>
-                            <button type="button" data-name="CARNE" id="product-0006" value="100100" class="btn btn-name btn-default btn-flat product">CARNE</button>
-                            <button type="button" data-name="Pan" id="product-0022" value="12345567" class="btn btn-name btn-default btn-flat product">Pan</button>
-                            <button type="button" data-name="CEVILAT ADULTO CAJA X 10 SORES" id="product-0007" value="123456" class="btn btn-name btn-default btn-flat product">CEVILAT ADULTO CAJA X 10 SORES</button>
-                            <button type="button" data-name="CATERINE ZAPATA SERNA" id="product-0023" value="23532332343344" class="btn btn-name btn-default btn-flat product">CATERINE ZAPATA SERNA</button>
-                            <button type="button" data-name="tttt" id="product-0025" value="526352" class="btn btn-name btn-default btn-flat product">tttt</button>
-                        </div>
-                    </div>
-                    <div class="slimScrollBar" style="background: rgb(0, 0, 0); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 652px;">
-                    </div>
-                    <div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;">
-                    </div>
-                </div>
-                </div>
-                <div class="product-nav">
-                    <div class="btn-group btn-group-justified">
-                        <div class="btn-group">
-                            <button style="z-index:10002;" class="btn btn-warning pos-tip btn-flat" type="button" id="previous" disabled="disabled"><i class="fa fa-chevron-left"></i>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button style="z-index:10003;" class="btn btn-success pos-tip btn-flat" type="button" id="sellGiftCard"><i class="fa fa-credit-card" id="addIcon"></i> Vender tarjeta de regalo</button>
-                        </div>
-                        <div class="btn-group">
-                            <button style="z-index:10004;" class="btn btn-warning pos-tip btn-flat" type="button" id="next" disabled="disabled"><i class="fa fa-chevron-right"></i></button>
-                        </div>
+                        <div class="clearfix"></div>
                     </div>
                 </div>
             </div>
-        </td>
-      {{--   <td>
-            <div class="contents" id="right-col">
-                <div id="item-list">
-                    <div class="items">
-                        <div>
-                            <button type="button" data-name="leche" id="product-0024" type="button" value='0102' class="btn btn-name btn-default btn-flat product">leche</button>
-                            <button type="button" data-name="CARNE" id="product-0006" type="button" value='100100' class="btn btn-name btn-default btn-flat product">CARNE</button>
-                            <button type="button" data-name="Pan" id="product-0022" type="button" value='12345567' class="btn btn-name btn-default btn-flat product">Pan</button>
-                            <button type="button" data-name="CEVILAT ADULTO CAJA X 10 SORES" id="product-0007" type="button" value='123456' class="btn btn-name btn-default btn-flat product">CEVILAT ADULTO CAJA X 10 SORES</button>
-                            <button type="button" data-name="CATERINE ZAPATA SERNA" id="product-0023" type="button" value='23532332343344' class="btn btn-name btn-default btn-flat product">CATERINE ZAPATA SERNA</button>
-                            <button type="button" data-name="tttt" id="product-0025" type="button" value='526352' class="btn btn-name btn-default btn-flat product">tttt</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-nav">
-                    <div class="btn-group btn-group-justified">
-                        <div class="btn-group">
-                            <button style="z-index:10002;" class="btn btn-warning pos-tip btn-flat" type="button" id="previous"><i class="fa fa-chevron-left"></i></button>
-                        </div>
-                        <div class="btn-group">
-                            <button style="z-index:10003;" class="btn btn-success pos-tip btn-flat" type="button" id="sellGiftCard"><i class="fa fa-credit-card" id="addIcon"></i> Vender tarjeta de regalo</button>
-                        </div>
-                        <div class="btn-group">
-                            <button style="z-index:10004;" class="btn btn-warning pos-tip btn-flat" type="button" id="next"><i class="fa fa-chevron-right"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </td> --}}
-    </tr>
-</table>
+            <!-- Invoice Section End -->
 
-
+        </div>
+    </div>
+</div>
+<!-- Content Wrapper End -->
 
 @stop
 
