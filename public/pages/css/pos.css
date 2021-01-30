@@ -8,11 +8,11 @@
  *  Author        :   ITsolution24
  *  Author URI    :   ITsolution24.com
  *  License       :   MIT
- *  License URI   :   
+ *  License URI   :
  *
  *
  *  Core: General Layout Style
- * 
+ *
  ************************************************************
  ************************************************************
  */
@@ -44,8 +44,8 @@
 	margin:0;
 	padding:0;
 }
-a:focus, 
-a:hover, 
+a:focus,
+a:hover,
 a:active {
     outline: 0 none;
 }
@@ -61,11 +61,11 @@ body {
 	margin-bottom:20px;
 }
 .context-menu-list {
-    border-radius: 0!important;  
+    border-radius: 0!important;
     outline: 0 none;
 }
 .form-control,
-.form-group-lg .form-control, 
+.form-group-lg .form-control,
 .input-lg,
 .pos .btn {
 	border-radius: 0;
@@ -77,13 +77,13 @@ body {
 .sidebar-toggle {
 	display: none;
 }
-.btn, 
-.btn-group, 
-.btn-group-vertical, 
-.caret, 
+.btn,
+.btn-group,
+.btn-group-vertical,
+.caret,
 .checkbox-inline,
-.fa-stack, 
-.radio-inline, 
+.fa-stack,
+.radio-inline,
 img {
     vertical-align: middle;
 }
@@ -97,7 +97,7 @@ img {
 	display: none;
 }
 .modal-open {
-     margin-right: 0; 
+     margin-right: 0;
 }
 .modal-lg {
 	width: 97%;
@@ -194,7 +194,7 @@ img {
 ---------------------------------------
 */
 #searchbox {
-	margin-bottom: 2px;
+	margin-bottom: 3px;
     position: relative;
     box-shadow: -1px 3px 3px rgba(0,0,0,0.2);
     z-index: 1050;
@@ -210,7 +210,7 @@ img {
 }
 #searchbox input {
     width: 100%;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: #999;
     font-weight: 700;
     text-indent: 35px;
@@ -261,7 +261,7 @@ img {
     padding: 0;
     -webkit-transition: all .3s linear;
     transition: all .3s linear;
-    white-space: unset;	
+    white-space: unset;
 }
 #item-list .item .item-inner {
 	position: relative;
@@ -304,7 +304,7 @@ img {
     height: 35px;
     width: 100%;
     margin-left: 0px;
-    background-color: #f39c12;
+    background-color: #0c0c0b;
     -webkit-transition: .3s;
     transition: .3s;
     display: block;
@@ -321,7 +321,7 @@ img {
 #item-list .item .item-mask span {
 	width: 90%;
 	float: left;
-	font-size: 1.6rem;
+	font-size: 0.9rem;
 	line-height: 22px;
 	color: #fff;
 }
@@ -396,7 +396,7 @@ img {
 	margin-right: -3px;
 }
 
-.pos-product-pagination > .pagination > li > a, 
+.pos-product-pagination > .pagination > li > a,
 .pos-product-pagination > .pagination > li > span {
 	padding: 0 6px;
 	border-radius: 50px;
@@ -485,7 +485,7 @@ img {
 }
 /*
 -------------------------------------------
-    3.01. start customer area 
+    3.01. start customer area
 -------------------------------------------
 */
 #people-area {
