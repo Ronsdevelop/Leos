@@ -175,7 +175,7 @@
                                         <div ng-repeat="products in productArray"  id="0" class="btn btn-flat item">
                                             <div ng-click="addItemToInvoice(products.p_id,products)" class="item-inner">
                                                 <div class="item-img">
-                                                    <img src="/storage/img/Productos/1.png" alt="Pan Frances.">
+                                                    <img src="/storage/img/Productos/1.jpg" alt="Pan Frances.">
                                                 </div>
                                                 <span class="item-info" data-id="...." data-name="...">
                                                     <span>

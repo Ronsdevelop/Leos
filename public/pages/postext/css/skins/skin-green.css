@@ -3,7 +3,7 @@
  * -----------
  */
 .skin-green .main-header .navbar {
-  background-color: #00a65a;
+  background-color: #ffc107;
 }
 .skin-green .main-header .navbar .nav > li > a {
   color: #ffffff;
@@ -29,7 +29,7 @@
   color: #fff;
 }
 .skin-green .main-header .navbar .sidebar-toggle:hover {
-  background-color: #008d4c;
+  background-color:#ffc107;
 }
 @media (max-width: 767px) {
   .skin-green .main-header .navbar .dropdown-menu li.divider {
@@ -39,19 +39,19 @@
     color: #fff;
   }
   .skin-green .main-header .navbar .dropdown-menu li a:hover {
-    background: #008d4c;
+    background: #ffc107;
   }
 }
 .skin-green .main-header .logo {
-  background-color: #008d4c;
+  background-color:#ffc107;
   color: #ffffff;
   border-bottom: 0 solid transparent;
 }
 .skin-green .main-header .logo:hover {
-  background-color: #008749;
+  background-color: #ffc107;
 }
 .skin-green .main-header li.user-header {
-  background-color: #00a65a;
+  background-color: #ffc107;
 }
 .skin-green .content-header {
   background: transparent;
@@ -150,7 +150,7 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9dd53a', endColorstr='#7cbc0a',GradientType=0 );
 }
 .skin-green .modal-title {color:#fff;}
-.skin-green .navbar-custom-menu>.navbar-nav>li:hover>a:after, 
+.skin-green .navbar-custom-menu>.navbar-nav>li:hover>a:after,
 .skin-green .navbar-custom-menu>.navbar-nav>li.active>a:after {
   border-top-color: #009551;
 }
@@ -197,7 +197,7 @@
   background-color: #008d4c;
     color: #fff;
 }
-.skin-green #totaltbl table tr.row1, 
+.skin-green #totaltbl table tr.row1,
 .skin-green #totaltbl table tr.row2 {
   background-color: #b5ead2;
 }
