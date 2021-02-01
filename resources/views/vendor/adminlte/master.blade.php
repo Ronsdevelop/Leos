@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
+
 <head>
 
     {{-- Base Meta Tags --}}
@@ -17,6 +18,7 @@
         @yield('title_prefix', config('adminlte.title_prefix', ''))
         @yield('title', config('adminlte.title', 'AdminLTE 3'))
         @yield('title_postfix', config('adminlte.title_postfix', ''))
+
     </title>
 
     {{-- Custom stylesheets (pre AdminLTE) --}}
@@ -48,6 +50,10 @@
     {{-- Custom Stylesheets (post AdminLTE) --}}
     @yield('adminlte_css')
 
+
+
+
+
     {{-- Favicon --}}
     @if(config('adminlte.use_ico_only'))
         <link rel="shortcut icon" href="{{ asset('favicons/favicon.ico') }}" />
@@ -74,6 +80,7 @@
 </head>
 
 <body class="@yield('classes_body')" @yield('body_data')>
+
 
     {{-- Body Content --}}
     @yield('body')

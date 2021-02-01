@@ -40,6 +40,10 @@
  *                                                                             *
  */
 
+
+
+
+
 * {
 	margin:0;
 	padding:0;
@@ -123,6 +127,9 @@ img {
 	color: #000000;
 }
 .pos-content-wrapper {
+	display:block;
+}
+.content-header {
 	display:none;
 }
 .pos .content-area {

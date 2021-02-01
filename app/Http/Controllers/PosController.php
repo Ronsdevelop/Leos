@@ -13,7 +13,7 @@ class PosController extends Controller
      */
     public function index()
     {
-        return view('pos.index');
+        return view('pos.posexterno');
     }
 
     /**
