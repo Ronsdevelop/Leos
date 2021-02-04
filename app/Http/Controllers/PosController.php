@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Categoria;
 use Illuminate\Http\Request;
 
 class PosController extends Controller
@@ -13,7 +14,8 @@ class PosController extends Controller
      */
     public function index()
     {
-        return view('pos.posexterno');
+        $categorias = Categoria::all();
+        return view('Pos.index', compact('categorias'));
     }
 
     /**

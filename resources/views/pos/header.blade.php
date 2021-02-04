@@ -1,7 +1,7 @@
 <header class="main-header">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-    <a href="dashboard.php" class="logo">
+    <a href="home" class="logo">
         <span class="logo-mini">
             <b title="Panadería Leos">P</b>L
         </span>
@@ -15,7 +15,7 @@
             <span class="sr-only">#</span>
         </a>
 
-        <ul class="nav navbar-nav navbar-left">
+     {{--    <ul class="nav navbar-nav navbar-left">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="ES">
                     <img src="{{ asset('pages/postext/img/flags/es.png') }}" alt="Español">
@@ -27,12 +27,12 @@
             <li>
                 <a href="#" onClick="return false;" id="live_datetime"></a>
             </li>
-        </ul>
+        </ul> --}}
         <!-- navbar custome menu start -->
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
                 <li class="user user-menu active sell-btn">
-                    <a href="pos.php" title="pos">
+                    <a href="pos" title="pos">
                         <svg class="svg-icon"><use href="#icon-pos-green"></svg>
                         <span class="text">pos</span>
                     </a>
