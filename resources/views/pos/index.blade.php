@@ -286,11 +286,12 @@
         <!-- Content Wrapper End -->
     </div>
 
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('vendor/select2/js/select2.min.js') }}"></script>
-    <script src="{{ asset('pages/postext/angular/lib/angular/angular.min.js') }}"></script>
-    <script src="{{ asset('pages/postext/angular/angularApp.js') }}"></script>
-    <script src="{{ asset('pages/postext/angular/controllers/PosController.js') }}"></script>
+
+
+
+    <script src="{{ asset('vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{ asset('vendor/select2/js/select2.min.js')}}"></script>
+
 
     <script type="text/javascript">
      $('#category-search-select').select2();
