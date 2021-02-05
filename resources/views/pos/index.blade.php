@@ -38,7 +38,7 @@
                                 <svg class="svg-icon search-btn"><use href="#icon-pos-search"></svg>
                                 <div class="category-search">
                                     <select class="form-control select2" name="category-search-select" id="category-search-select">
-                                        <option value="">VER TODOS</option>
+                                        <option value="0">VER TODOS</option>
                                         @foreach ($categorias as $categoria)
                                         <option value="{{$categoria['id']}}">{{$categoria['categoria']}}</option>
                                         @endforeach
@@ -66,14 +66,14 @@
                                     </div>
                                 </div>
 
-
+                                @foreach ($productos as $Producto)
                                 <div ng-repeat="products in productArray"  id="0" class="btn btn-flat item">
                                     <div ng-click="addItemToInvoice(products.p_id,products)" class="item-inner">
                                         <div class="item-img">
                                             <img src="/storage/img/Productos/1.jpg" alt="Pan Frances.">
                                         </div>
                                         <span class="item-info" data-id="...." data-name="...">
-                                            <span>Pan Frances</span>
+                                            <span>{{$Producto['nombre']}}</span>
                                         </span>
                                         <span class="item-mask text-nowrap " title="Agregar Producto">
                                             <svg class="svg-icon"><use href="#icon-add"></svg>
@@ -82,6 +82,11 @@
 
                                     </div>
                                 </div>
+
+                                @endforeach
+
+
+
                                 <div class="pos-product-pagination pagination-bottom"></div>
                             </div>
                             <div id="total-amount">
@@ -291,11 +296,122 @@
 
     <script src="{{ asset('vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{ asset('vendor/select2/js/select2.min.js')}}"></script>
+    <script src="{{ asset('vendor/jquery-ui/jquery-ui.min.js') }} "></script>
 
 
     <script type="text/javascript">
+    var areaProductos = '';
+    window.CSRF_TOKEN = '{{ csrf_token() }}';
      $('#category-search-select').select2();
         $(document).ready(function() {
+
+            $("#product-name").autocomplete({
+
+                source:function(request,response) {
+                    var op = $('#category-search-select').val();
+                    areaProductos = '';
+                    $.ajax({
+                        url: "{{route('pos.producto')}}",
+                        data: {
+                            op:op,
+                            term:request.term
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                            data.forEach(element => {
+                            areaProductos+=`
+                            <div ng-repeat="products in productArray"  id="0" class="btn btn-flat item">
+                                    <div ng-click="addItemToInvoice(products.p_id,products)" class="item-inner">
+                                        <div class="item-img">
+                                            <img src="/storage/img/Productos/1.jpg" alt="Pan Frances.">
+                                        </div>
+                                        <span class="item-info" data-id="...." data-name="...">
+                                            <span>${element['nombre']}</span>
+                                        </span>
+                                        <span class="item-mask text-nowrap " title="Agregar Producto">
+                                            <svg class="svg-icon"><use href="#icon-add"></svg>
+                                            <span >AGREGAR A CARRITO</span>
+                                        </span>
+
+                                    </div>
+                                </div>
+                             `;
+                        });
+                        $('#item-list').html(areaProductos);
+
+                        }
+                    });
+
+                },
+                /* focusOpen: true,
+                autoFocus: true,
+                minLength: 0,
+                select:function(event,ui) {
+                    var data = {
+                        itemId: ui.item.id,
+                        itemNombre: ui.item.value,
+                        itemCantidad: 1,
+                        itemPrecioU: ui.item.precio
+                        };
+                    addProduct(data);
+                },
+                open: function () {
+
+                    if ($(".ui-autocomplete .ui-menu-item").length == 1) {
+                        $(".ui-autocomplete .ui-menu-item:first-child").trigger("click");
+                        $("#add_item").val("");
+                        $("#add_item").focus();
+                    }
+                },
+                close: function () {
+                    $(document).find(".autocomplete-product").blur();
+                    $(document).find(".autocomplete-product").val("");
+                    $("#add_item").focus();
+                }, */
+                });
+
+
+
+            $('#category-search-select').change(function (e) {
+                e.preventDefault();
+                let op = $('#category-search-select').val();
+
+                $.ajax({
+                    headers: {'X-CSRF-TOKEN': window.CSRF_TOKEN},
+                    type: "POST",
+                    url: "{{route('pos.productos')}}",
+                    data: {'op':op},
+                    dataType: "JSON",
+                    success: function (response) {
+
+                        response.forEach(element => {
+                            areaProductos+=`
+                            <div ng-repeat="products in productArray"  id="0" class="btn btn-flat item">
+                                    <div ng-click="addItemToInvoice(products.p_id,products)" class="item-inner">
+                                        <div class="item-img">
+                                            <img src="/storage/img/Productos/1.jpg" alt="Pan Frances.">
+                                        </div>
+                                        <span class="item-info" data-id="...." data-name="...">
+                                            <span>${element['nombre']}</span>
+                                        </span>
+                                        <span class="item-mask text-nowrap " title="Agregar Producto">
+                                            <svg class="svg-icon"><use href="#icon-add"></svg>
+                                            <span >AGREGAR A CARRITO</span>
+                                        </span>
+
+                                    </div>
+                                </div>
+                             `;
+                        });
+                        $('#item-list').html(areaProductos);
+
+
+                    }
+                });
+
+            });
+
+
 
             var $pos = $(".pos-content-wrapper");
             $pos.fadeOut(100).fadeIn(500);

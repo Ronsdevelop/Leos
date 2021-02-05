@@ -71,6 +71,8 @@ Route::get('pedidos/cliente','PedidoController@cliente')->name('pedido.cliente')
 Route::get('pedidos/producto','PedidoController@producto')->name('pedido.producto');
 
 Route::get('pos','PosController@index')->name('pos');
+Route::post('pos/store','PosController@store')->name('pos.productos');
+Route::get('pos/producto','PosController@producto')->name('pos.producto');
 
 
 

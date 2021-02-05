@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Categoria;
+use App\Producto;
 use Illuminate\Http\Request;
 
 class PosController extends Controller
@@ -15,7 +16,8 @@ class PosController extends Controller
     public function index()
     {
         $categorias = Categoria::all();
-        return view('Pos.index', compact('categorias'));
+        $productos = Producto::all();
+        return view('Pos.index', compact('categorias','productos'));
     }
 
     /**
@@ -27,6 +29,14 @@ class PosController extends Controller
     {
         //
     }
+    public function producto(Request $request)
+    {
+        if ($request->op !=0) {
+            $productos = Producto::where('nombre','LIKE','%'.$request->term.'%')->get();
+        }
+        return $productos;
+
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -36,7 +46,14 @@ class PosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->op != 0) {
+            $products = Producto::where('categoria_id','=',$request->op)->get();
+
+        }else{
+            $products = Producto::all();
+        }
+
+     return  $products;
     }
 
     /**
