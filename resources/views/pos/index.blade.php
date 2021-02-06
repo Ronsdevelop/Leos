@@ -34,7 +34,7 @@
                     <div id="left-panel" class="pos-content" >
                         <div class="contents">
                             <div id="searchbox">
-                                <input ng-change="showProductList()" onClick="this.select();" type="text" id="product-name" name="product-name" ng-model="productName" placeholder="BUSCAR PRODUCTO"  autofocus>
+                                <input ng-change="showProductList()" onClick="this.select();" type="text"  class="autocomplete-product" id="product-name" name="product-name" ng-model="productName" placeholder="BUSCAR PRODUCTO"  autofocus>
                                 <svg class="svg-icon search-btn"><use href="#icon-pos-search"></svg>
                                 <div class="category-search">
                                     <select class="form-control select2" name="category-search-select" id="category-search-select">
@@ -82,12 +82,13 @@
 
                                     </div>
                                 </div>
-
                                 @endforeach
 
 
 
-                                <div class="pos-product-pagination pagination-bottom"></div>
+                                <div class="pos-product-pagination pagination-bottom">
+
+                                </div>
                             </div>
                             <div id="total-amount">
                                 <div class="total-amount-inner">
@@ -343,10 +344,10 @@
                     });
 
                 },
-                /* focusOpen: true,
+              focusOpen: true,
                 autoFocus: true,
                 minLength: 0,
-                select:function(event,ui) {
+              /*   select:function(event,ui) {
                     var data = {
                         itemId: ui.item.id,
                         itemNombre: ui.item.value,
@@ -354,20 +355,20 @@
                         itemPrecioU: ui.item.precio
                         };
                     addProduct(data);
-                },
+                }, */
                 open: function () {
 
                     if ($(".ui-autocomplete .ui-menu-item").length == 1) {
                         $(".ui-autocomplete .ui-menu-item:first-child").trigger("click");
-                        $("#add_item").val("");
-                        $("#add_item").focus();
+                        $("#product-name").val("");
+                        $("#product-name").focus();
                     }
                 },
                 close: function () {
                     $(document).find(".autocomplete-product").blur();
                     $(document).find(".autocomplete-product").val("");
-                    $("#add_item").focus();
-                }, */
+                    $("#product-name").focus();
+                },
                 });
 
 
@@ -383,7 +384,7 @@
                     data: {'op':op},
                     dataType: "JSON",
                     success: function (response) {
-
+                        areaProductos = '';
                         response.forEach(element => {
                             areaProductos+=`
                             <div ng-repeat="products in productArray"  id="0" class="btn btn-flat item">
