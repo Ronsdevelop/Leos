@@ -42,6 +42,7 @@ Route::get('usuarios/datosuser/{id}', ['as'=> 'detalleEdit', 'uses'=>'UserContro
 
 Route::get('/cliente', 'ClienteController@index')->name('cliente');
 Route::get('/cliente/lista', 'ClienteController@list')->name('cliente.lista');
+Route::get('/cliente/clientlist', 'ClienteController@clientList')->name('clientes');
 Route::get('cliente/detalle/{id}', ['as'=> 'detalle', 'uses'=>'ClienteController@detalle']);
 Route::get('cliente/datoscliente/{id}', ['as'=> 'detalleEdit', 'uses'=>'ClienteController@detalleEdit']);
 Route::post('cliente/crear', 'ClienteController@store' )->name('cliente.crear');

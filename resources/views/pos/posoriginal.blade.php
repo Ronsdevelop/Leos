@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" ng-app="angularApp">
+<html lang="es" >
 <head>
 
     <meta charset="UTF-8">
@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="{{asset('pages/css/pos/responsive.css')}}">
 
 </head>
-<body class="pos sidebar-mini skin-green right-panel ng-scope"    id="pos-page" ng-controller="PosController">
+<body class="pos sidebar-mini skin-green right-panel ng-scope"    id="pos-page">
 
     <div class="hidden"><?php include('../public/pages/postext/img/iconmin/icon.svg');?></div>
 
@@ -161,8 +161,6 @@
                                         <div class="slidedown-body">
                                             <ul class="customer-list list-unstyled">
                                                 <li ng-repeat="customers in customerArray">
-                                                    <a href="#" ng-click="addCustomer(customers);" onclick="return false;"><span class="fa fa-fw fa-user"></span>@{{ customers.nombre_razon }}(@{{ customers.nCelular || customers.email }})
-													</a>
 
                                                 </li>
                                             </ul>
@@ -299,7 +297,7 @@
 
 
 
-    <script src="{{ asset('pages/postext/angular/lib/angular.min.js')}}"></script>
+    <script src="{{ asset('pages/postext/angular/angular.min.js')}}"></script>
     <script src="{{ asset('pages/postext/angular/controller/PosController.js')}}"></script>
     <script src="{{ asset('vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{ asset('vendor/select2/js/select2.min.js')}}"></script>

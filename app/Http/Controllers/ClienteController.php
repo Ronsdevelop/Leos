@@ -64,6 +64,11 @@ class ClienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function clientList()
+    {
+        $ListaClientes = Cliente::all();
+        return json_encode($ListaClientes);
+    }
     public function create()
     {
         //
