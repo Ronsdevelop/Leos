@@ -43,12 +43,12 @@
   }
 }
 .skin-green .main-header .logo {
-  background-color:#ffc107;
+  background-color:#343a40;
   color: #ffffff;
   border-bottom: 0 solid transparent;
 }
 .skin-green .main-header .logo:hover {
-  background-color: #ffc107;
+  background-color: #343a40;
 }
 .skin-green .main-header li.user-header {
   background-color: #ffc107;

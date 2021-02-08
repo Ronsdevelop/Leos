@@ -6,7 +6,8 @@
             <b title="Panadería Leos">P</b>L
         </span>
         <span class="logo-lg">
-            <b title="Panaderia Leo's">Panaderia Leo's</b>
+
+            <img src="vendor/adminlte/dist/img/logo_sistema-min.png" style="width: 99px; height: 24px;" alt="">
         </span>
     </a>
 

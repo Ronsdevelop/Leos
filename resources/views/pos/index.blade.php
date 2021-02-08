@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" ng-app="angularApp">
+<html lang="es" >
 <head>
 
     <meta charset="UTF-8">
@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="{{asset('pages/css/pos/responsive.css')}}">
 
 </head>
-<body class="pos sidebar-mini skin-green right-panel ng-scope" ng-controller="PosController"  id="pos-page">
+<body class="pos sidebar-mini skin-green right-panel ng-scope"    id="pos-page">
 
     <div class="hidden"><?php include('../public/pages/postext/img/iconmin/icon.svg');?></div>
 
@@ -88,6 +88,7 @@
 
                                 <div class="pos-product-pagination pagination-bottom">
 
+
                                 </div>
                             </div>
                             <div id="total-amount">
@@ -122,7 +123,7 @@
 
                                 <!-- Customer Area Start-->
                                 <div id="people-area">
-                                    <input ng-change="showCustomerList()" onClick="this.select();" type="text" id="customer-name" name="customer-name" ng-model="customerName" ng-disabled="isEditMode" autocomplete="off">
+                                    <input ng-change="showCustomerList()" onClick="this.select();" type="text" id="customer-name" name="customer-name" ng-model="customerName" ng-disabled="isEditMode" autocomplete="off"  >
                                     <input type="hidden" name="customer-id" value="111">
                                     <div class="customer-icon">
                                         <a ng-click="showCustomerList(true)" onClick="return false;" href="#">
@@ -295,6 +296,9 @@
 
 
 
+
+    <script src="{{ asset('pages/postext/angular/angular.min.js')}}"></script>
+    <script src="{{ asset('pages/postext/angular/controller/PosController.js')}}"></script>
     <script src="{{ asset('vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{ asset('vendor/select2/js/select2.min.js')}}"></script>
     <script src="{{ asset('vendor/jquery-ui/jquery-ui.min.js') }} "></script>

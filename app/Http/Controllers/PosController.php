@@ -29,6 +29,7 @@ class PosController extends Controller
     {
         //
     }
+
     public function producto(Request $request)
     {
         $productos = [];
