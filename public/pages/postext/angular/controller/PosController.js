@@ -137,7 +137,7 @@ angularApp.controller("PosController", function($scope,$http,window){
         var productCode = $scope.productName;
         var categoryId = $scope.ProductCategoryID ? $scope.ProductCategoryID : '';
         $http({
-            url: url ? url : API_URL + "/_inc/pos.php?action_type=PRODUCTLIST&query_string=" + productCode + "&category_id=" + categoryId + "&field=p_name&page="+page,
+            url: url ? url :"/_inc/pos.php?action_type=PRODUCTLIST&query_string=" + productCode + "&category_id=" + categoryId + "&field=p_name&page="+page,
             method: "GET",
             cache: false,
             processData: false,
