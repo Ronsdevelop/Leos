@@ -17,6 +17,22 @@
     <link rel="stylesheet" href="{{asset('pages/css/pos/skeleton.css')}}">
     <link rel="stylesheet" href="{{asset('pages/postext/css/pos.css')}}">
     <link rel="stylesheet" href="{{asset('pages/css/pos/responsive.css')}}">
+    <script type="text/javascript">
+		var baseUrl = "http://localhost:81/pos_moderno";
+		var lang = "es";
+		var adminDir = "admin";
+		var user = {"id":1,"group_id":1,"username":"Rony Aguilera","email":"rony_aguilera@hotmail.com","mobile":"231321","dob":"1990-01-01","sex":"M","login_try":0,"last_login":"2021-02-08 18:16:07","ip":"::1","address":null,"preference":"a:4:{s:8:\"language\";s:2:\"es\";s:10:\"base_color\";s:6:\"yellow\";s:14:\"pos_side_panel\";s:5:\"right\";s:11:\"pos_pattern\";s:13:\"brickwall.jpg\";}","user_image":"\/erfil.jpg","created_at":"2019-12-14 22:27:47","updated_at":"2019-07-03 17:29:20","group_name":"admin","sort_order":1,"stores":[1]};
+	    var settings = {"gst_reg_no":"","timezone":"America\/Lima","invoice_edit_lifespan":"1440","invoice_edit_lifespan_unit":"minute","invoice_delete_lifespan":"1440","invoice_delete_lifespan_unit":"minute","tax":"0","sms_gateway":"Clickatell","sms_alert":"0","expiring_soon_alert_days":"","datatable_item_limit":"25","reference_format":"year_sequence","sales_reference_prefix":"","receipt_template":"1","invoice_view":"standard","business_state":"AN","change_item_price_while_billing":"0","pos_product_display_limit":"","after_sell_page":"pos","invoice_footer_text":"Thank you for choosing us!","email_from":"tusolutionweb","email_address":"US","email_driver":"smtp_server","send_mail_path":"\/usr\/sbin\/sendmail","smtp_host":"smtp.google.com","smtp_username":"","smtp_port":"465","ssl_tls":"ssl","ftp_hostname":"","ftp_username":""};
+        var store = {"store_id":1,"name":"Panaderia Leo's","code_name":"Leo's ","mobile":"231321","email":"info@panaderialeos.com","country":"PE","zip_code":"1200","currency":"USD","vat_reg_no":"","cashier_id":2,"address":"Piura - Piura ","receipt_printer":"1","cash_drawer_codes":null,"char_per_line":42,"remote_printing":0,"printer":1,"order_printers":"[\"1\"]","auto_print":0,"local_printers":1,"logo":"1_logo.jpg","favicon":"1_favicon.png","sound_effect":1,"sort_order":0,"feedback_status":"ready","feedback_at":"2019-03-01 14:29:18","deposit_account_id":1,"thumbnail":null,"status":1,"created_at":"2018-09-24 18:00:00"};
+	    var isInstallment = 1;
+	    var deviceType = 'computer';
+	    var filemanager = 'local';
+	    var orderPrinters = [{"printer_id":1,"title":"Common Printer","type":"network","profile":"","char_per_line":200,"created_at":"2018-09-27 13:52:04"}];
+	    var printer = {"printer_id":1,"title":"Common Printer","type":"network","profile":"","char_per_line":200,"created_at":"2018-09-27 13:52:04","p2s_id":1,"pprinter_id":1,"store_id":1,"path":"","ip_address":null,"port":"9100","status":1,"sort_order":0};
+	    var slideDirection = 'left';
+	    var sendReportEmail = '1';
+
+	</script>
 
 </head>
 <body class="pos sidebar-mini skin-green right-panel ng-scope"    id="pos-page" ng-controller="PosController">
@@ -301,6 +317,7 @@
 
     <script src="{{ asset('pages/postext/angular/lib/angular.min.js')}}"></script>
     <script src="{{ asset('pages/postext/angular/controller/PosController.js')}}"></script>
+    <script src="{{ asset('pages/postext/js/common.js')}}"></script>
     <script src="{{ asset('vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{ asset('vendor/select2/js/select2.min.js')}}"></script>
     <script src="{{ asset('vendor/jquery-ui/jquery-ui.min.js') }} "></script>
