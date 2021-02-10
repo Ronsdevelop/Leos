@@ -54,14 +54,18 @@ class PosController extends Controller
      */
     public function store(Request $request)
     {
+
         if ($request->op != 0) {
             $products = Producto::where('categoria_id','=',$request->op)->get();
+
 
         }else{
             $products = Producto::all();
         }
 
-     return  $products;
+        header('Content-Type: application/json');
+	    echo json_encode(array('products' => $products, 'pagination' => "", 'page' => 0));
+	    exit();
     }
 
     /**

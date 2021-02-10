@@ -63,11 +63,11 @@
                                 </div>
                             </div>
                             <div id="item-list"  style="height:100%;">
-                                <!-- <div class="pos-product-pagination pagination-top"></div>
+                             {{--   <div class="pos-product-pagination pagination-top"></div> --}}
                                 <div ng-show="showLoader" class="ajax-loader">
-                                    <img src="../assets/itsolution24/img/loading2.gif">
-                                </div>     -->
-                                <div class="add-new-product-wrapper" data-ng-class="{'show': showAddProductBtn}">
+                                    <img src="{{ asset('pages/postext/img/loading2.gif') }}">
+                                </div>
+                              {{--   <div class="add-new-product-wrapper" data-ng-class="{'show': showAddProductBtn}">
                                     <div class="add-new-product">
                                         <div class="add-new-product-btn">
                                             <button ng-click="createNewProduct()" class="btn btn-lg btn-danger" style="width:auto;">
@@ -80,9 +80,9 @@
                                             </a>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
-                                @foreach ($productos as $Producto)
+                             {{--    @foreach ($productos as $Producto)
                                 <div ng-repeat="products in productArray"  id="0" class="btn btn-flat item">
                                     <div ng-click="addItemToInvoice(products.p_id,products)" class="item-inner">
                                         <div class="item-img">
@@ -98,7 +98,25 @@
 
                                     </div>
                                 </div>
-                                @endforeach
+                                @endforeach --}}
+
+                                <div ng-repeat="products in productArray" id="@{{ $index }}" class="btn btn-flat item">
+									<div ng-click="addItemToInvoice(products.p_id,products)" class="item-inner">
+										<div class="item-img">
+											<img ng-src="/storage/img/Productos/1.jpg" alt="@{{ products.nombre }}">
+										</div>
+										<span class="item-info" data-id="@{{ products.id }}" data-name="@{{ products.nombre }}">
+											<span>
+												@{{ products.nombre  }}
+											</span>
+										</span>
+										<span class="item-mask nowrap" title="@{{ products.nombre }}">
+											<svg class="svg-icon"><use href="#icon-add"></svg>
+											<span>AGREGAR A CARRITO</span>
+										</span>
+										{{-- <span ng-show="products.p_type=='service'"class="ibadge">Service</span> --}}
+									</div>
+								</div>
 
 
 
@@ -318,6 +336,7 @@
     <script src="{{ asset('pages/postext/angular/lib/angular.min.js')}}"></script>
     <script src="{{ asset('pages/postext/angular/controller/PosController.js')}}"></script>
     <script src="{{ asset('pages/postext/js/common.js')}}"></script>
+    <script src="{{ asset('vendor/underscore/underscore.min.js')}}"></script>
     <script src="{{ asset('vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{ asset('vendor/select2/js/select2.min.js')}}"></script>
     <script src="{{ asset('vendor/jquery-ui/jquery-ui.min.js') }} "></script>
@@ -328,6 +347,7 @@
     window.CSRF_TOKEN = '{{ csrf_token() }}';
      $('#category-search-select').select2();
         $(document).ready(function() {
+            /*
 
             $("#product-name").autocomplete({
 
@@ -379,6 +399,7 @@
                         };
                     addProduct(data);
                 }, */
+                /*
                 open: function () {
 
                     if ($(".ui-autocomplete .ui-menu-item").length == 1) {
@@ -434,6 +455,8 @@
                 });
 
             });
+
+            */
 
 
 

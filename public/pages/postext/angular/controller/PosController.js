@@ -1,7 +1,9 @@
 var angularApp = window.angular.module("angularApp",[]);
+
 angularApp.constant("API_URL", window.baseUrl);
 angularApp.constant("window", window);
 angularApp.constant("jQuery", window.jQuery);
+
 angularApp.controller("PosController", function($scope,$http,window){
 
 
@@ -127,6 +129,7 @@ angularApp.controller("PosController", function($scope,$http,window){
 
     $scope.productName = "";
     $scope.showLoader = !1;
+
     $scope.showAddProductBtn = !1;
     $scope.totalProduct = 0;
     var page = 1;
@@ -134,39 +137,52 @@ angularApp.controller("PosController", function($scope,$http,window){
         $(".pos-product-pagination").empty();
         page = page ? page : 1;
         $scope.showLoader = 1;
+
         var productCode = $scope.productName;
+
         var categoryId = $scope.ProductCategoryID ? $scope.ProductCategoryID : '';
         $http({
-            url: url ? url :"/_inc/pos.php?action_type=PRODUCTLIST&query_string=" + productCode + "&category_id=" + categoryId + "&field=p_name&page="+page,
-            method: "GET",
+            url: url ? url :"/pos/store",
+            method: "POST",
             cache: false,
+            data:{
+                op:categoryId
+            },
             processData: false,
             contentType: false,
             dataType: "json"
         }).
         then(function(response) {
-            $scope.productArray = [];
+
+         $scope.productArray = [];
             window.angular.forEach(response.data.products, function(productItem, key) {
+
               if (productItem) {
                 var find = window._.find($scope.productArray, function (item) {
-                    return item.p_id == productItem.p_id;
+
+                    return item.id === productItem.id;
+
                 });
                 if (!find) {
                     $scope.productArray.push(productItem);
+
                 }
               }
             });
-            $("#item-list").perfectScrollbar('update');
+
+           /*  $("#item-list").perfectScrollbar('update'); */
             $scope.totalProduct = parseInt($scope.productArray.length);
+            console.log($scope.totalProduct);
             $scope.showLoader = !1;
             if ($scope.totalProduct == 1 && productCode) {
                 window.angular.forEach(response.data.products, function(productItem, key) {
                   if (productItem) {
-                    $scope.addItemToInvoice(productItem.p_code);
+                    $scope.addItemToInvoice(productItem.id);
                     $scope.productName = '';
                   }
                 });
             };
+
             setTimeout(function () {
                 $scope.$apply(function(){
                     $scope.showAddProductBtn = !parseInt($scope.totalProduct);
@@ -174,10 +190,10 @@ angularApp.controller("PosController", function($scope,$http,window){
             }, 100);
             $(".pos-product-pagination").html(response.data.pagination);
         }, function(response) {
-            if (window.store.sound_effect == 1) {
+         /*    if (window.store.sound_effect == 1) {
                 window.storeApp.playSound("error.mp3");
-            }
-            window.toastr.error(response.data.errorMsg, "Warning!");
+            } */
+           /*  window.toastr.error(response.data.errorMsg, "Warning!"); */
         });
     };
     $scope.showProductList();
