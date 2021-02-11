@@ -227,4 +227,297 @@ angularApp.controller("PosController", function($scope,$http,window){
     // ===============================================
     // End Product list
     // ===============================================
+
+
+    // ===============================================
+    // Start Invoice Calculation
+    // ===============================================
+
+    $scope.itemArray        = [];
+    $scope.totalItem        = 0;
+    $scope.totalQuantity    = 0;
+    $scope.totalAmount      = 0;
+    $scope.discountAmount   = 0;
+    $scope.taxAmount        = 0;
+    $scope.itemTaxAmount    = 0;
+    $scope.shippingAmount   = 0;
+    $scope.othersCharge     = 0;
+    $scope.payable          = 0;
+    $scope.totalPayable     = 0;
+    $scope.taxInput         = 0;
+    $scope.discountInput    = 0;
+    $scope.shippingInput    = 0;
+    $scope.othersChargeInput= 0;
+    $scope.discountType     = 'plain';
+    $scope.shippingType     = 'plain';
+
+    $scope.isInstallment = window.isInstallment;
+    $scope.isInstallmentOrder = 0;
+    $scope.installmentDuration = 0;
+    $scope.installmentIntervalCount = 30;
+    $scope.installmentInterestPercentage = 0;
+    $scope.installmentInterestAmount = 0;
+
+    $scope._calcDisAmount = function () {
+        if (window._.includes($scope.discountInput, '%')) {
+            $scope.discountType = 'percentage';
+        } else {
+            $scope.discountType = 'plain';
+        }
+        if ($scope.discountInput < 1) {
+            $scope.discountAmount = 0;
+            $scope.discountInput = 0;
+        } else {
+            $scope.discountAmount = parseFloat($scope.discountInput);
+        }
+    };
+    $scope._calcTaxAmount = function () {
+        if ($scope.taxInput < 1 || $scope.taxInput > 100) {
+            $scope.taxAmount = 0;
+            $scope.taxInput = 0;
+        } else {
+            $scope.taxAmount = (parseFloat($scope.taxInput) / 100) * parseFloat($scope.totalAmount-$scope.itemTaxAmount);
+        }
+    };
+    $scope._calcShippingAmount = function () {
+        if (window._.includes($scope.shippingInput, '%')) {
+            $scope.shippingType = 'percentage';
+        } else {
+            $scope.shippingType = 'plain';
+        }
+        if ($scope.shippingInput < 1) {
+            $scope.shippingAmount = 0;
+            $scope.shippingInput = 0;
+        } else {
+            $scope.shippingAmount = parseFloat($scope.shippingInput);
+        }
+    };
+    $scope._calcOthersCharge = function () {
+        if ($scope.othersChargeInput < 1) {
+            $scope.othersCharge = 0;
+            $scope.othersChargeInput = 0;
+        } else {
+            $scope.othersCharge = parseFloat($scope.othersChargeInput);
+        }
+    };
+    $scope._calcTotalPayable = function ($childScope) {
+        if ($childScope) {
+            $scope.installmentInterestAmount = $childScope.installmentInterestAmount;
+        } else {
+            $scope.installmentInterestAmount = 0;
+        }
+        var discountPercentage = 0;
+        var shippingPercentage = 0;
+        $scope._calcDisAmount();
+        $scope._calcTaxAmount();
+        $scope._calcShippingAmount();
+        $scope._calcOthersCharge();
+        $scope.payable = ($scope.totalAmount  + $scope.taxAmount);
+        if ($scope.payable != 0 && ($scope.discountAmount >= $scope.payable)) {
+            $scope.discountAmount = 0;
+            $scope.discountInput = 0;
+            if (window.store.sound_effect == 1) {
+                window.storeApp.playSound("error.mp3");
+            }
+            window.toastr.error("Discount amount must be less than payable amount", "Warning!");
+        }
+        if ($scope.payable != 0 && ($scope.shippingAmount >= $scope.payable)) {
+            $scope.shippingAmount = 0;
+            $scope.shippingInput = 0;
+            if (window.store.sound_effect == 1) {
+                window.storeApp.playSound("error.mp3");
+            }
+            window.toastr.error("Shipping amount must be less than payable amount", "Warning!");
+        }
+        if ($scope.discountType == 'percentage') {
+            discountPercentage =  parseFloat($scope._percentage($scope.payable, $scope.discountAmount));
+        } else {
+            discountPercentage =  parseFloat($scope.discountAmount);
+        }
+
+        if ($scope.shippingType == 'percentage') {
+            shippingPercentage =  parseFloat($scope._percentage($scope.totalPayable, $scope.shippingAmount));
+        } else {
+            shippingPercentage =  parseFloat($scope.shippingAmount);
+        }
+
+        $scope.payable = ($scope.payable + shippingPercentage + $scope.othersCharge + $scope.dueAmount) - discountPercentage;
+        $scope.totalPayable =  $scope.payable + $scope.installmentInterestAmount;
+        $scope.billData.totals = "Grand Total   " + $scope.totalPayable;
+    };
+    $scope.addDiscount = function () {
+        $scope._calcTotalPayable();
+    };
+    $scope.addTax = function () {
+        $scope._calcTotalPayable();
+    };
+    $scope.addShipping = function () {
+        $scope._calcTotalPayable();
+    };
+    $scope.addOthersCharge = function () {
+        $scope._calcTotalPayable();
+    };
+    $scope.itemQuantity = 0;
+    $scope.isPrevQuantityCalcculate = false;
+    $scope.prevQuantity = 0;
+    $scope.itemListHeight = 0;
+
+    // ===============================================
+    // End Invoice Calculation
+    // ===============================================
+
+
+    // ===============================================
+    // Start Add Product to Invoice
+    // ===============================================
+
+    $scope.addItemToInvoice = function (id, qty, index) {
+        var proQty;
+        var qty = parseFloat(qty);
+        if (!qty) {
+            qty = 1;
+        }
+        if (index != null) {
+            var selectItem = $("#"+index);
+            $("#item-list .item").removeClass("select");
+            if (selectItem.length) {
+                selectItem.addClass("select");
+            }
+        }
+        var $queryString = "id=" + id + "&action_type=PRODUCTITEM";
+        if (window.getParameterByName("invoice_id")) {
+            $queryString += "&is_edit_mode=1";
+        }
+        $http({
+            url:"/_inc/pos.php?" + $queryString,
+            method: "GET",
+            cache: false,
+            processData: false,
+            contentType: false,
+            dataType: "json"
+        }).
+        then(function(response) {
+            if (response.data.p_id) {
+                var find = window._.find($scope.itemArray, function (item) {
+                    return item.id == response.data.p_id;
+                });
+                proQty = parseFloat(response.data.quantity_in_stock);
+                qty = proQty > 0 && proQty < 1 ? proQty : qty;
+                if (find) {
+                    window._.map($scope.itemArray, function (item) {
+                        if (item.id == response.data.p_id) {
+                            if (!$scope.isPrevQuantityCalcculate && window.getParameterByName("customer_id") && window.getParameterByName("invoice_id")) {
+                                $scope.isPrevQuantityCalcculate = true;
+                                $scope.prevQuantity = item.quantity;
+                            }
+                            $scope.itemQuantity = item.quantity - $scope.prevQuantity;
+                            if ((qty > response.data.quantity_in_stock || $scope.itemQuantity >= response.data.quantity_in_stock) && response.data.p_type != 'service') {
+                                if (window.store.sound_effect == 1) {
+                                    window.storeApp.playSound("error.mp3");
+                                }
+                                window.toastr.error("This product is out of stock!", "Warning!");
+                                return false;
+                            }
+                            if (window.store.sound_effect == 1) {
+                                window.storeApp.playSound("access.mp3");
+                            }
+                            item.quantity = parseFloat(item.quantity) + qty;
+                            $("#item_quantity_"+item.id).val(item.quantity);
+                            var taxamount = 0;
+                            if (settings.invoice_view == 'indian_gst') {
+                                taxamount = 0;
+                            } else if (response.data.tax_method == 'exclusive') {
+                                taxamount = parseFloat(response.data.tax_amount);
+                                $scope.itemTaxAmount = taxamount;
+                            }
+                            item.subTotal = (item.subTotal + (parseFloat(response.data.sell_price) * qty)) + taxamount;
+                            $scope.totalQuantity = $scope.totalQuantity + qty;
+                            $scope.totalAmount = $scope.totalAmount + (parseFloat(response.data.sell_price) * qty) + taxamount;
+                        }
+                    });
+                } else {
+                    if ((qty > response.data.quantity_in_stock) && response.data.p_type != 'service') {
+                        if (window.store.sound_effect == 1) {
+                            window.storeApp.playSound("error.mp3");
+                        }
+                        window.toastr.error("This product is out of stock!", "Warning!");
+                        return false;
+                    }
+                    if (window.store.sound_effect == 1) {
+                        window.storeApp.playSound("access.mp3");
+                    }
+                    var taxamount = 0;
+                    if (response.data.tax_method == 'exclusive') {
+                        taxamount = parseFloat(response.data.tax_amount);
+                        $scope.itemTaxAmount = taxamount;
+                    }
+                    var additonalTaxAmount = taxamount;
+                    if (settings.invoice_view == 'indian_gst') {
+                        additonalTaxAmount = 0;
+                    }
+                    var item = [];
+                    item.id = response.data.p_id;
+                    item.pType = response.data.p_type;
+                    item.categoryId = response.data.category_id;
+                    item.supId = response.data.sup_id;
+                    item.name = response.data.p_name;
+                    item.unitName = response.data.unit_name;
+                    item.taxamount = taxamount;
+                    item.price = parseFloat(response.data.sell_price) + additonalTaxAmount;
+                    item.quantity = qty;
+                    item.subTotal = (parseFloat(response.data.sell_price) * qty) + additonalTaxAmount;
+                    $scope.totalQuantity = $scope.totalQuantity + qty;
+                    $scope.totalAmount = $scope.totalAmount + (parseFloat(response.data.sell_price) * qty) + additonalTaxAmount;
+                    $scope.itemArray.push(item);
+                }
+                $scope.totalItem = window._.size($scope.itemArray);
+                $scope._calcTotalPayable();
+                $scope.productName = '';
+                if (window.deviceType == 'computer') {
+                    $("#product-name").focus();
+                }
+                var ele = $("#invoice-item-"+response.data.p_id).parent();
+                if (ele.length) {
+                    $scope.itemListHeight = ele.position().top;
+                } else {
+                    $scope.itemListHeight += 61;
+                }
+                $("#invoice-item-list").animate({ scrollTop: $scope.itemListHeight }, 1).perfectScrollbar("update");
+                setTimeout(function() {
+                    if (!ele.length) {
+                        ele = $("#invoice-item-list table tr:last-child");
+                    }
+                    var flashColor = "#26ff9c";
+                    var originalColor = ele.css("backgroundColor");
+                    ele.css("backgroundColor", flashColor);
+                    setTimeout(function (){
+                      ele.css("backgroundColor", originalColor);
+                    }, 300);
+                }, 100);
+                $scope.billData.totals += "\n\nItems: " + $scope.totalItem + " (" + $scope.totalQuantity +")\n";
+                $scope.setBillandOrderItems();
+            }
+            $scope.showLoader = !1;
+
+            window.onbeforeunload = function() {
+              return "Data will be lost if you leave the page, are you sure?";
+            };
+
+        }, function(response) {
+            if (window.store.sound_effect == 1) {
+                window.storeApp.playSound("error.mp3");
+            }
+            window.toastr.error(response.data.errorMsg, "Warning!");
+            $scope.showLoader = !1;
+        });
+    };
+
+    // ===============================================
+    // End Add Product to Invoice
+    // ===============================================
+
+
+
+
+
 });
