@@ -258,6 +258,7 @@ angularApp.controller("PosController", function($scope,$http,window){
     $scope.installmentInterestPercentage = 0;
     $scope.installmentInterestAmount = 0;
 
+    //Calcular cantidad de descuento
     $scope._calcDisAmount = function () {
         if (window._.includes($scope.discountInput, '%')) {
             $scope.discountType = 'percentage';
@@ -271,6 +272,8 @@ angularApp.controller("PosController", function($scope,$http,window){
             $scope.discountAmount = parseFloat($scope.discountInput);
         }
     };
+
+    //Calcular Cantidad del impuesto
     $scope._calcTaxAmount = function () {
         if ($scope.taxInput < 1 || $scope.taxInput > 100) {
             $scope.taxAmount = 0;
@@ -279,6 +282,8 @@ angularApp.controller("PosController", function($scope,$http,window){
             $scope.taxAmount = (parseFloat($scope.taxInput) / 100) * parseFloat($scope.totalAmount-$scope.itemTaxAmount);
         }
     };
+
+    //Calcular la cantidad del envío
     $scope._calcShippingAmount = function () {
         if (window._.includes($scope.shippingInput, '%')) {
             $scope.shippingType = 'percentage';
@@ -292,6 +297,8 @@ angularApp.controller("PosController", function($scope,$http,window){
             $scope.shippingAmount = parseFloat($scope.shippingInput);
         }
     };
+
+    //Calcular otros cargos
     $scope._calcOthersCharge = function () {
         if ($scope.othersChargeInput < 1) {
             $scope.othersCharge = 0;
@@ -300,6 +307,8 @@ angularApp.controller("PosController", function($scope,$http,window){
             $scope.othersCharge = parseFloat($scope.othersChargeInput);
         }
     };
+
+    //Calcular total a pagar
     $scope._calcTotalPayable = function ($childScope) {
         if ($childScope) {
             $scope.installmentInterestAmount = $childScope.installmentInterestAmount;
@@ -384,12 +393,12 @@ angularApp.controller("PosController", function($scope,$http,window){
                 selectItem.addClass("select");
             }
         }
-        var $queryString = "id=" + id + "&action_type=PRODUCTITEM";
+      /*   var $queryString = "id=" + id + "&action_type=PRODUCTITEM";
         if (window.getParameterByName("invoice_id")) {
             $queryString += "&is_edit_mode=1";
-        }
+        } */
         $http({
-            url:"/_inc/pos.php?" + $queryString,
+            url:"/_inc/pos.php?"  ,
             method: "GET",
             cache: false,
             processData: false,
