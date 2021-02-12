@@ -398,7 +398,7 @@ angularApp.controller("PosController", function($scope,$http,window){
             $queryString += "&is_edit_mode=1";
         } */
         $http({
-            url:"/_inc/pos.php?"  ,
+            url:"/productos/select/"+id,
             method: "GET",
             cache: false,
             processData: false,
@@ -406,92 +406,94 @@ angularApp.controller("PosController", function($scope,$http,window){
             dataType: "json"
         }).
         then(function(response) {
-            if (response.data.p_id) {
+            console.log(response.data);
+            if (response.data.id) {
+                console.log($scope.itemArray);
                 var find = window._.find($scope.itemArray, function (item) {
-                    return item.id == response.data.p_id;
+                    return item.id == response.data.id;
                 });
-                proQty = parseFloat(response.data.quantity_in_stock);
+                proQty = parseFloat(response.data.stock);
                 qty = proQty > 0 && proQty < 1 ? proQty : qty;
                 if (find) {
                     window._.map($scope.itemArray, function (item) {
-                        if (item.id == response.data.p_id) {
+                        if (item.id == response.data.id) {
                             if (!$scope.isPrevQuantityCalcculate && window.getParameterByName("customer_id") && window.getParameterByName("invoice_id")) {
                                 $scope.isPrevQuantityCalcculate = true;
                                 $scope.prevQuantity = item.quantity;
                             }
                             $scope.itemQuantity = item.quantity - $scope.prevQuantity;
-                            if ((qty > response.data.quantity_in_stock || $scope.itemQuantity >= response.data.quantity_in_stock) && response.data.p_type != 'service') {
-                                if (window.store.sound_effect == 1) {
+                            if ((qty > response.data.stock || $scope.itemQuantity >= response.data.stock) /*&& response.data.p_type != 'service'*/) {
+                              /*  if (window.store.sound_effect == 1) {
                                     window.storeApp.playSound("error.mp3");
-                                }
+                                } */
                                 window.toastr.error("This product is out of stock!", "Warning!");
                                 return false;
                             }
-                            if (window.store.sound_effect == 1) {
+                           /* if (window.store.sound_effect == 1) {
                                 window.storeApp.playSound("access.mp3");
-                            }
+                            }*/
                             item.quantity = parseFloat(item.quantity) + qty;
                             $("#item_quantity_"+item.id).val(item.quantity);
                             var taxamount = 0;
                             if (settings.invoice_view == 'indian_gst') {
                                 taxamount = 0;
-                            } else if (response.data.tax_method == 'exclusive') {
+                            } /*else if (response.data.tax_method == 'exclusive') {
                                 taxamount = parseFloat(response.data.tax_amount);
                                 $scope.itemTaxAmount = taxamount;
-                            }
-                            item.subTotal = (item.subTotal + (parseFloat(response.data.sell_price) * qty)) + taxamount;
+                            }*/
+                            item.subTotal = (item.subTotal + (parseFloat(response.data.pVenta) * qty)) + taxamount;
                             $scope.totalQuantity = $scope.totalQuantity + qty;
-                            $scope.totalAmount = $scope.totalAmount + (parseFloat(response.data.sell_price) * qty) + taxamount;
+                            $scope.totalAmount = $scope.totalAmount + (parseFloat(response.data.pVenta) * qty) + taxamount;
                         }
                     });
                 } else {
-                    if ((qty > response.data.quantity_in_stock) && response.data.p_type != 'service') {
-                        if (window.store.sound_effect == 1) {
+                    if ((qty > response.data.stock)/* && response.data.p_type != 'service'*/) {
+                     /*   if (window.store.sound_effect == 1) {
                             window.storeApp.playSound("error.mp3");
-                        }
+                        }*/
                         window.toastr.error("This product is out of stock!", "Warning!");
                         return false;
                     }
-                    if (window.store.sound_effect == 1) {
+                   /* if (window.store.sound_effect == 1) {
                         window.storeApp.playSound("access.mp3");
-                    }
+                    }*/
                     var taxamount = 0;
-                    if (response.data.tax_method == 'exclusive') {
+                   /* if (response.data.tax_method == 'exclusive') {
                         taxamount = parseFloat(response.data.tax_amount);
                         $scope.itemTaxAmount = taxamount;
-                    }
+                    }*/
                     var additonalTaxAmount = taxamount;
                     if (settings.invoice_view == 'indian_gst') {
                         additonalTaxAmount = 0;
                     }
                     var item = [];
-                    item.id = response.data.p_id;
-                    item.pType = response.data.p_type;
-                    item.categoryId = response.data.category_id;
-                    item.supId = response.data.sup_id;
-                    item.name = response.data.p_name;
-                    item.unitName = response.data.unit_name;
+                    item.id = response.data.id;
+                   // item.pType = response.data.p_type;
+                    item.categoryId = response.data.categoria_id;
+                    //item.supId = response.data.sup_id;
+                    item.name = response.data.nombre;
+                   // item.unitName = response.data.unit_name;
                     item.taxamount = taxamount;
-                    item.price = parseFloat(response.data.sell_price) + additonalTaxAmount;
+                    item.price = parseFloat(response.data.pVenta) + additonalTaxAmount;
                     item.quantity = qty;
-                    item.subTotal = (parseFloat(response.data.sell_price) * qty) + additonalTaxAmount;
+                    item.subTotal = (parseFloat(response.data.pVenta) * qty) + additonalTaxAmount;
                     $scope.totalQuantity = $scope.totalQuantity + qty;
-                    $scope.totalAmount = $scope.totalAmount + (parseFloat(response.data.sell_price) * qty) + additonalTaxAmount;
+                    $scope.totalAmount = $scope.totalAmount + (parseFloat(response.data.pVenta) * qty) + additonalTaxAmount;
                     $scope.itemArray.push(item);
                 }
                 $scope.totalItem = window._.size($scope.itemArray);
-                $scope._calcTotalPayable();
+                //$scope._calcTotalPayable();
                 $scope.productName = '';
                 if (window.deviceType == 'computer') {
                     $("#product-name").focus();
                 }
-                var ele = $("#invoice-item-"+response.data.p_id).parent();
+                var ele = $("#invoice-item-"+response.data.id).parent();
                 if (ele.length) {
                     $scope.itemListHeight = ele.position().top;
                 } else {
                     $scope.itemListHeight += 61;
                 }
-                $("#invoice-item-list").animate({ scrollTop: $scope.itemListHeight }, 1).perfectScrollbar("update");
+               // $("#invoice-item-list").animate({ scrollTop: $scope.itemListHeight }, 1).perfectScrollbar("update");
                 setTimeout(function() {
                     if (!ele.length) {
                         ele = $("#invoice-item-list table tr:last-child");
@@ -504,7 +506,7 @@ angularApp.controller("PosController", function($scope,$http,window){
                     }, 300);
                 }, 100);
                 $scope.billData.totals += "\n\nItems: " + $scope.totalItem + " (" + $scope.totalQuantity +")\n";
-                $scope.setBillandOrderItems();
+                //$scope.setBillandOrderItems();
             }
             $scope.showLoader = !1;
 
@@ -513,9 +515,9 @@ angularApp.controller("PosController", function($scope,$http,window){
             };
 
         }, function(response) {
-            if (window.store.sound_effect == 1) {
+          /*  if (window.store.sound_effect == 1) {
                 window.storeApp.playSound("error.mp3");
-            }
+            }*/
             window.toastr.error(response.data.errorMsg, "Warning!");
             $scope.showLoader = !1;
         });
@@ -525,6 +527,85 @@ angularApp.controller("PosController", function($scope,$http,window){
     // End Add Product to Invoice
     // ===============================================
 
+
+    // =============================================
+    // Start Custom Command Handler for Context Menu
+    // =============================================
+    /*
+
+    $.contextMenu.types.label = function(item, opt, root) {
+        $("<span>Quantity<div>"
+        + "<div class=\"input-group input-group-sm\">"
+        + "<input class=\"form-control\" type=\"text\" name=\"add-quantity\" value=\"1\" onClick=\"this.select()\" onKeyUp=\"if(this.value<0 || this.value>100000){this.value=1}\">"
+        +   "<span class=\"input-group-btn\">"
+        +    "<button class=\"btn btn-default add\" type=\"button\">Add</button>"
+        +  "</span>"
+        +  "</div>")
+        .appendTo(this)
+        .on("click", "button", function() {
+            var itemQuantity = $(this).parent().parent().find("input[name=\"add-quantity\"]").val();
+            if (!itemQuantity || parseFloat(itemQuantity) <= 0) {
+                if (window.store.sound_effect == 1) {
+                    window.storeApp.playSound("error.mp3");
+                }
+                window.toastr.error("Quantity must be greater than 0!", "Warning!");
+                return false;
+            }
+            $scope.addItemToInvoice($scope.productItemId, parseFloat(itemQuantity));
+            root.$menu.trigger("contextmenu:hide");
+        });
+    };
+    */
+
+    // =============================================
+    // End Custom Command Handler for Context Menu
+    // =============================================
+
+
+    // =============================================
+    // Start Product Item Context Menu
+    // =============================================
+    /*
+
+    $("#item-list").contextMenu({
+        selector: "div.item",
+        callback: function(key, options) {
+            var p_id = $(this).find(".item-info").data("id");
+            var p_name = $(this).find(".item-info").data("name");
+            switch(key) {
+                case "view":
+                    ProductViewModal({p_id:p_id,p_name:p_name});
+                break;
+                case "edit":
+                    ProductEditModal({p_id:p_id,p_name:p_name});
+                break;
+                case "add":
+                    $scope.addItemToInvoice(p_id, 1);
+                break;
+            }
+        },
+        items: {
+            "add": {name: "Add 1 (one) Item", icon: "fa-plus"},
+            "sep1": "---------",
+            "add_specific_amount": {name: "Add Specific Quantity", icon: "fa-th", disabled: true},
+            "quantity": {
+                type: "label",
+                customName: "Quantity", callback: function() {
+                    $scope.productItemId = $(this).find(".item-info").data("id");
+                    return false;
+                },
+            },
+            "view": {name: "View", icon: "fa-eye"},
+            "sep2": "---------",
+            "edit": {name: "Edit", icon: "fa-pencil"}
+        }
+    });
+
+    // =============================================
+    // End Product Item Context Menu
+    // =============================================
+
+*/
 
 
 

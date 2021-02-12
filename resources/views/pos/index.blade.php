@@ -101,7 +101,7 @@
                                 @endforeach --}}
 
                                 <div ng-repeat="products in productArray" id="@{{ $index }}" class="btn btn-flat item">
-									<div ng-click="addItemToInvoice(products.p_id,products)" class="item-inner">
+									<div ng-click="addItemToInvoice(products.id,products)" class="item-inner">
 										<div class="item-img">
 											<img ng-src="/storage/img/Productos/1.jpg" alt="@{{ products.nombre }}">
 										</div>

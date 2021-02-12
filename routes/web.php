@@ -51,7 +51,7 @@ Route::delete('cliente/delete','ClienteController@destroy')->name('cliente.delet
 
 Route::get('/producto', 'ProductoController@index')->name('producto');
 Route::get('/producto/lista', 'ProductoController@list')->name('producto.lista');
-Route::get('producto/detalle/{id}', ['as'=> 'detalle', 'uses'=>'ProductoController@detalle']);
+Route::get('productos/select/{id}', ['as'=> 'Producto', 'uses'=>'ProductoController@producto']);
 Route::get('producto/datoscliente/{id}', ['as'=> 'detalleEdit', 'uses'=>'ProductoController@detalleEdit']);
 Route::post('producto/crear', 'ProductoController@store' )->name('producto.crear');
 Route::patch('producto/update','ProductoController@update')->name('producto.edit');

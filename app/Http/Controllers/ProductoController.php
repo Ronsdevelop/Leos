@@ -34,6 +34,11 @@ class ProductoController extends Controller
     {
         //
     }
+    public function producto($id)
+    {
+        $producto = Producto::find($id);
+        return $producto;
+    }
 
     /**
      * Store a newly created resource in storage.
