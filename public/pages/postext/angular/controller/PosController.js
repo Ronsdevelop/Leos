@@ -528,6 +528,91 @@ angularApp.controller("PosController", function($scope,$http,window){
     // ===============================================
 
 
+    // ============================================
+    // Start Decrease Invoice Item Quantity
+    // ============================================
+
+    $scope.DecreaseItemFromInvoice = function (id, qty) {
+        var qty = parseFloat(qty);
+        if (!qty) {
+            qty = 1;
+        }
+        if (id) {
+            var find = window._.find($scope.itemArray, function (item) {
+                return item.id == id;
+            });
+            if (find) {
+                window._.map($scope.itemArray, function (item) {
+                    if (item.id == id) {
+                        if (item.quantity > 1) {
+                          /*  if (window.store.sound_effect == 1) {
+                                window.storeApp.playSound("modify.mp3");
+                            }*/
+                            item.quantity = parseFloat(item.quantity) - qty;
+                            $("#item_quantity_"+item.id).val(item.quantity);
+                            item.subTotal = item.subTotal - (parseFloat(item.price) * qty);
+                            $scope.totalQuantity = $scope.totalQuantity - qty;
+                            $scope.totalAmount = $scope.totalAmount - parseFloat(item.price);
+                        } else {
+                           /* if (window.store.sound_effect == 1) {
+                                window.storeApp.playSound("error.mp3");
+                            }*/
+                            window.toastr.error("Quantity can't be less than 1", "Warning!");
+                        }
+                    }
+                });
+            }
+            $scope.totalItem = window._.size($scope.itemArray);
+            //$scope._calcTotalPayable();
+        }
+    };
+
+    // ============================================
+    // End Decrease Invoice Item Quantity
+    // ============================================
+
+
+    // ===================================================
+    // Start Remove Item from Invoice
+    // ===================================================
+
+    $scope.removeItemFromInvoice = function (index, id) {
+       /* if (window.store.sound_effect  == 1) {
+            window.storeApp.playSound("modify.mp3");
+        }*/
+        if ($scope.isEditMode) {
+            if ($scope.itemArray.length <= 1) {
+              /*  if (window.store.sound_effect  == 1) {
+                    window.storeApp.playSound("error.mp3");
+                }*/
+                window.toastr.error("Last item can not be removed!", "Warning!");
+                return false;
+            }
+        }
+        window._.map($scope.itemArray, function (item, key) {
+            if (item.id == id) {
+                $scope.totalQuantity = $scope.totalQuantity - item.quantity;
+                $scope.totalAmount = $scope.totalAmount - parseFloat(item.subTotal);
+                $scope.totalItem = $scope.totalItem - 1;
+            }
+        });
+       // $scope._calcTotalPayable();
+        $scope.itemArray.splice(index, 1);
+        $scope.totalItem = window._.size($scope.itemArray);
+       // $scope.setBillandOrderItems();
+    };
+
+    // if invocie edit mode then disable customer dropdown
+    if (window.getParameterByName("customer_id") && window.getParameterByName("invoice_id")) {
+        $scope.isEditMode = true;
+    }
+
+    // ===================================================
+    // End Remove Item from Invoice
+    // ===================================================
+
+
+
     // =============================================
     // Start Custom Command Handler for Context Menu
     // =============================================
