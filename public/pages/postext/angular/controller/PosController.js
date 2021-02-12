@@ -60,12 +60,12 @@ angularApp.controller("PosController", function($scope,$http,window){
                 }
             });
 
-        },/*  function(response) {
-            if (window.store.sound_effect == 1) {
+        },function(response) {
+           /*  if (window.store.sound_effect == 1) {
                 window.storeApp.playSound("error.mp3");
-            }
+            } */
             window.toastr.error(response.data.errorMsg, "Warning!");
-        } */);
+        } );
     };
     $("#customer-name").on("click", function() {
         $scope.showCustomerList(true);
@@ -193,7 +193,7 @@ angularApp.controller("PosController", function($scope,$http,window){
          /*    if (window.store.sound_effect == 1) {
                 window.storeApp.playSound("error.mp3");
             } */
-           /*  window.toastr.error(response.data.errorMsg, "Warning!"); */
+             window.toastr.error(response.data.errorMsg, "Warning!");
         });
     };
     $scope.showProductList();
@@ -426,7 +426,7 @@ angularApp.controller("PosController", function($scope,$http,window){
                               /*  if (window.store.sound_effect == 1) {
                                     window.storeApp.playSound("error.mp3");
                                 } */
-                                window.toastr.error("This product is out of stock!", "Warning!");
+                                window.toastr.error("Este Producto ya no tiene mas Stock!", "Warning!");
                                 return false;
                             }
                            /* if (window.store.sound_effect == 1) {
@@ -451,7 +451,7 @@ angularApp.controller("PosController", function($scope,$http,window){
                      /*   if (window.store.sound_effect == 1) {
                             window.storeApp.playSound("error.mp3");
                         }*/
-                        window.toastr.error("This product is out of stock!", "Warning!");
+                        window.toastr.error("Este producto no tiene Stock!", "Warning!");
                         return false;
                     }
                    /* if (window.store.sound_effect == 1) {

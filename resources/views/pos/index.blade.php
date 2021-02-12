@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{asset('vendor/jquery-ui/jquery-ui.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/font-awesome-4.7.0/css/font-awesome.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/select2/css/select2.css')}}">
-    <link rel="stylesheet" href="{{asset('vendor/toastr/toastr.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/toastr/toastr.min.css')}}">
     <link rel="stylesheet" href="{{asset('pages/postext/css/theme.css')}}">
     <link rel="stylesheet" href="{{asset('pages/postext/css/skins/skin-green.css')}}">
     <link rel="stylesheet" href="{{asset('pages/css/pos/main.css')}}">
@@ -128,7 +128,7 @@
                             <div id="total-amount">
                                 <div class="total-amount-inner">
                                     <span class="currency-symbol">S/</span>
-                                    <span class="main-amount">18000.00</span>
+                                    <span class="main-amount"> @{{totalAmount.toFixed(2)}}</span>
                                 </div>
                                 <div id="salesman">
                                     <input type="hidden" name="salesman_id" value=""> <!--EL ID DEL USER QUE REGISTRA -->
@@ -226,29 +226,29 @@
                                         <table class="table table-hovered">
                                             <tbody>
                                                 <tr ng-repeat="items in itemArray" class="invoice-item">
-                                                    <td class="product-quantity" id="invoice-item-1">
+                                                    <td class="product-quantity" id="invoice-item-@{{ items.id }}">
                                                         <input type="hidden" name="p_type" value="product">
                                                         <button class="btn btn-xs btn-up" ng-click="addItemToInvoice(items.id)" title="Increase">
                                                             <span class="fa fa-angle-up"></span>
                                                         </button>
-                                                        <input type="text" name="item_price_1" class="item_quantity text-center" id="item_quantity_1" value="2" data-itemid="1" onClick="this.select();" ondrop="return false;" onpaste="return false;" style="width:40px;max-width:40px;border-radius: 50px;border: 1px solid #ddd;padding-top:0;padding-bottom:0;">
-                                                        <span style="font-size:12px;"><i>hp store</i></span>
-                                                        <button class="btn btn-xs btn-down increasebtn1" ng-click="DecreaseItemFromInvoice(items.id)" title="Decrease">
+                                                        <input type="text" name="item_price_@{{ items.id }}" class="item_quantity text-center" id="item_quantity_@{{ items.id }}" value="@{{ items.quantity }}" data-itemid="@{{ items.id }}" onClick="this.select();" ondrop="return false;" onpaste="return false;" style="width:40px;max-width:40px;border-radius: 50px;border: 1px solid #ddd;padding-top:0;padding-bottom:0;">
+                                                        <span style="font-size:12px;"><i>@{{ items.unitName }}</i></span>
+                                                        <button class="btn btn-xs btn-down increasebtn@{{ items.id }}" ng-click="DecreaseItemFromInvoice(items.id)" title="Decrease">
                                                             <span class="fa fa-angle-down"></span>
                                                         </button>
                                                     </td>
                                                     <td class="product-name">
-                                                        <span>hp store</span>
+                                                        <span>@{{ items.name }}</span>
                                                     </td>
                                                     <td class="product-price">
                                                         <?php if (1 == 1) : ?>
-                                                            <input type="text" class="text-center item_price" id="item_price_1" name="item_price_1" value="50.00" data-itemid="1" onClick="this.select();" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" style="max-width:80px;padding:5px;border-radius: 20px;border:2px solid #ddd;">
+                                                            <input type="text" class="text-center item_price" id="item_price_@{{ items.id }}" name="item_price_@{{ items.id }}" value="@{{ items.price}}" data-itemid="@{{ items.id }}" onClick="this.select();" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" style="max-width:80px;padding:5px;border-radius: 20px;border:2px solid #ddd;">
                                                         <?php else : ?>
-                                                        666.00
+                                                        @{{ items.price  }}
                                                         <?php endif; ?>
                                                     </td>
                                                     <td class="product-subtotal">
-                                                        333.00
+                                                       @{{ items.subTotal.toFixed(2) }}
                                                     </td>
                                                     <td class="product-delete text-red pointer" ng-click="removeItemFromInvoice($index, items.id)">
                                                         <span class="fa fa-close"></span>
@@ -264,34 +264,54 @@
                                         <table class="table">
                                             <tbody>
                                                 <tr class="bg-gray">
-                                                    <td width="30%">TOTAL ARTICULOS</td>
-                                                    <td class="text-right" width="20%">3</td>
-                                                    <td width="30%">TOTAL</td>
-                                                    <td class="text-right" width="20%">666333.00</td>
+                                                    <td width="30%">
+                                                        TOTAL ARTICULOS
+                                                    </td>
+                                                    <td class="text-right" width="20%">
+                                                        @{{ totalItem }} (@{{ totalQuantity }})
+                                                    </td>
+                                                    <td width="30%">
+                                                        TOTAL
+                                                    </td>
+                                                    <td class="text-right" width="20%">
+                                                        @{{totalAmount.toFixed(2)}}
+                                                    </td>
                                                 </tr>
                                                 <tr class="pay-top">
-                                                    <td>DESCUENTO</td>
+                                                    <td>
+                                                        DESCUENTO
+                                                    </td>
                                                     <td class="text-right">
                                                         <input id="discount-input" ng-change="addDiscount()" onClick="this.select();" type="text" name="discount-amount" ng-model="discountInput" ondrop="return false;" onpaste="return false;" autocomplete="off">
                                                     </td>
-                                                    <td>MONTO IMPUESTO (%)</td>
+                                                    <td>
+                                                        MONTO IMPUESTO (%)
+                                                    </td>
                                                     <td class="text-right">
-                                                        <input ng-init="taxInput=0" ng-change="addTax()" onClick="this.select();" type="text" name="tax-amount" ng-model="taxInput" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" autocomplete="off">
+                                                        <input ng-init="taxInput=18" ng-change="addTax()" onClick="this.select();" type="text" name="tax-amount" ng-model="taxInput" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" autocomplete="off">
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>COSTO DE ENVÍO</td>
+                                                    <td>
+                                                        COSTO DE ENVÍO
+                                                    </td>
                                                     <td class="text-right">
                                                         <input class="text-center shipping" ng-change="addShipping()" onClick="this.select();" type="text" name="shipping-amount" ng-model="shippingInput" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" autocomplete="off">
                                                     </td>
-                                                    <td>OTROS COBROS</td>
+                                                    <td>
+                                                        OTROS COBROS
+                                                    </td>
                                                     <td class="text-right">
                                                         <input class="text-center others-charge" ng-change="addOthersCharge()" onClick="this.select();" type="text" name="others-charge" ng-model="othersChargeInput" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" autocomplete="off">
                                                     </td>
                                                 </tr>
                                                 <tr class="bg-gray">
-                                                    <td colspan="3">TOTAL PAGO</td>
-                                                    <td class="text-right">1111.00</td>
+                                                    <td colspan="3">
+                                                        TOTAL PAGO
+                                                    </td>
+                                                    <td class="text-right">
+                                                        @{{ totalPayable }}
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -304,13 +324,13 @@
                                 <div id="pay-button" class="text-center">
                                     <div class="btn-group btn-group-justified">
                                         <div class="btn-group">
-                                            <button   onClick="return false;" class="btn btn-success btn-block" data-loading-text="Processing..." title="Payment">
+                                            <button ng-click="payNow()"  onClick="return false;" class="btn btn-success btn-block" data-loading-text="Processing..." title="Payment">
                                                 <span class="fa fa-fw fa-money"></span>
                                                 PAGA
                                             </button>
                                         </div>
                                         <div class="btn-group">
-                                            <button  on-click="return false;" class="btn btn-danger btn-block" data-loading-text="Processing..." title="Order Holdinbg">
+                                            <button ng-click="HoldingOrderModal()" on-click="return false;" class="btn btn-danger btn-block" data-loading-text="Processing..." title="Order Holdinbg">
                                                 <span class="fa fa-fw fa-crosshairs"></span>
                                                 PEDIDOS
                                             </button>
@@ -340,6 +360,7 @@
     <script src="{{ asset('vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{ asset('vendor/select2/js/select2.min.js')}}"></script>
     <script src="{{ asset('vendor/jquery-ui/jquery-ui.min.js') }} "></script>
+    <script src="{{ asset('vendor/toastr/toastr.min.js') }} "></script>
 
 
     <script type="text/javascript">
