@@ -1,4 +1,4 @@
-window.angularApp.factory("CustomerCreateModal",["$uibModal", function (API_URL, window, $, $http, $uibModal, $sce, $scope) {
+window.angularApp.factory("CustomerCreateModal",["window","jQuery","$http","$uibModal","$sce","$rootScope", function (window,jQuery, $http, $uibModal, $sce, $scope) {
     return function($scope) {
         var uibModalInstance = $uibModal.open({
             animation: true,

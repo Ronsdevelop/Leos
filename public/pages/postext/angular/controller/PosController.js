@@ -1,11 +1,11 @@
 'use strict';
-var angularApp = window.angular.module("angularApp",["ui.bootstrap"]);
+var angularApp = window.angular.module("angularApp",["ngAnimate","ui.bootstrap"]);
 
 angularApp.constant("API_URL", window.baseUrl);
 angularApp.constant("window", window);
 angularApp.constant("jQuery", window.jQuery);
 
-angularApp.controller("PosController",["CustomerCreateModal","$uibModal",function($scope,$http,$modal,window,$uibModal,CustomerCreateModal){
+angularApp.controller("PosController",["$scope","$http","window","$uibModal","CustomerCreateModal","jQuery",function($scope,$http,window,$uibModal,CustomerCreateModal){
 
 
     $scope._percentage = function (amount, per)
