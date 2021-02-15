@@ -13,17 +13,18 @@ window.angularApp.factory("CustomerCreateModal",["window","jQuery","$http","$uib
                         "</div>",
             controller: function ($scope, $uibModalInstance) {
                 $http({
-                  url: window.baseUrl + "/_inc/customer.php?action_type=CREATE",
+                  url: "/pos/addcliente",
                   method: "GET"
                 })
                 .then(function(response, status, headers, config) {
-                    $scope.modal_title = "Create New Customer";
+
+                    $scope.modal_title = "Crear un Nuevo Cliente";
                     $scope.rawHtml = $sce.trustAsHtml(response.data);
 
-                    setTimeout(function() {
+                   /*  setTimeout(function() {
                         window.storeApp.select2();
                         window.storeApp.datePicker();
-                    }, 500);
+                    }, 500); */
 
                 }, function(response) {
                    window.swal("Oops!", response.data.errorMsg, "error");

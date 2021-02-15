@@ -352,6 +352,7 @@
     <script src="{{ asset('pages/postext/angular/lib/angular.min.js')}}"></script>
     <script src="{{ asset('pages/postext/angular/lib/angular-animate.min.js')}}"></script>
     <script src="{{ asset('pages/postext/angular/lib/ui-bootstrap-tpls-2.5.0.min.js')}}"></script>
+    <script src="{{ asset('pages/postext/angular/lib/angular-bind-html-compile.min.js')}}"></script>
     <script src="{{ asset('pages/postext/angular/controller/PosController.js')}}"></script>
     <script src="{{ asset('pages/postext/angular/lib/CustomerModal.js')}}"></script>
     <script src="{{ asset('pages/postext/js/common.js')}}"></script>

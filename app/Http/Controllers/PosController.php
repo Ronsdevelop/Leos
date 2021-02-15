@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Categoria;
+use App\Identificacion;
 use App\Producto;
+use App\TipoCliente;
 use Illuminate\Http\Request;
 
 class PosController extends Controller
@@ -22,6 +24,12 @@ class PosController extends Controller
         $categorias = Categoria::all();
         $productos = Producto::all();
         return view('Pos.index', compact('categorias','productos'));
+    }
+    public function addclie()
+    {
+        $identificacion = Identificacion::all();
+        $tipoCliente = TipoCliente::all();
+        return view('Pos.addcliente', compact('identificacion','tipoCliente'));
     }
 
     /**

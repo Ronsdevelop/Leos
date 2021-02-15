@@ -1,5 +1,5 @@
 'use strict';
-var angularApp = window.angular.module("angularApp",["ngAnimate","ui.bootstrap"]);
+var angularApp = window.angular.module("angularApp",["ngAnimate","ui.bootstrap","angular-bind-html-compile"]);
 
 angularApp.constant("API_URL", window.baseUrl);
 angularApp.constant("window", window);
