@@ -1,10 +1,32 @@
-var angularApp = window.angular.module("angularApp",[]);
+'use strict';
+var angularApp = window.angular.module("angularApp",["ui.bootstrap"]);
 
 angularApp.constant("API_URL", window.baseUrl);
 angularApp.constant("window", window);
 angularApp.constant("jQuery", window.jQuery);
 
-angularApp.controller("PosController", function($scope,$http,window){
+angularApp.controller("PosController",["CustomerCreateModal","$uibModal",function($scope,$http,$modal,window,$uibModal,CustomerCreateModal){
+
+
+    $scope._percentage = function (amount, per)
+    {
+        if(false === $scope._isNumeric(amount) || false === $scope._isNumeric(per)) {
+           /*  if (window.store.sound_effect == 1) {
+                window.storeApp.playSound("error.mp3");
+            } */
+            window.toastr.error("The discount amount isn't numeric!", "Warning!");
+            return 0;
+        }
+        return (amount/100)*per;
+    };
+    $scope._isNumeric = function (val) {
+      return !isNaN(parseFloat(val)) && 'undefined' !== typeof val ? parseFloat(val) : false;
+    };
+    $scope._isInt = function (value) {
+        return !isNaN(value) &&
+             parseInt(Number(value)) == value &&
+             !isNaN(parseInt(value, 10));
+    };
 
 
 
@@ -104,7 +126,7 @@ angularApp.controller("PosController", function($scope,$http,window){
             var ob_info = pos_customer+ "\n";
             $scope.orderData.info = ob_info;
             $scope.billData.info = ob_info;
-           /*  $scope._calcTotalPayable(); */
+            $scope._calcTotalPayable();
         } else {
          /*    if (window.store.sound_effect == 1) {
                 window.storeApp.playSound("error.mp3");
@@ -142,11 +164,12 @@ angularApp.controller("PosController", function($scope,$http,window){
 
         var categoryId = $scope.ProductCategoryID ? $scope.ProductCategoryID : '';
         $http({
-            url: url ? url :"/pos/store",
+            url: url ? url :"/pos/producto",
             method: "POST",
             cache: false,
             data:{
-                op:categoryId
+                op:categoryId,
+                term:productCode
             },
             processData: false,
             contentType: false,
@@ -172,7 +195,7 @@ angularApp.controller("PosController", function($scope,$http,window){
 
            /*  $("#item-list").perfectScrollbar('update'); */
             $scope.totalProduct = parseInt($scope.productArray.length);
-            console.log($scope.totalProduct);
+
             $scope.showLoader = !1;
             if ($scope.totalProduct == 1 && productCode) {
                 window.angular.forEach(response.data.products, function(productItem, key) {
@@ -325,17 +348,17 @@ angularApp.controller("PosController", function($scope,$http,window){
         if ($scope.payable != 0 && ($scope.discountAmount >= $scope.payable)) {
             $scope.discountAmount = 0;
             $scope.discountInput = 0;
-            if (window.store.sound_effect == 1) {
+         /*    if (window.store.sound_effect == 1) {
                 window.storeApp.playSound("error.mp3");
-            }
+            } */
             window.toastr.error("Discount amount must be less than payable amount", "Warning!");
         }
         if ($scope.payable != 0 && ($scope.shippingAmount >= $scope.payable)) {
             $scope.shippingAmount = 0;
             $scope.shippingInput = 0;
-            if (window.store.sound_effect == 1) {
+          /*   if (window.store.sound_effect == 1) {
                 window.storeApp.playSound("error.mp3");
-            }
+            } */
             window.toastr.error("Shipping amount must be less than payable amount", "Warning!");
         }
         if ($scope.discountType == 'percentage') {
@@ -406,9 +429,9 @@ angularApp.controller("PosController", function($scope,$http,window){
             dataType: "json"
         }).
         then(function(response) {
-            console.log(response.data);
+
             if (response.data.id) {
-                console.log($scope.itemArray);
+
                 var find = window._.find($scope.itemArray, function (item) {
                     return item.id == response.data.id;
                 });
@@ -482,7 +505,7 @@ angularApp.controller("PosController", function($scope,$http,window){
                     $scope.itemArray.push(item);
                 }
                 $scope.totalItem = window._.size($scope.itemArray);
-                //$scope._calcTotalPayable();
+                $scope._calcTotalPayable();
                 $scope.productName = '';
                 if (window.deviceType == 'computer') {
                     $("#product-name").focus();
@@ -563,7 +586,7 @@ angularApp.controller("PosController", function($scope,$http,window){
                 });
             }
             $scope.totalItem = window._.size($scope.itemArray);
-            //$scope._calcTotalPayable();
+            $scope._calcTotalPayable();
         }
     };
 
@@ -596,7 +619,7 @@ angularApp.controller("PosController", function($scope,$http,window){
                 $scope.totalItem = $scope.totalItem - 1;
             }
         });
-       // $scope._calcTotalPayable();
+        $scope._calcTotalPayable();
         $scope.itemArray.splice(index, 1);
         $scope.totalItem = window._.size($scope.itemArray);
        // $scope.setBillandOrderItems();
@@ -610,6 +633,253 @@ angularApp.controller("PosController", function($scope,$http,window){
     // ===================================================
     // End Remove Item from Invoice
     // ===================================================
+
+      // ============================================
+    // Start Reset POS
+    // ============================================
+
+    $scope.resetPos = function (force) {
+        localStorage.getItem("swal");
+        localStorage.setItem("swal","");
+        if (force == 1 && (window.getParameterByName("customer_id") || window.getParameterByName("holding_id") || window.getParameterByName("qref"))) {
+            window.location = "pos.php";
+        } else {
+            $scope.customerArray    = [];
+            $scope.itemArray        = [];
+            $scope.invoiceId        = "";
+            $scope.invoiceNote      = "";
+            $scope.hideCustomerDropdown = true;
+            $scope.taxInput         = 0;
+            $scope.dueAmount        = 0;
+            $scope.customerName     = "";
+            $scope.customerId       = "";
+            $scope.totalItem        = 0;
+            $scope.totalQuantity    = 0;
+            $scope.totalAmount      = 0;
+            $scope.discountAmount   = 0;
+            $scope.shippingAmount   = 0;
+            $scope.othersCharge     = 0;
+            $scope.payable          = 0;
+            $scope.totalPayable     = 0;
+            $scope.discountInput    = 0;
+            $scope.shippingInput    = 0;
+            $scope.othersChargeInput= 0;
+            $scope.addCustomer(1);
+            $("#invoice-note").data("note", "");
+            $scope.resetBillandOrderItems();
+            $scope.showProductList();
+            window.onbeforeunload = null;
+        }
+    };
+
+    // ============================================
+    // End Reset POS
+    // ============================================
+
+
+    // ============================================
+    // Start Bill and Order Items
+    // ============================================
+
+    $scope.setBillandOrderItems = function() {
+        $scope.orderData.items = '';
+        $scope.billData.items = '';
+        var billaOrderinc = 1;
+        var orderItem = '';
+        var billItem = '';
+        window._.map($scope.itemArray, function (item, key) {
+            if (item.id) {
+                orderItem += "#";
+                orderItem += billaOrderinc;
+                orderItem += " - " + item.name;
+                orderItem += "\n   ";
+                orderItem += '[' + item.quantity + ']';
+                orderItem += "\n\n";
+                billItem += "#";
+                billItem += billaOrderinc;
+                billItem += " - " + item.name;
+                billItem += "\n   ";
+                billItem += item.quantity;
+                billItem += " x " + item.price;
+                billItem += "   " + item.subTotal;
+                billItem += "\n";
+            }
+            billaOrderinc++;
+        });
+        $scope.orderData.items = orderItem;
+        $scope.billData.items = billItem;
+    };
+    $scope.resetBillandOrderItems = function() {
+        $scope.orderData.header = '';
+        $scope.orderData.footer = '';
+        $scope.orderData.info = '';
+        $scope.orderData.items = {};
+        $scope.billData.items = {};
+        $scope.orderData.store_name = '';
+        $scope.orderData.totals = '';
+    };
+
+    // ============================================
+    // End Bill and Order Items
+    // ============================================
+
+
+
+    // =============================================
+    // Start Popup Invoice Payment Form
+    // =============================================
+
+    $scope.payNow = function() {
+        $scope.invoiceNote = $("#invoice-note").data("note");
+        if ($scope.itemArray.length <= 0) {
+         /*    if (window.store.sound_effect == 1) {
+                window.storeApp.playSound("error.mp3");
+            } */
+            window.toastr.error("Please, select at least one product item", "Warning!");
+            return false;
+        }
+        if (!$scope.customerName) {
+         /*    if (window.store.sound_effect == 1) {
+                window.storeApp.playSound("error.mp3");
+            } */
+            window.toastr.error("Please, select a customer", "Warning!");
+            return false;
+        }
+        $scope.customerId = $(document).find("input[name=\"customer-id\"]").val();
+        if ($("#customer-mobile-number").val()) {
+            $scope.customerMobileNumber = $("#customer-mobile-number").val();
+        }
+        setTimeout(function() {
+            PaymentFormModal($scope);
+        }, 300);
+    }
+
+    // =============================================
+    // End Popup Invoice Payment Form
+    // =============================================
+
+
+    // =============================================
+    // Start Input Item Quantity Manually
+    // =============================================
+
+    $scope.triggerKeyup = false;
+    $(document).delegate(".item_quantity", "keyup", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        var  itemid = $(this).data("itemid");
+        var  itemquantity = $(this).val();
+        var totalAmount = 0;
+        window._.map($scope.itemArray, function (item) {
+            if (item.id == itemid) {
+                item.quantity = itemquantity;
+                item.subTotal = item.price * itemquantity;
+                $scope.$applyAsync(function() {
+                    $scope.itemArray = $scope.itemArray;
+                });
+            }
+            totalAmount += item.subTotal;
+            $scope.$applyAsync(function() {
+                $scope.totalAmount = totalAmount;
+                $scope._calcTotalPayable();
+            });
+        });
+        if ($scope.triggerKeyup == false) {
+            $scope.error = false;
+        } else {
+            $scope.triggerKeyup = false;
+        }
+    });
+    $(document).on('click', function(e) {
+        if ($scope.error == false) {
+            window._.map($scope.itemArray, function (item) {
+                var itemquantity = parseFloat($("#item_quantity_"+item.id).val());
+
+                $http({
+                    url:"/productos/select/"+item.id,
+                    method: "GET",
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    dataType: "json"
+                }).
+                then(function(response) {
+                    if (response.data.id) {
+                        if ((itemquantity > response.data.stock || $scope.itemQuantity >= response.data.stock)) {
+                            if ($scope.error == false) {
+                                $scope.error = true;
+                                $scope.triggerKeyup = true;
+                                $("#item_quantity_"+item.id).val(response.data.stock).trigger("keyup");
+                                $(document).trigger("click");
+                              /*   if (window.store.sound_effect == 1) {
+                                    window.storeApp.playSound("error.mp3");
+                                } */
+                                window.toastr.error("This product is out of stock!", "Warning!");
+                            }
+                        } else {
+                            $scope.error = true;
+                            $scope.triggerKeyup = true;
+                        }
+                    }
+                }, function(response) {
+                   /*  if (window.store.sound_effect == 1) {
+                        window.storeApp.playSound("error.mp3");
+                    } */
+                    window.toastr.error(response.data.errorMsg, "Warning!");
+                });
+            });
+        }
+    });
+
+    // =============================================
+    // End Input Item Quantity Manually
+    // =============================================
+
+
+    // =============================================
+    // Start Input Item Price Manually
+    // =============================================
+
+    if (window.settings.change_item_price_while_billing == 1) {
+        $(document).delegate(".item_price", "keyup", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            var  itemid = $(this).data("itemid");
+            var  itemprice = $(this).val();
+            var totalAmount = 0;
+            window._.map($scope.itemArray, function (item) {
+                if (item.id == itemid) {
+                    item.price = itemprice;
+                    item.subTotal = item.quantity * itemprice;
+                    $scope.$apply(function() {
+                        $scope.itemArray = $scope.itemArray;
+                    });
+                }
+                totalAmount += item.subTotal;
+                $scope.$apply(function() {
+                    $scope.totalAmount = totalAmount;
+                    $scope._calcTotalPayable();
+                });
+            });
+        });
+    }
+
+    // =============================================
+    // End Input Item Price Manually
+    // =============================================
+
+    // Create new product
+    $scope.createNewCustomer = function () {
+        if ($scope.invoiceId) return false;
+        $scope.dueAmount = 0;
+        $scope.addCustomer(1);
+        CustomerCreateModal($scope);
+    };
+
+
+
 
 
 
@@ -695,4 +965,5 @@ angularApp.controller("PosController", function($scope,$http,window){
 
 
 
-});
+
+}]);

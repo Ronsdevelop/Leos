@@ -36,13 +36,15 @@ class PosController extends Controller
 
     public function producto(Request $request)
     {
-        $productos = [];
+        $products = [];
         if ($request->op != 0) {
-            $productos = Producto::where('categoria_id','=',$request->op)->where('nombre','LIKE','%'.$request->term.'%')->get();
+            $products = Producto::where('categoria_id','=',$request->op)->where('nombre','LIKE','%'.$request->term.'%')->get();
         }else{
-            $productos = Producto::where('nombre','LIKE','%'.$request->term.'%')->get();
+            $products = Producto::where('nombre','LIKE','%'.$request->term.'%')->get();
         }
-        return $productos;
+        header('Content-Type: application/json');
+	    echo json_encode(array('products' => $products, 'pagination' => "", 'page' => 0));
+	    exit();
 
     }
 

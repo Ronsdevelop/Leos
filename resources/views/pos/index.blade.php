@@ -310,7 +310,7 @@
                                                         TOTAL PAGO
                                                     </td>
                                                     <td class="text-right">
-                                                        @{{ totalPayable }}
+                                                        @{{ totalPayable.toFixed(2) }}
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -353,14 +353,17 @@
 
 
 
-    <script src="{{ asset('pages/postext/angular/lib/angular.min.js')}}"></script>
-    <script src="{{ asset('pages/postext/angular/controller/PosController.js')}}"></script>
     <script src="{{ asset('pages/postext/js/common.js')}}"></script>
     <script src="{{ asset('vendor/underscore/underscore.min.js')}}"></script>
     <script src="{{ asset('vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{ asset('vendor/select2/js/select2.min.js')}}"></script>
     <script src="{{ asset('vendor/jquery-ui/jquery-ui.min.js') }} "></script>
     <script src="{{ asset('vendor/toastr/toastr.min.js') }} "></script>
+
+    <script src="{{ asset('pages/postext/angular/lib/angular.min.js')}}"></script>
+    <script src="{{ asset('pages/postext/angular/lib/ui-bootstrap-tpls-2.5.0.min.js')}}"></script>
+    <script src="{{ asset('pages/postext/angular/controller/PosController.js')}}"></script>
+    <script src="{{ asset('pages/postext/angular/lib/CustomerModal.js')}}"></script>
 
 
     <script type="text/javascript">
