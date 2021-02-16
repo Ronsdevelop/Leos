@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Categoria;
+use App\Cliente;
 use App\Identificacion;
 use App\Producto;
 use App\TipoCliente;
@@ -30,6 +31,13 @@ class PosController extends Controller
         $identificacion = Identificacion::all();
         $tipoCliente = TipoCliente::all();
         return view('Pos.addcliente', compact('identificacion','tipoCliente'));
+    }
+    public function editclie($id)
+    {
+        $cliente = Cliente::find($id);
+        $identificacion = Identificacion::all();
+        $tipoCliente = TipoCliente::all();
+        return view('Pos.editcliente', compact('identificacion','tipoCliente','cliente'));
     }
 
     /**

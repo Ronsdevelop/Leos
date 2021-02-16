@@ -5,7 +5,7 @@ angularApp.constant("API_URL", window.baseUrl);
 angularApp.constant("window", window);
 angularApp.constant("jQuery", window.jQuery);
 
-angularApp.controller("PosController",["$scope","$http","window","$uibModal","CustomerCreateModal","jQuery",function($scope,$http,window,$uibModal,CustomerCreateModal){
+angularApp.controller("PosController",["$scope","$http","window","$uibModal","CustomerCreateModal","CustomerEditModal","jQuery",function($scope,$http,window,$uibModal,CustomerCreateModal,CustomerEditModal){
 
 
     $scope._percentage = function (amount, per)
@@ -229,12 +229,6 @@ angularApp.controller("PosController",["$scope","$http","window","$uibModal","Cu
         var actionURL = $this.attr("href");
         $scope.showProductList(null,actionURL);
     });
-
-    $scope.CustomerEditModal = function() {
-        $scope.customer_name = $scope.customerName;
-        $scope.customer_id = $scope.customerId;
-        CustomerEditModal($scope);
-    };
 
     $("#category-search-select").on('select2:selecting', function(e) {
         var categoryID = e.params.args.data.id;
@@ -876,6 +870,14 @@ angularApp.controller("PosController",["$scope","$http","window","$uibModal","Cu
         $scope.dueAmount = 0;
         $scope.addCustomer(1);
         CustomerCreateModal($scope);
+    };
+
+    //Edit Cliente
+
+    $scope.CustomerEditModal = function() {
+        $scope.customer_name = $scope.customerName;
+        $scope.customer_id = $scope.customerId;
+        CustomerEditModal($scope);
     };
 
 

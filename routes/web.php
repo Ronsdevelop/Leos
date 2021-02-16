@@ -73,6 +73,7 @@ Route::get('pedidos/producto','PedidoController@producto')->name('pedido.product
 
 Route::get('pos','PosController@index')->name('pos');
 Route::get('pos/addcliente','PosController@addclie')->name('pos.addcliente');
+Route::get('pos/editcliente/{id}','PosController@editclie')->name('pos.editcliente');
 Route::post('pos/store','PosController@store')->name('pos.productos');
 Route::post('pos/producto','PosController@producto')->name('pos.producto');
 Route::get('prueba','PosController@prueba')->name('prueba');

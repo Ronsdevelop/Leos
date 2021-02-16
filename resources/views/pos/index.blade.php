@@ -166,8 +166,7 @@
                                     </div>
                                     <div class="edit-icon pointer">
                                         <span ng-click="CustomerEditModal();" class="fa fa-edit"></span>
-                                        <span id="add-customer-mobile-number-handler" class="fa fa-mobile" style="font-size:18px;margin-left:5px;"></span>
-                                        <input id="customer-mobile-number" type="hidden" name="customer-mobile-number">
+
                                     </div>
                                     <div ng-click="createNewCustomer();" class="add-icon">
                                         <svg class="svg-icon"><use href="#icon-pos-plus"></svg>
@@ -354,7 +353,7 @@
     <script src="{{ asset('pages/postext/angular/lib/ui-bootstrap-tpls-2.5.0.min.js')}}"></script>
     <script src="{{ asset('pages/postext/angular/lib/angular-bind-html-compile.min.js')}}"></script>
     <script src="{{ asset('pages/postext/angular/controller/PosController.js')}}"></script>
-    <script src="{{ asset('pages/postext/angular/lib/CustomerModal.js')}}"></script>
+    <script src="{{ asset('pages/postext/angular/lib/modals.js')}}"></script>
     <script src="{{ asset('pages/postext/js/common.js')}}"></script>
     <script src="{{ asset('vendor/underscore/underscore.min.js')}}"></script>
     <script src="{{ asset('vendor/jquery/jquery.min.js')}}"></script>
