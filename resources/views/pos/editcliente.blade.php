@@ -16,7 +16,7 @@
           Dirección
         </label>
         <div class="col-sm-7">
-            <input type="text" class="form-control" name="txtDireccion" id="txtDireccion" placeholder="Direccion Cliente">
+            <input type="text" class="form-control" name="txtDireccion" value="{{$cliente['direccion']}}" id="txtDireccion" placeholder="Direccion Cliente">
         </div>
       </div>
       <div class="form-group">
@@ -36,10 +36,10 @@
       </div>
       <div class="form-group">
         <label for="customer_name" class="col-sm-3 control-label">
-          Dirección
+          Documento
         </label>
         <div class="col-sm-7">
-            <input type="text" class="form-control" name="txtDoc" id="txtDoc" placeholder="DNI O RUC">
+            <input type="text" class="form-control" value="{{$cliente['documento_identi']}}" name="txtDoc" id="txtDoc" placeholder="DNI O RUC">
         </div>
       </div>
       <div class="form-group">
@@ -47,7 +47,7 @@
           Alias para Consulta
         </label>
         <div class="col-sm-7">
-            <input type="text" class="form-control" name="txtAlias" id="txtAlias" placeholder="Alias para Consultas">
+            <input type="text" class="form-control" value="{{$cliente['alias']}}"name="txtAlias" id="txtAlias" placeholder="Alias para Consultas">
         </div>
       </div>
       <div class="form-group">
@@ -55,7 +55,7 @@
           Contacto
         </label>
         <div class="col-sm-7">
-            <input type="text" class="form-control" name="txtContacto" id="txtContacto" placeholder="Representante para Consultas">
+            <input type="text" class="form-control" value="{{$cliente['representante']}}" name="txtContacto" id="txtContacto" placeholder="Representante para Consultas">
         </div>
       </div>
 
@@ -80,7 +80,7 @@
           Celular
         </label>
         <div class="col-sm-7">
-            <input type="text" class="form-control" name="txtCelular" id="txtCelular" placeholder="Celular">
+            <input type="text" class="form-control" value="{{$cliente['nCelular']}}" name="txtCelular" id="txtCelular" placeholder="Celular">
         </div>
       </div>
       <div class="form-group">
@@ -88,7 +88,7 @@
           Cumpleaños
         </label>
         <div class="col-sm-7">
-            <input type="date" class="form-control" name="txtCumple" id="txtCumple" >
+            <input type="date" class="form-control" value="{{$cliente['cumpleanos']}}" name="txtCumple" id="txtCumple" >
         </div>
       </div>
       <div class="form-group">
@@ -96,7 +96,7 @@
           Email
         </label>
         <div class="col-sm-7">
-            <input type="email" class="form-control" name="txtCorreo" id="txtCorreo" placeholder="Direccion de email">
+            <input type="email" class="form-control" value="{{$cliente['email']}}" name="txtCorreo" id="txtCorreo" placeholder="Direccion de email">
         </div>
       </div>
       <div class="form-group">
@@ -104,7 +104,7 @@
           Referencia
         </label>
         <div class="col-sm-7">
-            <textarea class="form-control" name="txtReferencia" id="txtReferencia" cols="30" rows="1" placeholder="Referencia del local"></textarea>
+            <textarea class="form-control" value="{{$cliente['referencia']}}" name="txtReferencia" id="txtReferencia" cols="30" rows="1" placeholder="Referencia del local"></textarea>
         </div>
       </div>
 
