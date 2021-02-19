@@ -5,6 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Panaderia Leos</title>
+        <link rel="shortcut icon" href="{{ asset('favicons/favicon.ico') }}" />
         <link rel="stylesheet" href="{{ asset('welcome/css/style.css') }} ">
 
     </head>
@@ -20,15 +21,15 @@
         @endif --}}
 
         <header>
-            <a href="#" class="logo">Panadería Leos<span>.</span></a>
+            <a href="#" class="logo"><img class="imgLogo" src="{{ asset('vendor/adminlte/dist/img/logo.png') }}" alt=""></a>
             <div class="menuToggle" onclick="toggleMenu();"></div>
             <ul class="navigation">
-                <li><a href="#banner">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#menu">Menu</a></li>
-                <li><a href="#expert">Expert</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#banner" onclick="toggleMenu();">Home</a></li>
+                <li><a href="#about" onclick="toggleMenu();">About</a></li>
+                <li><a href="#menu" onclick="toggleMenu();">Menu</a></li>
+                <li><a href="#expert" onclick="toggleMenu();">Expert</a></li>
+                <li><a href="#testimonials" onclick="toggleMenu();">Testimonials</a></li>
+                <li><a href="#contact" onclick="toggleMenu();">Contact</a></li>
                 @if (Route::has('login'))
                     @auth
                         <li><a href="{{ url('/home') }}">Home</a></li>
@@ -50,7 +51,7 @@
         <section class="about" id="about">
             <div class="row">
                 <div class="col50">
-                    <h2 class="titleTex"><span>A</span>bout Us</h2>
+                    <h2 class="titleText"><span>A</span>bout Us</h2>
                     <p>
                         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Inventore nesciunt perspiciatis, vel est repudiandae reprehenderit exercitationem deserunt velit? Nostrum ea beatae atque blanditiis iure facere quod rerum unde quisquam exercitationem!. <br><br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, odio? Odio nam ex beatae illo error possimus voluptate maxime quae animi distinctio deserunt debitis nulla nihil dignissimos, magni, adipisci sed.
                     </p>
@@ -66,7 +67,7 @@
 
         <section class="menu" id="menu">
             <div class="title">
-                <h2 class="titleTex">Our <span>M</span>enu</h2>
+                <h2 class="titleText">Our <span>M</span>enu</h2>
                 <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
             </div>
             <div class="content">
@@ -231,7 +232,10 @@
             });
             function toggleMenu(){
                 const menuToggle = document.querySelector('.menuToggle');
+                const navigation = document.querySelector('.navigation');
                 menuToggle.classList.toggle('active');
+                navigation.classList.toggle('active');
+
             }
         </script>
     </body>

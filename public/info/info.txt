@@ -2,3 +2,5 @@ https://programacion.net/articulo/autocompletador_de_jquery_ui_con_imagenes_y_ht
 
 https://www.codigofuentepuntodeventa.com/pos_simple/pos
 
+https://imagecolorpicker.com/
+
