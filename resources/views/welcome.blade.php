@@ -21,6 +21,7 @@
 
         <header>
             <a href="#" class="logo">Panadería Leos<span>.</span></a>
+            <div class="menuToggle" onclick="toggleMenu();"></div>
             <ul class="navigation">
                 <li><a href="#banner">Home</a></li>
                 <li><a href="#about">About</a></li>
@@ -125,7 +126,7 @@
         </section>
         <section class="expert" id="expert">
             <div class="title">
-                <h2 class="titleTex">Our Kitchen<span>E</span>xpert</h2>
+                <h2 class="titleText">Our Kitchen<span>E</span>xpert</h2>
                 <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
             </div>
             <div class="content">
@@ -171,7 +172,7 @@
             <div class="content">
                 <div class="box">
                     <div class="imgBx">
-                        <img src="{{asset('welcome/img/testi1.jpg')}}" alt="">
+                        <img src="{{asset('welcome/img/testi1.jpg')}}">
                     </div>
                     <div class="text">
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi at dignissimos deserunt quae expedita? Voluptatibus, </p>
@@ -200,11 +201,38 @@
             </div>
         </section>
 
+        <section class="contact" id="contact">
+            <div class="title">
+                <h2 class="titleText">They <span>C</span>ontact Us</h2>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+            </div>
+            <div class="contactForm">
+                <h3>Send Message</h3>
+                <div class="inputBox">
+                    <input type="text" name="" id="" placeholder="Name">
+                </div>
+                <div class="inputBox">
+                    <input type="text" name="" id="" placeholder="Email">
+                </div>
+                <div class="inputBox">
+                    <textarea type="text" name="" id=""></textarea>
+                </div>
+                <div class="inputBox">
+                    <input type="submit" name="" id="" value="Enviar">
+                </div>
+
+            </div>
+        </section>
+
         <script type="text/javascript">
             window.addEventListener('scroll',function(){
                 const header = document.querySelector('header');
                 header.classList.toggle("sticky", window.scrollY > 0);
             });
+            function toggleMenu(){
+                const menuToggle = document.querySelector('.menuToggle');
+                menuToggle.classList.toggle('active');
+            }
         </script>
     </body>
 </html>
