@@ -31,7 +31,7 @@ body
     display:flex;
     justify-content: center;
     align-items: center;
-    background: url(/welcome/img/bg.jpg);
+    background: url(/vendor/adminlte/dist/img/fondo.png);
     background-size: cover;
 }
 .banner .content
@@ -71,7 +71,7 @@ header
    top: 0;
    left: 0;
    width: 100%;
-   padding: 40px 100px;
+   padding: 20px 100px;
    z-index: 10000;
    display: flex;
    justify-content: space-between;
@@ -92,8 +92,8 @@ header .logo
     text-decoration: none;
 }
 header .logo .imgLogo{
-    width: 100px;
-    height: 50px;
+    width: 150px;
+    height: 80px;
 }
 
 header.sticky .logo
@@ -128,7 +128,7 @@ header.sticky .navigation li a
 }
 header .navigation li a:hover
 {
-    color: var(--color-secundario);
+    color: var(--color-primario);
 }
 section
 {
@@ -161,6 +161,12 @@ section
 .row .col50 .imgBx
 {
     position: relative;
+    width: 100%;
+  /*   min-height: 300px; */
+  height: 100%;
+}
+.row .col50 .imgBxAbout
+{
     width: 100%;
   /*   min-height: 300px; */
   height: 100%;

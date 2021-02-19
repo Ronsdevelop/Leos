@@ -24,12 +24,12 @@
             <a href="#" class="logo"><img class="imgLogo" src="{{ asset('vendor/adminlte/dist/img/logo.png') }}" alt=""></a>
             <div class="menuToggle" onclick="toggleMenu();"></div>
             <ul class="navigation">
-                <li><a href="#banner" onclick="toggleMenu();">Home</a></li>
-                <li><a href="#about" onclick="toggleMenu();">About</a></li>
-                <li><a href="#menu" onclick="toggleMenu();">Menu</a></li>
-                <li><a href="#expert" onclick="toggleMenu();">Expert</a></li>
-                <li><a href="#testimonials" onclick="toggleMenu();">Testimonials</a></li>
-                <li><a href="#contact" onclick="toggleMenu();">Contact</a></li>
+                <li><a href="#banner" onclick="toggleMenu();">Inicio</a></li>
+                <li><a href="#about" onclick="toggleMenu();">Nosotros</a></li>
+                <li><a href="#menu" onclick="toggleMenu();">Panes</a></li>
+                <li><a href="#expert" onclick="toggleMenu();">Dulces</a></li>
+                <li><a href="#testimonials" onclick="toggleMenu();">Equipo</a></li>
+                <li><a href="#contact" onclick="toggleMenu();">Contacto</a></li>
                 @if (Route::has('login'))
                     @auth
                         <li><a href="{{ url('/home') }}">Home</a></li>
@@ -57,7 +57,7 @@
                     </p>
                 </div>
                 <div class="col50">
-                    <div class="imgBx">
+                    <div class="imgBxAbout">
                         <img src="{{asset('welcome/img/img1.jpg')}}" alt="">
                     </div>
                 </div>
@@ -204,19 +204,22 @@
 
         <section class="contact" id="contact">
             <div class="title">
-                <h2 class="titleText">They <span>C</span>ontact Us</h2>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+                <h2 class="titleText"><span>C</span>ontactanos</h2>
+                <p>Si Desea Contanctarse con Nosotros lo puede realizar mediante el siguiente Formulario</p>
             </div>
             <div class="contactForm">
-                <h3>Send Message</h3>
+                <h3>Enviar</h3>
                 <div class="inputBox">
-                    <input type="text" name="" id="" placeholder="Name">
+                    <input type="text" name="" id="" placeholder="Nombre">
+                </div>
+                <div class="inputBox">
+                    <input type="text" name="" id="" placeholder="Telefono">
                 </div>
                 <div class="inputBox">
                     <input type="text" name="" id="" placeholder="Email">
                 </div>
                 <div class="inputBox">
-                    <textarea type="text" name="" id=""></textarea>
+                    <textarea type="text" name="" id="" placeholder="Descripción"></textarea>
                 </div>
                 <div class="inputBox">
                     <input type="submit" name="" id="" value="Enviar">
