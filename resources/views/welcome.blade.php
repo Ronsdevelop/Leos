@@ -24,12 +24,12 @@
             <a href="#" class="logo"><img class="imgLogo" src="{{ asset('vendor/adminlte/dist/img/logo.png') }}" alt=""></a>
             <div class="menuToggle" onclick="toggleMenu();"></div>
             <ul class="navigation">
-                <li><a href="#banner" onclick="toggleMenu();">Inicio</a></li>
-                <li><a href="#about" onclick="toggleMenu();">Nosotros</a></li>
-                <li><a href="#menu" onclick="toggleMenu();">Panes</a></li>
-                <li><a href="#expert" onclick="toggleMenu();">Dulces</a></li>
-                <li><a href="#testimonials" onclick="toggleMenu();">Equipo</a></li>
-                <li><a href="#contact" onclick="toggleMenu();">Contacto</a></li>
+                <li><a href="#inicio" onclick="toggleMenu();">Inicio</a></li>
+                <li><a href="#nosotros" onclick="toggleMenu();">Nosotros</a></li>
+                <li><a href="#panes" onclick="toggleMenu();">Panes</a></li>
+                <li><a href="#dulces" onclick="toggleMenu();">Dulces</a></li>
+                <li><a href="#equipo" onclick="toggleMenu();">Equipo</a></li>
+                <li><a href="#contacto" onclick="toggleMenu();">Contacto</a></li>
                 @if (Route::has('login'))
                     @auth
                         <li><a href="{{ url('/home') }}">Home</a></li>
@@ -41,93 +41,152 @@
 
             </ul>
         </header>
-        <section class="banner" id="banner">
+        <section class="banner" id="inicio">
             <div class="content">
-                <h2>Always choose Good</h2>
+                <h2>Bienvenidos a Panadería Leos</h2>
                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero nesciunt veritatis numquam doloribus sed illo molestias quam earum mollitia. Commodi modi quae amet alias numquam aliquam minima optio! Nihil, expedita!</p>
-                <a href="#" class="btn">Our Menu</a>
+             
             </div>
         </section>
-        <section class="about" id="about">
+        <section class="about" id="nosotros">
             <div class="row">
                 <div class="col50">
-                    <h2 class="titleText"><span>A</span>bout Us</h2>
+                    <h2 class="titleText">Sobre Nosotros</h2>
                     <p>
                         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Inventore nesciunt perspiciatis, vel est repudiandae reprehenderit exercitationem deserunt velit? Nostrum ea beatae atque blanditiis iure facere quod rerum unde quisquam exercitationem!. <br><br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, odio? Odio nam ex beatae illo error possimus voluptate maxime quae animi distinctio deserunt debitis nulla nihil dignissimos, magni, adipisci sed.
                     </p>
                 </div>
                 <div class="col50">
                     <div class="imgBxAbout">
-                        <img src="{{asset('welcome/img/img1.jpg')}}" alt="">
+                        <img src="{{asset('welcome/img/imgLeos2.jpg')}}" alt="">
                     </div>
                 </div>
             </div>
 
         </section>
 
-        <section class="menu" id="menu">
+        <section class="menu" id="panes">
             <div class="title">
-                <h2 class="titleText">Our <span>M</span>enu</h2>
+                <h2 class="titleText">Los mas Destacados</h2>
                 <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
             </div>
             <div class="content">
                 <div class="box">
                     <div class="imgBx">
-                        <img src="{{asset('welcome/img/menu1.jpg')}}" alt="">
+                        <img src="{{asset('welcome/img/panFrances.jpg')}}" alt="">
                     </div>
                     <div class="text">
-                        <h3>Special Salads </h3>
+                        <h3>Pan Frances </h3>
                     </div>
                 </div>
                 <div class="box">
                     <div class="imgBx">
-                        <img src="{{asset('welcome/img/menu2.jpg')}}" alt="">
+                        <img src="{{asset('welcome/img/panItaliano.jpg')}}" alt="">
                     </div>
                     <div class="text">
-                        <h3>Special Soup</h3>
+                        <h3>Pan Italiano</h3>
                     </div>
                 </div>
                 <div class="box">
                     <div class="imgBx">
-                        <img src="{{asset('welcome/img/menu3.jpg')}}" alt="">
+                        <img src="{{asset('welcome/img/panRedondo.jpg')}}" alt="">
                     </div>
                     <div class="text">
-                        <h3>Special Pasta</h3>
+                        <h3>Pan Redondo</h3>
                     </div>
                 </div>
                 <div class="box">
                     <div class="imgBx">
-                        <img src="{{asset('welcome/img/menu4.jpg')}}" alt="">
+                        <img src="{{asset('welcome/img/panMica.jpg')}}" alt="">
                     </div>
                     <div class="text">
-                        <h3>Special Salad</h3>
+                        <h3>Pan Mica</h3>
                     </div>
                 </div>
                 <div class="box">
                     <div class="imgBx">
-                        <img src="{{asset('welcome/img/menu5.jpg')}}" alt="">
+                        <img src="{{asset('welcome/img/panCachanga.jpg')}}" alt="">
                     </div>
                     <div class="text">
-                        <h3>Special Soup</h3>
+                        <h3>Cachanga</h3>
                     </div>
                 </div>
                 <div class="box">
                     <div class="imgBx">
-                        <img src="{{asset('welcome/img/menu6.jpg')}}" alt="">
+                        <img src="{{asset('welcome/img/panMarraqueta.jpg')}}" alt="">
                     </div>
                     <div class="text">
-                        <h3>Special Pasta</h3>
+                        <h3>Marraqueta</h3>
                     </div>
                 </div>
             </div>
             <div class="title">
-               <a href="#" class="btn">view all</a>
+               <a href="#" class="btn">Ver Todos</a>
             </div>
 
         </section>
-        <section class="expert" id="expert">
-            <div class="title">
-                <h2 class="titleText">Our Kitchen<span>E</span>xpert</h2>
+        <section class="testimonials" id="dulces">
+            <div class="title white">
+                <h2 class="titleText">Los Mejores Dulces</h2>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+            </div>
+            <div class="content">
+                <div class="box">
+                    <div class="imgBx">
+                        <img src="{{asset('welcome/img/panFrances.jpg')}}" alt="">
+                    </div>
+                    <div class="text">
+                        <h3>Pan Frances </h3>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="imgBx">
+                        <img src="{{asset('welcome/img/panItaliano.jpg')}}" alt="">
+                    </div>
+                    <div class="text">
+                        <h3>Pan Italiano</h3>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="imgBx">
+                        <img src="{{asset('welcome/img/panRedondo.jpg')}}" alt="">
+                    </div>
+                    <div class="text">
+                        <h3>Pan Redondo</h3>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="imgBx">
+                        <img src="{{asset('welcome/img/panMica.jpg')}}" alt="">
+                    </div>
+                    <div class="text">
+                        <h3>Pan Mica</h3>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="imgBx">
+                        <img src="{{asset('welcome/img/panCachanga.jpg')}}" alt="">
+                    </div>
+                    <div class="text">
+                        <h3>Cachanga</h3>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="imgBx">
+                        <img src="{{asset('welcome/img/panMarraqueta.jpg')}}" alt="">
+                    </div>
+                    <div class="text">
+                        <h3>Marraqueta</h3>
+                    </div>
+                </div>
+                <div class="title">
+                    <a href="#" class="btn">Ver Todos</a>
+                 </div>
+            </div>
+        </section>
+        <section class="expert" id="equipo">
+            <div class="title ">
+                <h2 class="titleText">Nuestro Equipo</h2>
                 <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
             </div>
             <div class="content">
@@ -136,7 +195,7 @@
                         <img src="{{asset('welcome/img/expert1.jpg')}}" alt="">
                     </div>
                     <div class="text">
-                        <h3>Someone Famous</h3>
+                        <h3>Lorem ipsum</h3>
                     </div>
                 </div>
                 <div class="box">
@@ -144,7 +203,7 @@
                         <img src="{{asset('welcome/img/expert2.jpg')}}" alt="">
                     </div>
                     <div class="text">
-                        <h3>Someone Famous</h3>
+                        <h3>Lorem ipsum</h3>
                     </div>
                 </div>
                 <div class="box">
@@ -152,7 +211,7 @@
                         <img src="{{asset('welcome/img/expert3.jpg')}}" alt="">
                     </div>
                     <div class="text">
-                        <h3>Someone Famous</h3>
+                        <h3>Lorem ipsum</h3>
                     </div>
                 </div>
                 <div class="box">
@@ -160,55 +219,20 @@
                         <img src="{{asset('welcome/img/expert4.jpg')}}" alt="">
                     </div>
                     <div class="text">
-                        <h3>Someone Famous</h3>
+                        <h3>Lorem ipsum</h3>
                     </div>
                 </div>
             </div>
         </section>
-        <section class="testimonials" id="testimonials">
-            <div class="title white">
-                <h2 class="titleText">They <span>S</span>aid About Us</h2>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-            </div>
-            <div class="content">
-                <div class="box">
-                    <div class="imgBx">
-                        <img src="{{asset('welcome/img/testi1.jpg')}}">
-                    </div>
-                    <div class="text">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi at dignissimos deserunt quae expedita? Voluptatibus, </p>
-                        <h3>Someone Famous</h3>
-                    </div>
-                </div>
-                <div class="box">
-                    <div class="imgBx">
-                        <img src="{{asset('welcome/img/testi2.jpg')}}" alt="">
-                    </div>
-                    <div class="text">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi at dignissimos deserunt quae expedita? Voluptatibus, </p>
-                        <h3>Someone Famous</h3>
-                    </div>
-                </div>
-                <div class="box">
-                    <div class="imgBx">
-                        <img src="{{asset('welcome/img/testi3.jpg')}}" alt="">
-                    </div>
-                    <div class="text">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi at dignissimos deserunt quae expedita? Voluptatibus, </p>
-                        <h3>Someone Famous</h3>
-                    </div>
-                </div>
+      
 
-            </div>
-        </section>
-
-        <section class="contact" id="contact">
-            <div class="title">
-                <h2 class="titleText"><span>C</span>ontactanos</h2>
+        <section class="contact" id="contacto">
+            <div class="title ">
+                <h2 class="titleText">Contactanos</h2>
                 <p>Si Desea Contanctarse con Nosotros lo puede realizar mediante el siguiente Formulario</p>
             </div>
             <div class="contactForm">
-                <h3>Enviar</h3>
+                <h3>CONTACTO</h3>
                 <div class="inputBox">
                     <input type="text" name="" id="" placeholder="Nombre">
                 </div>
@@ -219,7 +243,7 @@
                     <input type="text" name="" id="" placeholder="Email">
                 </div>
                 <div class="inputBox">
-                    <textarea type="text" name="" id="" placeholder="Descripción"></textarea>
+                    <textarea type="text" name="" id="" placeholder="Mensaje"></textarea>
                 </div>
                 <div class="inputBox">
                     <input type="submit" name="" id="" value="Enviar">

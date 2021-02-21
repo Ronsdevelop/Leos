@@ -31,16 +31,27 @@ body
     display:flex;
     justify-content: center;
     align-items: center;
-    background: url(/vendor/adminlte/dist/img/fondo.png);
+    background: url(/welcome/img/img1.jpg);
     background-size: cover;
+}
+.banner::before
+{
+    content:'';
+	position: absolute;
+    top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba(0,0,0,0.6); 
 }
 .banner .content
 {
     max-width: 900px;
     text-align: center;
+    position: relative
 }
 .banner .content h2{
-    font-size: 5em;
+    font-size: 3em;
     color: #fff;
 }
 .banner .content p
@@ -68,10 +79,10 @@ body
 header
 {
    position: fixed;
-   top: 0;
+   top: 0;    
    left: 0;
    width: 100%;
-   padding: 20px 100px;
+   padding: 40px 100px;
    z-index: 10000;
    display: flex;
    justify-content: space-between;
@@ -81,7 +92,7 @@ header
 header.sticky
 {
     background: #fff;
-    padding: 10px 100px ;
+    padding: 5px 100px ;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
 }
 header .logo
@@ -92,13 +103,18 @@ header .logo
     text-decoration: none;
 }
 header .logo .imgLogo{
-    width: 150px;
-    height: 80px;
+    width: 180px;
+    height: 100px; 
 }
 
 header.sticky .logo
 {
     color: #111;
+}
+header.sticky .imgLogo
+{
+    width: 150px;
+    height: 80px;
 }
 header .logo span
 {
@@ -119,7 +135,8 @@ header .navigation li a
 {
     text-decoration: none;
     color: #fff;
-    font-weight: 300;
+    font-weight: 800;
+    font-size: 18px;
 }
 header.sticky .navigation li a
 {
@@ -149,7 +166,7 @@ section
 .titleText
 {
     color: #111;
-    font-size: 2em;
+    font-size: 1.5em;
     font-weight: 300;
 }
 .titleText span
@@ -170,6 +187,11 @@ section
     width: 100%;
   /*   min-height: 300px; */
   height: 100%;
+  text-align:center;
+}
+.row .col50 .imgBxAbout img
+{
+	vertical-align:middle;
 }
 .row .col50 .imgBx img
 {
@@ -305,7 +327,7 @@ section
    width: 80px;
    height: 80px;
    margin-bottom: 20px;
-   border-radius: 50%;
+  
    overflow: hidden;
 }
 .testimonials .content .box .imgBx img
@@ -402,7 +424,7 @@ section
         width: 100%;
         height: calc(100%-68px);
         position: fixed;
-        top: 68px;
+        top: 90px;
         left: 0;
         display: flex;
         justify-content: center;
