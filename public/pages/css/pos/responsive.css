@@ -35,7 +35,7 @@
 		padding: 0px 5px;
 	}
 	.add-icon {
-		width: 38px;	
+		width: 38px;
 	}
 	.add-icon img {
 		height: 20px;
@@ -96,7 +96,7 @@
     	display: none;
     }
     .main-header {
-    	background: #008d4c;
+    	background: #343a40;
     	overflow: hidden;
     }
     .main-header .logo {

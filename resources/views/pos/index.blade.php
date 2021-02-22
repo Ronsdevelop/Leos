@@ -119,11 +119,11 @@
 								</div>
 
 
-
+{{--
                                 <div class="pos-product-pagination pagination-bottom">
 
 
-                                </div>
+                                </div> --}}
                             </div>
                             <div id="total-amount">
                                 <div class="total-amount-inner">
@@ -346,10 +346,22 @@
             </div>
         </div>
         <!-- Content Wrapper End -->
+
     </div>
+    <!-- Rightbar Toggle Handler -->
+	<div id="minicart">
+		<div class="minicart-content">
+			<div class="heading">
+				<div class="title"></div>
+			</div>
+			<div class="body">
+				<div class="items">@{{ totalItem }} (@{{ totalQuantity }})</div>
+			</div>
+			<div class="footer"></div>
+		</div>
+	</div>
 
     <script src="{{ asset('pages/postext/angular/lib/angular.min.js')}}"></script>
-    <script src="{{ asset('pages/postext/angular/lib/angular-animate.min.js')}}"></script>
     <script src="{{ asset('pages/postext/angular/lib/ui-bootstrap-tpls-2.5.0.min.js')}}"></script>
     <script src="{{ asset('pages/postext/angular/lib/angular-bind-html-compile.min.js')}}"></script>
     <script src="{{ asset('pages/postext/angular/controller/PosController.js')}}"></script>
