@@ -6,17 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Panadería Leos | Pos </title>
-    <link rel="stylesheet" href="{{asset('pages/postext/css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/pos/css/bootstrap.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/jquery-ui/jquery-ui.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/font-awesome-4.7.0/css/font-awesome.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/select2/css/select2.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/toastr/toastr.min.css')}}">
-    <link rel="stylesheet" href="{{asset('pages/postext/css/theme.css')}}">
-    <link rel="stylesheet" href="{{asset('pages/postext/css/skins/skin-green.css')}}">
-    <link rel="stylesheet" href="{{asset('pages/css/pos/main.css')}}">
-    <link rel="stylesheet" href="{{asset('pages/css/pos/skeleton.css')}}">
-    <link rel="stylesheet" href="{{asset('pages/postext/css/pos.css')}}">
-    <link rel="stylesheet" href="{{asset('pages/css/pos/responsive.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/pos/css/theme.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/pos/css/skin.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/pos/css/main.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/pos/css/skeleton.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/pos/css/pos.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/pos/css/responsive.css')}}">
     <script type="text/javascript">
 		var baseUrl = "http://localhost:81/pos_moderno";
 		var lang = "es";
@@ -37,7 +37,7 @@
 </head>
 <body class="pos sidebar-mini skin-green right-panel ng-scope"    id="pos-page" ng-controller="PosController">
 
-    <div class="hidden"><?php include('../public/pages/postext/img/iconmin/icon.svg');?></div>
+    <div class="hidden"><?php include('../public/assets/pos/img/iconmin/icon.svg');?></div>
 
     <div class="pos-content-wrapper">
         @include('Pos.header')
@@ -65,7 +65,7 @@
                             <div id="item-list"  style="height:100%;">
                              {{--   <div class="pos-product-pagination pagination-top"></div> --}}
                                 <div ng-show="showLoader" class="ajax-loader">
-                                    <img src="{{ asset('pages/postext/img/loading2.gif') }}">
+                                    <img src="{{ asset('assets/pos/img/loading2.gif') }}">
                                 </div>
                               {{--   <div class="add-new-product-wrapper" data-ng-class="{'show': showAddProductBtn}">
                                     <div class="add-new-product">
@@ -361,12 +361,12 @@
 		</div>
 	</div>
 
-    <script src="{{ asset('pages/postext/angular/lib/angular.min.js')}}"></script>
-    <script src="{{ asset('pages/postext/angular/lib/ui-bootstrap-tpls-2.5.0.min.js')}}"></script>
-    <script src="{{ asset('pages/postext/angular/lib/angular-bind-html-compile.min.js')}}"></script>
-    <script src="{{ asset('pages/postext/angular/controller/PosController.js')}}"></script>
-    <script src="{{ asset('pages/postext/angular/lib/modals.js')}}"></script>
-    <script src="{{ asset('pages/postext/js/common.js')}}"></script>
+    <script src="{{ asset('assets/pos/js/angular/lib/angular.min.js')}}"></script>
+    <script src="{{ asset('assets/pos/js/angular/lib/ui-bootstrap-tpls-2.5.0.min.js')}}"></script>
+    <script src="{{ asset('assets/pos/js/angular/lib/angular-bind-html-compile.min.js')}}"></script>
+    <script src="{{ asset('assets/pos/js/angular/controller/PosController.js')}}"></script>
+    <script src="{{ asset('assets/pos/js/angular/lib/modals.js')}}"></script>
+    <script src="{{ asset('assets/pos/js/common.js')}}"></script>
     <script src="{{ asset('vendor/underscore/underscore.min.js')}}"></script>
     <script src="{{ asset('vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{ asset('vendor/select2/js/select2.min.js')}}"></script>
