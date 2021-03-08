@@ -3,6 +3,13 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/favicons/apple-touch-icon.png')}}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/favicons/favicon-32x32.png')}}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/favicons/favicon-16x16.png')}}">
+        <link rel="manifest" href="{{ asset('assets/favicons/site.webmanifest')}}">
+        <link rel="mask-icon" href="{{ asset('assets/favicons/safari-pinned-tab.svg')}}" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#ffc40d">
+        <meta name="theme-color" content="#ffffff">
 
         <!--========== BOX ICONS ==========-->
         <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
@@ -47,9 +54,9 @@
             <section class="home" id="home">
                 <div class="home__container bd-container bd-grid">
                     <div class="home__data">
-                        <h1 class="home__title">Tasty food</h1>
-                        <h2 class="home__subtitle">Try the best food of <br> the week.</h2>
-                        <a href="#" class="button">View Menu</a>
+                        <h1 class="home__title">Panadería Leos</h1>
+                        <h2 class="home__subtitle">Aquí horneamos con  <br>amor.</h2>
+                        <a href="#" class="button">Productos</a>
                     </div>
 
                     <img src="{{ asset('assets/welcome/img/pan.png')}}" alt="" class="home__img">
@@ -61,9 +68,9 @@
                 <div class="about__container  bd-grid">
                     <div class="about__data">
                         <span class="section-subtitle about__initial">Sobre Nosotros</span>
-                        <h2 class="section-title about__initial">Panderia  <br>Leos</h2>
+                        <h2 class="section-title about__initial">El que quiere subir <br>inventa la escalera</h2>
                         <p class="about__description">Nacio con el objetivo de satisfacer los paladares más exigentes de nuestros clientes, tenemos amplia experiencia en la elaboración de todo tipo de panes, pasteles y dulces con excelente calidad y sabor.</p>
-                        <a href="#" class="button">Explora nuestra Historia</a>
+                        <a href="#" class="button">Explora más</a>
                     </div>
 
                     <img src="{{ asset('assets/welcome/img/imgLeos.jpg')}}" alt="" class="about__img">
